@@ -1,0 +1,28 @@
+# Doppler configuration for CleoBot
+# https://docs.doppler.com/docs/enclave-project-setup
+
+setup:
+  project: cleobot
+  config: prd
+
+# Run commands with secrets injected:
+#   doppler run -- docker compose up -d
+#   doppler run -- npm start
+#
+# Access secrets in config files:
+#   CLEOBOT_GATEWAY_TOKEN=${CLEOBOT_GATEWAY_TOKEN}
+#
+# Required secrets for Doppler project:
+#   - CLEOBOT_GATEWAY_TOKEN
+#   - ANTHROPIC_API_KEY
+#
+# Optional secrets:
+#   - TELEGRAM_BOT_TOKEN
+#   - DISCORD_BOT_TOKEN
+#   - OPENAI_API_KEY
+#   - GOOGLE_API_KEY
+#   - BRAVE_API_KEY
+#   - AGENTMAIL_API_KEY
+#   - AGENTMAIL_EMAIL
+#   - GITHUB_PAT
+#   - CLAUDE_AI_SESSION_KEY
