@@ -6,6 +6,7 @@ services:
       TERM: xterm-256color
       CLEOBOT_GATEWAY_TOKEN: ${CLEOBOT_GATEWAY_TOKEN}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY}
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       GOOGLE_API_KEY: ${GOOGLE_API_KEY}
       BRAVE_API_KEY: ${BRAVE_API_KEY}
@@ -24,6 +25,12 @@ services:
       - "${CLEOBOT_BRIDGE_PORT:-18790}:18790"
     init: true
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:18789/health', (r) => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     command:
       [
         "node",
@@ -43,6 +50,7 @@ services:
       CLEOBOT_GATEWAY_TOKEN: ${CLEOBOT_GATEWAY_TOKEN}
       BROWSER: echo
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY}
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       GOOGLE_API_KEY: ${GOOGLE_API_KEY}
       BRAVE_API_KEY: ${BRAVE_API_KEY}
