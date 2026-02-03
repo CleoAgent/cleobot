@@ -124,8 +124,8 @@ export function renderApp(state: AppViewState) {
               <img src="./favicon.svg" alt="CleoBot" />
             </div>
             <div class="brand-text">
-              <div class="brand-title">OPENCLAW+CLEO</div>
-              <div class="brand-sub">Cognitive Gateway</div>
+              <div class="brand-title">CLEOBOT</div>
+              <div class="brand-sub">AI Agent Framework</div>
             </div>
           </div>
         </div>
@@ -172,7 +172,7 @@ export function renderApp(state: AppViewState) {
           <div class="nav-group__items">
             <a
               class="nav-item nav-item--external"
-              href="https://docs.openclaw.ai"
+              href="https://github.com/CleoAgent/cleobot"
               target="_blank"
               rel="noreferrer"
               title="Docs (opens in new tab)"
