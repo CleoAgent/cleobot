@@ -1,4 +1,4 @@
-import type { OpenClawApp } from "./app";
+import type { CleoBotApp } from "./app";
 import { refreshChat } from "./app-chat";
 import {
   startLogsPolling,
@@ -177,33 +177,33 @@ export async function refreshActiveTab(host: SettingsHost) {
     await loadChannelsTab(host);
   }
   if (host.tab === "instances") {
-    await loadPresence(host as unknown as OpenClawApp);
+    await loadPresence(host as unknown as CleoBotApp);
   }
   if (host.tab === "sessions") {
-    await loadSessions(host as unknown as OpenClawApp);
+    await loadSessions(host as unknown as CleoBotApp);
   }
   if (host.tab === "cron") {
     await loadCron(host);
   }
   if (host.tab === "skills") {
-    await loadSkills(host as unknown as OpenClawApp);
+    await loadSkills(host as unknown as CleoBotApp);
   }
   if (host.tab === "agents") {
-    await loadAgents(host as unknown as OpenClawApp);
-    await loadConfig(host as unknown as OpenClawApp);
+    await loadAgents(host as unknown as CleoBotApp);
+    await loadConfig(host as unknown as CleoBotApp);
     const agentIds = host.agentsList?.agents?.map((entry) => entry.id) ?? [];
     if (agentIds.length > 0) {
-      void loadAgentIdentities(host as unknown as OpenClawApp, agentIds);
+      void loadAgentIdentities(host as unknown as CleoBotApp, agentIds);
     }
     const agentId =
       host.agentsSelectedId ?? host.agentsList?.defaultId ?? host.agentsList?.agents?.[0]?.id;
     if (agentId) {
-      void loadAgentIdentity(host as unknown as OpenClawApp, agentId);
+      void loadAgentIdentity(host as unknown as CleoBotApp, agentId);
       if (host.agentsPanel === "skills") {
-        void loadAgentSkills(host as unknown as OpenClawApp, agentId);
+        void loadAgentSkills(host as unknown as CleoBotApp, agentId);
       }
       if (host.agentsPanel === "channels") {
-        void loadChannels(host as unknown as OpenClawApp, false);
+        void loadChannels(host as unknown as CleoBotApp, false);
       }
       if (host.agentsPanel === "cron") {
         void loadCron(host);
@@ -211,10 +211,10 @@ export async function refreshActiveTab(host: SettingsHost) {
     }
   }
   if (host.tab === "nodes") {
-    await loadNodes(host as unknown as OpenClawApp);
-    await loadDevices(host as unknown as OpenClawApp);
-    await loadConfig(host as unknown as OpenClawApp);
-    await loadExecApprovals(host as unknown as OpenClawApp);
+    await loadNodes(host as unknown as CleoBotApp);
+    await loadDevices(host as unknown as CleoBotApp);
+    await loadConfig(host as unknown as CleoBotApp);
+    await loadExecApprovals(host as unknown as CleoBotApp);
   }
   if (host.tab === "chat") {
     await refreshChat(host as unknown as Parameters<typeof refreshChat>[0]);
@@ -224,16 +224,16 @@ export async function refreshActiveTab(host: SettingsHost) {
     );
   }
   if (host.tab === "config") {
-    await loadConfigSchema(host as unknown as OpenClawApp);
-    await loadConfig(host as unknown as OpenClawApp);
+    await loadConfigSchema(host as unknown as CleoBotApp);
+    await loadConfig(host as unknown as CleoBotApp);
   }
   if (host.tab === "debug") {
-    await loadDebug(host as unknown as OpenClawApp);
+    await loadDebug(host as unknown as CleoBotApp);
     host.eventLog = host.eventLogBuffer;
   }
   if (host.tab === "logs") {
     host.logsAtBottom = true;
-    await loadLogs(host as unknown as OpenClawApp, { reset: true });
+    await loadLogs(host as unknown as CleoBotApp, { reset: true });
     scheduleLogsScroll(host as unknown as Parameters<typeof scheduleLogsScroll>[0], true);
   }
 }
@@ -395,26 +395,26 @@ export function syncUrlWithSessionKey(host: SettingsHost, sessionKey: string, re
 
 export async function loadOverview(host: SettingsHost) {
   await Promise.all([
-    loadChannels(host as unknown as OpenClawApp, false),
-    loadPresence(host as unknown as OpenClawApp),
-    loadSessions(host as unknown as OpenClawApp),
-    loadCronStatus(host as unknown as OpenClawApp),
-    loadDebug(host as unknown as OpenClawApp),
+    loadChannels(host as unknown as CleoBotApp, false),
+    loadPresence(host as unknown as CleoBotApp),
+    loadSessions(host as unknown as CleoBotApp),
+    loadCronStatus(host as unknown as CleoBotApp),
+    loadDebug(host as unknown as CleoBotApp),
   ]);
 }
 
 export async function loadChannelsTab(host: SettingsHost) {
   await Promise.all([
-    loadChannels(host as unknown as OpenClawApp, true),
-    loadConfigSchema(host as unknown as OpenClawApp),
-    loadConfig(host as unknown as OpenClawApp),
+    loadChannels(host as unknown as CleoBotApp, true),
+    loadConfigSchema(host as unknown as CleoBotApp),
+    loadConfig(host as unknown as CleoBotApp),
   ]);
 }
 
 export async function loadCron(host: SettingsHost) {
   await Promise.all([
-    loadChannels(host as unknown as OpenClawApp, false),
-    loadCronStatus(host as unknown as OpenClawApp),
-    loadCronJobs(host as unknown as OpenClawApp),
+    loadChannels(host as unknown as CleoBotApp, false),
+    loadCronStatus(host as unknown as CleoBotApp),
+    loadCronJobs(host as unknown as CleoBotApp),
   ]);
 }

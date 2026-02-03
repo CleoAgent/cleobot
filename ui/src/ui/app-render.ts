@@ -121,7 +121,7 @@ export function renderApp(state: AppViewState) {
           </button>
           <div class="brand">
             <div class="brand-logo">
-              <img src="./favicon.svg" alt="OpenClaw+CLEO" />
+              <img src="./favicon.svg" alt="CleoBot" />
             </div>
             <div class="brand-text">
               <div class="brand-title">OPENCLAW+CLEO</div>
