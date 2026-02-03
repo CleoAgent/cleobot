@@ -5,10 +5,15 @@
     "forceConsistentCasingInFileNames": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "lib": ["DOM", "DOM.Iterable", "ES2023", "ScriptHost"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2023",
+      "ScriptHost"
+    ],
     "noEmit": true,
     "declaration": true,
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "outDir": "dist",
     "resolveJsonModule": true,
     "rootDir": "src",
@@ -16,7 +21,9 @@
     "strict": true,
     "target": "es2023"
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
     "node_modules",
     "dist",
