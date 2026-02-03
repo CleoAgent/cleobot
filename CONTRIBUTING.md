@@ -1,60 +1,78 @@
-# Contributing to OpenClaw
+# Contributing to CleoBot
 
-Welcome to the lobster tank! 🦞
+Welcome! 🧠
+
+CleoBot is a fork of [OpenClaw](https://github.com/openclaw/openclaw), enhanced with [CLEO](https://codluv.mintlify.app) cognitive scaffolding.
 
 ## Quick Links
 
-- **GitHub:** https://github.com/openclaw/openclaw
-- **Discord:** https://discord.gg/qkhbAGHRBT
-- **X/Twitter:** [@steipete](https://x.com/steipete) / [@openclaw](https://x.com/openclaw)
-
-## Maintainers
-
-- **Peter Steinberger** - Benevolent Dictator
-  - GitHub: [@steipete](https://github.com/steipete) · X: [@steipete](https://x.com/steipete)
-
-- **Shadow** - Discord + Slack subsystem
-  - GitHub: [@thewilloftheshadow](https://github.com/thewilloftheshadow) · X: [@4shad0wed](https://x.com/4shad0wed)
-
-- **Jos** - Telegram, API, Nix mode
-  - GitHub: [@joshp123](https://github.com/joshp123) · X: [@jjpcodes](https://x.com/jjpcodes)
-
-- **Christoph Nakazawa** - JS Infra
-  - GitHub: [@cpojer](https://github.com/cpojer) · X: [@cnakazawa](https://x.com/cnakazawa)
+- **GitHub:** https://github.com/CleoAgent/cleobot
+- **Upstream:** https://github.com/openclaw/openclaw
+- **CLEO Docs:** https://codluv.mintlify.app
 
 ## How to Contribute
 
 1. **Bugs & small fixes** → Open a PR!
-2. **New features / architecture** → Start a [GitHub Discussion](https://github.com/openclaw/openclaw/discussions) or ask in Discord first
-3. **Questions** → Discord #setup-help
+2. **New features** → Open an issue first to discuss
+3. **CLEO Integration** → PRs improving CLEO integration are especially welcome
 
 ## Before You PR
 
-- Test locally with your OpenClaw instance
-- Run tests: `pnpm build && pnpm check && pnpm test`
+```bash
+# Install dependencies
+pnpm install
+
+# Build
+pnpm build
+pnpm ui:build
+
+# Run checks
+pnpm check
+
+# Run tests
+pnpm test
+```
+
+- Test locally with your CleoBot instance
 - Keep PRs focused (one thing per PR)
 - Describe what & why
 
-## AI/Vibe-Coded PRs Welcome! 🤖
+## Project Structure
 
-Built with Codex, Claude, or other AI tools? **Awesome - just mark it!**
+```
+cleobot/
+├── src/              # TypeScript source
+│   ├── agents/       # Agent logic
+│   ├── cli/          # CLI commands
+│   ├── config/       # Configuration
+│   └── gateway/      # Gateway server
+├── ui/               # Webchat UI (Lit)
+├── docs/             # Documentation
+├── examples/         # Config examples
+├── templates/        # Workspace templates
+├── skills/           # Agent skills
+└── scripts/          # Helper scripts
+```
 
-Please include in your PR:
+## Key Differences from OpenClaw
 
-- [ ] Mark as AI-assisted in the PR title or description
-- [ ] Note the degree of testing (untested / lightly tested / fully tested)
-- [ ] Include prompts or session logs if possible (super helpful!)
-- [ ] Confirm you understand what the code does
+- **Branding:** `CLEOBOT_*` env vars, `.cleobot` directories
+- **CLEO CLI:** Bundled in Docker image
+- **Skills:** Includes CLEO task management skill
+- **Templates:** Ready-to-use workspace templates
 
-AI PRs are first-class citizens here. We just want transparency so reviewers know what to look for.
+## Upstream Sync
 
-## Current Focus & Roadmap 🗺
+We periodically sync with upstream OpenClaw. If you want a feature that exists in OpenClaw but not CleoBot, let us know!
 
-We are currently prioritizing:
+## AI-Generated Code Welcome! 🤖
 
-- **Stability**: Fixing edge cases in channel connections (WhatsApp/Telegram).
-- **UX**: Improving the onboarding wizard and error messages.
-- **Skills**: Expanding the library of bundled skills and improving the Skill Creation developer experience.
-- **Performance**: Optimizing token usage and compaction logic.
+Built with Claude, Gemini, or other AI tools? Awesome!
 
-Check the [GitHub Issues](https://github.com/openclaw/openclaw/issues) for "good first issue" labels!
+## License
+
+MIT - same as upstream OpenClaw.
+
+---
+
+*Thank you for contributing!*
