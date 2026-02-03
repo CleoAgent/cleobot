@@ -1,5 +1,9 @@
 # AGENTS.md - Your Workspace
 
+<!-- CLEO:START -->
+<!-- CLEO content will be auto-injected here by `cleo init` or `cleo upgrade` -->
+<!-- CLEO:END -->
+
 This folder is home. Treat it that way.
 
 ## Every Session
