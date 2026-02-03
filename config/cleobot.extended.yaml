@@ -1,0 +1,154 @@
+# CleBot Extended Configuration
+# Advanced options for power users
+# Start with cleobot.example.yaml for simple setups
+
+# ============================================
+# IDENTITY & PERSONA
+# ============================================
+identity:
+  name: "Cleo Bot"
+  emoji: "🤖"
+  # Custom greeting for new conversations
+  greeting: "Hey! I'm Cleo Bot, ready to help."
+
+# ============================================
+# MODEL CONFIGURATION
+# ============================================
+models:
+  primary: anthropic/claude-opus-4-5
+  fallbacks:
+    - anthropic/claude-sonnet-4-5
+    - anthropic/claude-haiku-4-5
+  
+  # Model-specific settings
+  settings:
+    anthropic/claude-opus-4-5:
+      alias: Opus
+      cache_retention: long  # 1 hour prompt cache
+    
+    anthropic/claude-sonnet-4-5:
+      alias: Sonnet
+      cache_retention: long
+    
+    anthropic/claude-haiku-4-5:
+      alias: Haiku
+      cache_retention: short  # 5 minute cache
+    
+    google/gemini-3-pro-preview:
+      alias: Gemini
+      # Best for: video, images, research
+    
+    moonshot/kimi-k2.5:
+      alias: Kimi
+      # Best for: UI/UX design, frontend
+
+# ============================================
+# AGENTS & SUB-AGENTS
+# ============================================
+agents:
+  max_concurrent: 4
+  
+  subagents:
+    max_concurrent: 8
+    default_model: sonnet  # Cheaper than opus
+    timeout_seconds: 600
+
+  # Heartbeat settings
+  heartbeat:
+    interval: 30m
+    model: haiku  # Use cheapest model
+    prompt_file: HEARTBEAT.md
+
+# ============================================
+# CHANNELS
+# ============================================
+channels:
+  telegram:
+    enabled: true
+    dm_policy: pairing  # Require pairing for DMs
+    group_policy: allowlist
+    require_mention: true  # In groups
+    stream_mode: partial  # Stream responses
+
+  discord:
+    enabled: false
+    # token: ${DISCORD_BOT_TOKEN}
+
+  whatsapp:
+    enabled: false
+
+# ============================================
+# MEMORY & CONTEXT
+# ============================================
+memory:
+  # Future: database-backed memory
+  backend: markdown  # or: sqlite, postgres
+  
+  # Files loaded on startup
+  workspace_files:
+    - AGENTS.md
+    - SOUL.md
+    - USER.md
+    - IDENTITY.md
+    - HEARTBEAT.md
+  
+  # Max chars from workspace files
+  max_bootstrap_chars: 20000
+
+# ============================================
+# SECURITY
+# ============================================
+security:
+  # Gateway authentication
+  gateway:
+    token: ${CLEOBOT_GATEWAY_TOKEN}
+    trusted_proxies:
+      - 127.0.0.1
+      - 10.0.10.0/24
+  
+  # Secrets management
+  secrets:
+    provider: environment  # or: doppler
+    # doppler_project: backend
+    # doppler_config: prd
+
+# ============================================
+# TOOLS & SKILLS
+# ============================================
+tools:
+  # Enable/disable specific tools
+  enabled:
+    - exec
+    - read
+    - write
+    - web_search
+    - web_fetch
+    - browser
+    - cron
+    - message
+
+skills:
+  # Auto-load skills from these paths
+  paths:
+    - ~/.cleobot/skills
+    - /app/skills
+
+# ============================================
+# LOGGING & DEBUG
+# ============================================
+logging:
+  level: info  # debug, info, warn, error
+  file: /tmp/cleobot/cleobot.log
+  
+debug:
+  verbose: false
+  trace_tokens: false
+
+# ============================================
+# TWIN DEPLOYMENT (Multi-Agent)
+# ============================================
+# twins:
+#   - id: cleo-dev
+#     workspace: ~/.cleobot/workspace-dev
+#     model: sonnet
+#     # Test improvements here before production

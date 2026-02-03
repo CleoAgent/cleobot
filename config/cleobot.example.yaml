@@ -1,0 +1,55 @@
+# CleBot Configuration
+# Simple, sensible defaults for 90% of use cases
+# For advanced options, see cleobot.extended.yaml
+
+# ============================================
+# REQUIRED: Your bot's identity
+# ============================================
+name: "Cleo Bot"
+
+# ============================================
+# MODEL SELECTION (aliases supported)
+# ============================================
+# Available: opus, sonnet, haiku, gemini, kimi
+# Or full: anthropic/claude-opus-4-5
+model: sonnet
+
+# Fallbacks when primary fails
+fallbacks:
+  - haiku
+
+# ============================================
+# CHANNELS (enable what you use)
+# ============================================
+channels:
+  telegram: true
+  # discord: false
+  # whatsapp: false
+
+# ============================================
+# OPTIMIZATION (recommended defaults)
+# ============================================
+optimization:
+  # Use cheaper model for heartbeats
+  heartbeat_model: haiku
+  
+  # Cache prompts for 1 hour (reduces cost)
+  prompt_cache: long
+  
+  # Sub-agents use cheaper model
+  subagent_model: sonnet
+
+# ============================================
+# PATHS (defaults work for most setups)
+# ============================================
+# workspace: ~/.cleobot/workspace
+# config_dir: ~/.cleobot
+
+# ============================================
+# SECURITY (secrets via environment/Doppler)
+# ============================================
+# NEVER put API keys in this file!
+# Set via environment:
+#   ANTHROPIC_API_KEY
+#   TELEGRAM_BOT_TOKEN
+#   CLEOBOT_GATEWAY_TOKEN
