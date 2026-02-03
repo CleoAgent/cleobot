@@ -41,10 +41,25 @@ cp examples/configs/optimized.json ~/.cleobot/cleobot.json
 # cp examples/configs/minimal.json ~/.cleobot/cleobot.json
 ```
 
-### 4. Build and Run
+### 4. Run with GHCR Image (Recommended)
 
 ```bash
-docker compose build
+# Pull latest image from GitHub Container Registry
+docker compose pull
+
+# Start the gateway
+docker compose up -d cleobot-gateway
+```
+
+### 4b. Alternative: Build Locally
+
+```bash
+# Only if you need local modifications
+docker build -t cleobot:local .
+
+# Update .env to use local image
+# CLEOBOT_IMAGE=cleobot:local
+
 docker compose up -d cleobot-gateway
 ```
 
@@ -66,14 +81,16 @@ Open `http://your-server:18789` to access webchat.
 # SSH to LXC
 ssh root@10.0.10.21
 
-# Pull latest code
+# Navigate to cleobot directory
 cd /opt/cleobot
+
+# Update to latest (Option A: GHCR - Recommended)
+docker compose pull
+docker compose up -d cleobot-gateway
+
+# OR update from source (Option B: Local Build)
 git pull origin main
-
-# Rebuild image
-docker compose build --no-cache
-
-# Restart with new image
+docker build -t cleobot:local .
 docker compose down
 docker compose up -d cleobot-gateway
 
@@ -116,10 +133,20 @@ doppler run -- docker compose up -d
 
 ## Updating
 
+### Option 1: Pull from GHCR (Recommended)
+
+```bash
+cd /opt/cleobot
+docker compose pull
+docker compose up -d
+```
+
+### Option 2: Rebuild from Source
+
 ```bash
 cd /opt/cleobot
 git pull origin main
-docker compose build
+docker build -t cleobot:local .
 docker compose down
 docker compose up -d
 ```
