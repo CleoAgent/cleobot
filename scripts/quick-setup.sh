@@ -55,6 +55,15 @@ if [ -z "$ANTHROPIC_API_KEY" ]; then
     echo "  echo 'ANTHROPIC_API_KEY=your-key-here' >> .env"
 fi
 
+# Copy workspace templates if directory is empty
+if [ -z "$(ls -A "$CONFIG_DIR/workspace" 2>/dev/null)" ]; then
+    echo -e "${YELLOW}Setting up workspace templates...${NC}"
+    if [ -d "templates/workspace" ]; then
+        cp -r templates/workspace/* "$CONFIG_DIR/workspace/"
+        echo -e "${GREEN}✓${NC} Copied workspace templates"
+    fi
+fi
+
 # Create config file
 if [ ! -f "$CONFIG_DIR/cleobot.json" ]; then
     echo -e "${YELLOW}Creating config file...${NC}"
