@@ -1,6 +1,45 @@
 # Changelog
 
-Docs: https://docs.openclaw.ai
+Docs: https://github.com/CleoAgent/cleobot
+
+## 2026.2.3 (CleoBot Rebrand)
+
+### Breaking Changes
+
+- **Rebrand:** OpenClaw is now **CleoBot**. Environment variables use `CLEOBOT_*` prefix.
+- **Paths:** Default config directory is `~/.cleobot` (was `~/.openclaw`).
+- **Config:** Config file is `cleobot.json` (was `openclaw.json`).
+
+### Features
+
+- **CLEO Integration:** CLEO CLI v0.80.0 bundled in Docker image for task management.
+- **CLEO Skill:** Built-in skill for CLEO task management in workspace.
+- **Example Configs:** Added `examples/configs/` with minimal, telegram-only, and optimized presets.
+- **Quick Setup:** Interactive `scripts/quick-setup.sh` for easier onboarding.
+- **Model Tiering:** Default config supports Opus/Sonnet/Haiku tiering for cost optimization.
+
+### Documentation
+
+- **Getting Started:** New comprehensive guide at `docs/GETTING-STARTED.md`.
+- **Security Guide:** Best practices at `docs/SECURITY.md` including Doppler integration.
+- **Deployment Guide:** Step-by-step at `docs/DEPLOYMENT.md` for Docker and LXC.
+- **README:** Rewritten for CleoBot focus with quick start instructions.
+
+### Security
+
+- **Doppler:** First-class support with `doppler.yaml` template.
+- **Sensitive Logging:** Redaction enabled by default in optimized config.
+- **Gateway Auth:** Improved documentation for secure token management.
+
+### UI
+
+- **Rebrand:** OpenClawApp → CleoBotApp, updated all component names.
+- **Title:** Web UI title changed to "CleoBot".
+
+### Internal
+
+- **Tool Policy:** `group:openclaw` → `group:cleobot`.
+- **Transcript Repair:** Updated internal message prefixes.
 
 ## 2026.2.2
 
