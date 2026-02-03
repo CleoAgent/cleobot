@@ -35,7 +35,7 @@ export const TOOL_GROUPS: Record<string, string[]> = {
   // Nodes + device tools
   "group:nodes": ["nodes"],
   // All CleoBot native tools (excludes provider plugins).
-  "group:openclaw": [
+  "group:cleobot": [
     "browser",
     "canvas",
     "nodes",
