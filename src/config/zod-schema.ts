@@ -27,7 +27,7 @@ const NodeHostSchema = z
   .strict()
   .optional();
 
-export const OpenClawSchema = z
+export const CleoBotSchema = z
   .object({
     meta: z
       .object({

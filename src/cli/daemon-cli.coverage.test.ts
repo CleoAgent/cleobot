@@ -81,43 +81,43 @@ vi.mock("./progress.js", () => ({
 
 describe("daemon-cli coverage", () => {
   const originalEnv = {
-    OPENCLAW_STATE_DIR: process.env.OPENCLAW_STATE_DIR,
-    OPENCLAW_CONFIG_PATH: process.env.OPENCLAW_CONFIG_PATH,
-    OPENCLAW_GATEWAY_PORT: process.env.OPENCLAW_GATEWAY_PORT,
-    OPENCLAW_PROFILE: process.env.OPENCLAW_PROFILE,
+    CLEOBOT_STATE_DIR: process.env.CLEOBOT_STATE_DIR,
+    CLEOBOT_CONFIG_PATH: process.env.CLEOBOT_CONFIG_PATH,
+    CLEOBOT_GATEWAY_PORT: process.env.CLEOBOT_GATEWAY_PORT,
+    CLEOBOT_PROFILE: process.env.CLEOBOT_PROFILE,
   };
 
   beforeEach(() => {
-    process.env.OPENCLAW_STATE_DIR = "/tmp/openclaw-cli-state";
-    process.env.OPENCLAW_CONFIG_PATH = "/tmp/openclaw-cli-state/openclaw.json";
-    delete process.env.OPENCLAW_GATEWAY_PORT;
-    delete process.env.OPENCLAW_PROFILE;
+    process.env.CLEOBOT_STATE_DIR = "/tmp/openclaw-cli-state";
+    process.env.CLEOBOT_CONFIG_PATH = "/tmp/openclaw-cli-state/cleobot.json";
+    delete process.env.CLEOBOT_GATEWAY_PORT;
+    delete process.env.CLEOBOT_PROFILE;
     serviceReadCommand.mockResolvedValue(null);
   });
 
   afterEach(() => {
-    if (originalEnv.OPENCLAW_STATE_DIR !== undefined) {
-      process.env.OPENCLAW_STATE_DIR = originalEnv.OPENCLAW_STATE_DIR;
+    if (originalEnv.CLEOBOT_STATE_DIR !== undefined) {
+      process.env.CLEOBOT_STATE_DIR = originalEnv.CLEOBOT_STATE_DIR;
     } else {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.CLEOBOT_STATE_DIR;
     }
 
-    if (originalEnv.OPENCLAW_CONFIG_PATH !== undefined) {
-      process.env.OPENCLAW_CONFIG_PATH = originalEnv.OPENCLAW_CONFIG_PATH;
+    if (originalEnv.CLEOBOT_CONFIG_PATH !== undefined) {
+      process.env.CLEOBOT_CONFIG_PATH = originalEnv.CLEOBOT_CONFIG_PATH;
     } else {
-      delete process.env.OPENCLAW_CONFIG_PATH;
+      delete process.env.CLEOBOT_CONFIG_PATH;
     }
 
-    if (originalEnv.OPENCLAW_GATEWAY_PORT !== undefined) {
-      process.env.OPENCLAW_GATEWAY_PORT = originalEnv.OPENCLAW_GATEWAY_PORT;
+    if (originalEnv.CLEOBOT_GATEWAY_PORT !== undefined) {
+      process.env.CLEOBOT_GATEWAY_PORT = originalEnv.CLEOBOT_GATEWAY_PORT;
     } else {
-      delete process.env.OPENCLAW_GATEWAY_PORT;
+      delete process.env.CLEOBOT_GATEWAY_PORT;
     }
 
-    if (originalEnv.OPENCLAW_PROFILE !== undefined) {
-      process.env.OPENCLAW_PROFILE = originalEnv.OPENCLAW_PROFILE;
+    if (originalEnv.CLEOBOT_PROFILE !== undefined) {
+      process.env.CLEOBOT_PROFILE = originalEnv.CLEOBOT_PROFILE;
     } else {
-      delete process.env.OPENCLAW_PROFILE;
+      delete process.env.CLEOBOT_PROFILE;
     }
   });
 
@@ -148,10 +148,10 @@ describe("daemon-cli coverage", () => {
     serviceReadCommand.mockResolvedValueOnce({
       programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
       environment: {
-        OPENCLAW_PROFILE: "dev",
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon-state",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon-state/openclaw.json",
-        OPENCLAW_GATEWAY_PORT: "19001",
+        CLEOBOT_PROFILE: "dev",
+        CLEOBOT_STATE_DIR: "/tmp/openclaw-daemon-state",
+        CLEOBOT_CONFIG_PATH: "/tmp/openclaw-daemon-state/cleobot.json",
+        CLEOBOT_GATEWAY_PORT: "19001",
       },
       sourcePath: "/tmp/bot.molt.gateway.plist",
     });

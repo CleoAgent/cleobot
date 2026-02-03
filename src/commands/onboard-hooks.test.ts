@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { CleoBotConfig } from "../config/config.js";
 import type { HookStatusReport } from "../hooks/hooks-status.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
@@ -42,7 +42,7 @@ describe("onboard-hooks", () => {
 
   const createMockHookReport = (eligible = true): HookStatusReport => ({
     workspaceDir: "/mock/workspace",
-    managedHooksDir: "/mock/.openclaw/hooks",
+    managedHooksDir: "/mock/.cleobot/hooks",
     hooks: [
       {
         name: "session-memory",
@@ -118,7 +118,7 @@ describe("onboard-hooks", () => {
       const { buildWorkspaceHookStatus } = await import("../hooks/hooks-status.js");
       vi.mocked(buildWorkspaceHookStatus).mockReturnValue(createMockHookReport());
 
-      const cfg: OpenClawConfig = {};
+      const cfg: CleoBotConfig = {};
       const prompter = createMockPrompter(["session-memory"]);
       const runtime = createMockRuntime();
 
@@ -151,7 +151,7 @@ describe("onboard-hooks", () => {
       const { buildWorkspaceHookStatus } = await import("../hooks/hooks-status.js");
       vi.mocked(buildWorkspaceHookStatus).mockReturnValue(createMockHookReport());
 
-      const cfg: OpenClawConfig = {};
+      const cfg: CleoBotConfig = {};
       const prompter = createMockPrompter(["__skip__"]);
       const runtime = createMockRuntime();
 
@@ -165,7 +165,7 @@ describe("onboard-hooks", () => {
       const { buildWorkspaceHookStatus } = await import("../hooks/hooks-status.js");
       vi.mocked(buildWorkspaceHookStatus).mockReturnValue(createMockHookReport(false));
 
-      const cfg: OpenClawConfig = {};
+      const cfg: CleoBotConfig = {};
       const prompter = createMockPrompter([]);
       const runtime = createMockRuntime();
 
@@ -183,7 +183,7 @@ describe("onboard-hooks", () => {
       const { buildWorkspaceHookStatus } = await import("../hooks/hooks-status.js");
       vi.mocked(buildWorkspaceHookStatus).mockReturnValue(createMockHookReport());
 
-      const cfg: OpenClawConfig = {
+      const cfg: CleoBotConfig = {
         hooks: {
           enabled: true,
           path: "/webhook",
@@ -208,7 +208,7 @@ describe("onboard-hooks", () => {
       const { buildWorkspaceHookStatus } = await import("../hooks/hooks-status.js");
       vi.mocked(buildWorkspaceHookStatus).mockReturnValue(createMockHookReport());
 
-      const cfg: OpenClawConfig = {
+      const cfg: CleoBotConfig = {
         agents: { defaults: { workspace: "/workspace" } },
       };
       const prompter = createMockPrompter(["__skip__"]);
@@ -224,7 +224,7 @@ describe("onboard-hooks", () => {
       const { buildWorkspaceHookStatus } = await import("../hooks/hooks-status.js");
       vi.mocked(buildWorkspaceHookStatus).mockReturnValue(createMockHookReport());
 
-      const cfg: OpenClawConfig = {};
+      const cfg: CleoBotConfig = {};
       const prompter = createMockPrompter(["session-memory"]);
       const runtime = createMockRuntime();
 

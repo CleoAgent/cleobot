@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { CliDeps } from "../cli/deps.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { CleoBotConfig } from "../config/config.js";
 import type { CronJob } from "./types.js";
 import { discordPlugin } from "../../extensions/discord/src/channel.js";
 import { setDiscordRuntime } from "../../extensions/discord/src/runtime.js";
@@ -33,7 +33,7 @@ async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
 }
 
 async function writeSessionStore(home: string) {
-  const dir = path.join(home, ".openclaw", "sessions");
+  const dir = path.join(home, ".cleobot", "sessions");
   await fs.mkdir(dir, { recursive: true });
   const storePath = path.join(dir, "sessions.json");
   await fs.writeFile(
@@ -58,9 +58,9 @@ async function writeSessionStore(home: string) {
 function makeCfg(
   home: string,
   storePath: string,
-  overrides: Partial<OpenClawConfig> = {},
-): OpenClawConfig {
-  const base: OpenClawConfig = {
+  overrides: Partial<CleoBotConfig> = {},
+): CleoBotConfig {
+  const base: CleoBotConfig = {
     agents: {
       defaults: {
         model: "anthropic/claude-opus-4-5",
@@ -68,7 +68,7 @@ function makeCfg(
       },
     },
     session: { store: storePath, mainKey: "main" },
-  } as OpenClawConfig;
+  } as CleoBotConfig;
   return { ...base, ...overrides };
 }
 

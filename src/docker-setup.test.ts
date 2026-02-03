@@ -60,13 +60,13 @@ describe("docker-setup.sh", () => {
       ...process.env,
       PATH: `${binDir}:${process.env.PATH ?? ""}`,
       DOCKER_STUB_LOG: logPath,
-      OPENCLAW_GATEWAY_TOKEN: "test-token",
-      OPENCLAW_CONFIG_DIR: join(rootDir, "config"),
-      OPENCLAW_WORKSPACE_DIR: join(rootDir, "openclaw"),
+      CLEOBOT_GATEWAY_TOKEN: "test-token",
+      CLEOBOT_CONFIG_DIR: join(rootDir, "config"),
+      CLEOBOT_WORKSPACE_DIR: join(rootDir, "openclaw"),
     };
-    delete env.OPENCLAW_DOCKER_APT_PACKAGES;
-    delete env.OPENCLAW_EXTRA_MOUNTS;
-    delete env.OPENCLAW_HOME_VOLUME;
+    delete env.CLEOBOT_DOCKER_APT_PACKAGES;
+    delete env.CLEOBOT_EXTRA_MOUNTS;
+    delete env.CLEOBOT_HOME_VOLUME;
 
     const result = spawnSync("bash", [scriptPath], {
       cwd: rootDir,
@@ -77,12 +77,12 @@ describe("docker-setup.sh", () => {
     expect(result.status).toBe(0);
 
     const envFile = await readFile(join(rootDir, ".env"), "utf8");
-    expect(envFile).toContain("OPENCLAW_DOCKER_APT_PACKAGES=");
-    expect(envFile).toContain("OPENCLAW_EXTRA_MOUNTS=");
-    expect(envFile).toContain("OPENCLAW_HOME_VOLUME=");
+    expect(envFile).toContain("CLEOBOT_DOCKER_APT_PACKAGES=");
+    expect(envFile).toContain("CLEOBOT_EXTRA_MOUNTS=");
+    expect(envFile).toContain("CLEOBOT_HOME_VOLUME=");
   });
 
-  it("plumbs OPENCLAW_DOCKER_APT_PACKAGES into .env and docker build args", async () => {
+  it("plumbs CLEOBOT_DOCKER_APT_PACKAGES into .env and docker build args", async () => {
     const assocCheck = spawnSync("bash", ["-c", "declare -A _t=()"], {
       encoding: "utf8",
     });
@@ -110,12 +110,12 @@ describe("docker-setup.sh", () => {
       ...process.env,
       PATH: `${binDir}:${process.env.PATH ?? ""}`,
       DOCKER_STUB_LOG: logPath,
-      OPENCLAW_DOCKER_APT_PACKAGES: "ffmpeg build-essential",
-      OPENCLAW_GATEWAY_TOKEN: "test-token",
-      OPENCLAW_CONFIG_DIR: join(rootDir, "config"),
-      OPENCLAW_WORKSPACE_DIR: join(rootDir, "openclaw"),
-      OPENCLAW_EXTRA_MOUNTS: "",
-      OPENCLAW_HOME_VOLUME: "",
+      CLEOBOT_DOCKER_APT_PACKAGES: "ffmpeg build-essential",
+      CLEOBOT_GATEWAY_TOKEN: "test-token",
+      CLEOBOT_CONFIG_DIR: join(rootDir, "config"),
+      CLEOBOT_WORKSPACE_DIR: join(rootDir, "openclaw"),
+      CLEOBOT_EXTRA_MOUNTS: "",
+      CLEOBOT_HOME_VOLUME: "",
     };
 
     const result = spawnSync("bash", [scriptPath], {
@@ -127,10 +127,10 @@ describe("docker-setup.sh", () => {
     expect(result.status).toBe(0);
 
     const envFile = await readFile(join(rootDir, ".env"), "utf8");
-    expect(envFile).toContain("OPENCLAW_DOCKER_APT_PACKAGES=ffmpeg build-essential");
+    expect(envFile).toContain("CLEOBOT_DOCKER_APT_PACKAGES=ffmpeg build-essential");
 
     const log = await readFile(logPath, "utf8");
-    expect(log).toContain("--build-arg OPENCLAW_DOCKER_APT_PACKAGES=ffmpeg build-essential");
+    expect(log).toContain("--build-arg CLEOBOT_DOCKER_APT_PACKAGES=ffmpeg build-essential");
   });
 
   it("keeps docker-compose gateway command in sync", async () => {

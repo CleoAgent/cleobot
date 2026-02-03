@@ -69,7 +69,7 @@ function validatePluginId(pluginId: string): string | null {
   return null;
 }
 
-async function ensureOpenClawExtensions(manifest: PackageManifest) {
+async function ensureCleoBotExtensions(manifest: PackageManifest) {
   const extensions = manifest[MANIFEST_KEY]?.extensions;
   if (!Array.isArray(extensions)) {
     throw new Error("package.json missing openclaw.extensions");
@@ -143,7 +143,7 @@ async function installPluginFromPackageDir(params: {
 
   let extensions: string[];
   try {
-    extensions = await ensureOpenClawExtensions(manifest);
+    extensions = await ensureCleoBotExtensions(manifest);
   } catch (err) {
     return { ok: false, error: String(err) };
   }

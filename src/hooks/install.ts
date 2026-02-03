@@ -97,7 +97,7 @@ function resolveSafeInstallDir(
   return { ok: true, path: targetDir };
 }
 
-async function ensureOpenClawHooks(manifest: HookPackageManifest) {
+async function ensureCleoBotHooks(manifest: HookPackageManifest) {
   const hooks = manifest[MANIFEST_KEY]?.hooks;
   if (!Array.isArray(hooks)) {
     throw new Error("package.json missing openclaw.hooks");
@@ -163,7 +163,7 @@ async function installHookPackageFromDir(params: {
 
   let hookEntries: string[];
   try {
-    hookEntries = await ensureOpenClawHooks(manifest);
+    hookEntries = await ensureCleoBotHooks(manifest);
   } catch (err) {
     return { ok: false, error: String(err) };
   }

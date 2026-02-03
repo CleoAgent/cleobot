@@ -5,7 +5,7 @@ describe("buildSandboxCreateArgs", () => {
   it("includes hardening and resource flags", () => {
     const cfg: SandboxDockerConfig = {
       image: "openclaw-sandbox:bookworm-slim",
-      containerPrefix: "openclaw-sbx-",
+      containerPrefix: "cleobot-sbx-",
       workdir: "/workspace",
       readOnlyRoot: true,
       tmpfs: ["/tmp"],
@@ -29,7 +29,7 @@ describe("buildSandboxCreateArgs", () => {
     };
 
     const args = buildSandboxCreateArgs({
-      name: "openclaw-sbx-test",
+      name: "cleobot-sbx-test",
       cfg,
       scopeKey: "main",
       createdAtMs: 1700000000000,
@@ -40,7 +40,7 @@ describe("buildSandboxCreateArgs", () => {
       expect.arrayContaining([
         "create",
         "--name",
-        "openclaw-sbx-test",
+        "cleobot-sbx-test",
         "--label",
         "openclaw.sandbox=1",
         "--label",
@@ -96,7 +96,7 @@ describe("buildSandboxCreateArgs", () => {
   it("emits -v flags for custom binds", () => {
     const cfg: SandboxDockerConfig = {
       image: "openclaw-sandbox:bookworm-slim",
-      containerPrefix: "openclaw-sbx-",
+      containerPrefix: "cleobot-sbx-",
       workdir: "/workspace",
       readOnlyRoot: false,
       tmpfs: [],
@@ -106,7 +106,7 @@ describe("buildSandboxCreateArgs", () => {
     };
 
     const args = buildSandboxCreateArgs({
-      name: "openclaw-sbx-binds",
+      name: "cleobot-sbx-binds",
       cfg,
       scopeKey: "main",
       createdAtMs: 1700000000000,
@@ -129,7 +129,7 @@ describe("buildSandboxCreateArgs", () => {
   it("omits -v flags when binds is empty or undefined", () => {
     const cfg: SandboxDockerConfig = {
       image: "openclaw-sandbox:bookworm-slim",
-      containerPrefix: "openclaw-sbx-",
+      containerPrefix: "cleobot-sbx-",
       workdir: "/workspace",
       readOnlyRoot: false,
       tmpfs: [],
@@ -139,7 +139,7 @@ describe("buildSandboxCreateArgs", () => {
     };
 
     const args = buildSandboxCreateArgs({
-      name: "openclaw-sbx-no-binds",
+      name: "cleobot-sbx-no-binds",
       cfg,
       scopeKey: "main",
       createdAtMs: 1700000000000,

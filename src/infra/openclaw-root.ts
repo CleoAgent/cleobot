@@ -43,7 +43,7 @@ function candidateDirsFromArgv1(argv1: string): string[] {
   return candidates;
 }
 
-export async function resolveOpenClawPackageRoot(opts: {
+export async function resolveCleoBotPackageRoot(opts: {
   cwd?: string;
   argv1?: string;
   moduleUrl?: string;

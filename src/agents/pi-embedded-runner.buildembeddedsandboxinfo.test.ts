@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { CleoBotConfig } from "../config/config.js";
 import type { SandboxContext } from "./sandbox.js";
-import { ensureOpenClawModelsJson } from "./models-config.js";
+import { ensureCleoBotModelsJson } from "./models-config.js";
 import { buildEmbeddedSandboxInfo } from "./pi-embedded-runner.js";
 
 vi.mock("@mariozechner/pi-ai", async () => {
@@ -68,10 +68,10 @@ const _makeOpenAiConfig = (modelIds: string[]) =>
         },
       },
     },
-  }) satisfies OpenClawConfig;
+  }) satisfies CleoBotConfig;
 
-const _ensureModels = (cfg: OpenClawConfig, agentDir: string) =>
-  ensureOpenClawModelsJson(cfg, agentDir) as unknown;
+const _ensureModels = (cfg: CleoBotConfig, agentDir: string) =>
+  ensureCleoBotModelsJson(cfg, agentDir) as unknown;
 
 const _textFromContent = (content: unknown) => {
   if (typeof content === "string") {
@@ -110,11 +110,11 @@ describe("buildEmbeddedSandboxInfo", () => {
       workspaceDir: "/tmp/openclaw-sandbox",
       agentWorkspaceDir: "/tmp/openclaw-workspace",
       workspaceAccess: "none",
-      containerName: "openclaw-sbx-test",
+      containerName: "cleobot-sbx-test",
       containerWorkdir: "/workspace",
       docker: {
         image: "openclaw-sandbox:bookworm-slim",
-        containerPrefix: "openclaw-sbx-",
+        containerPrefix: "cleobot-sbx-",
         workdir: "/workspace",
         readOnlyRoot: true,
         tmpfs: ["/tmp"],
@@ -131,7 +131,7 @@ describe("buildEmbeddedSandboxInfo", () => {
       browser: {
         bridgeUrl: "http://localhost:9222",
         noVncUrl: "http://localhost:6080",
-        containerName: "openclaw-sbx-browser-test",
+        containerName: "cleobot-sbx-browser-test",
       },
     } satisfies SandboxContext;
 
@@ -152,11 +152,11 @@ describe("buildEmbeddedSandboxInfo", () => {
       workspaceDir: "/tmp/openclaw-sandbox",
       agentWorkspaceDir: "/tmp/openclaw-workspace",
       workspaceAccess: "none",
-      containerName: "openclaw-sbx-test",
+      containerName: "cleobot-sbx-test",
       containerWorkdir: "/workspace",
       docker: {
         image: "openclaw-sandbox:bookworm-slim",
-        containerPrefix: "openclaw-sbx-",
+        containerPrefix: "cleobot-sbx-",
         workdir: "/workspace",
         readOnlyRoot: true,
         tmpfs: ["/tmp"],

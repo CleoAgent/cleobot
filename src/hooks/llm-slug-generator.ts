@@ -5,7 +5,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
+import type { CleoBotConfig } from "../config/config.js";
 import {
   resolveDefaultAgentId,
   resolveAgentWorkspaceDir,
@@ -18,7 +18,7 @@ import { runEmbeddedPiAgent } from "../agents/pi-embedded.js";
  */
 export async function generateSlugViaLLM(params: {
   sessionContent: string;
-  cfg: OpenClawConfig;
+  cfg: CleoBotConfig;
 }): Promise<string | null> {
   let tempSessionFile: string | null = null;
 

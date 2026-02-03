@@ -11,10 +11,10 @@ import {
 } from "./paths.js";
 
 describe("oauth paths", () => {
-  it("prefers OPENCLAW_OAUTH_DIR over OPENCLAW_STATE_DIR", () => {
+  it("prefers CLEOBOT_OAUTH_DIR over CLEOBOT_STATE_DIR", () => {
     const env = {
-      OPENCLAW_OAUTH_DIR: "/custom/oauth",
-      OPENCLAW_STATE_DIR: "/custom/state",
+      CLEOBOT_OAUTH_DIR: "/custom/oauth",
+      CLEOBOT_STATE_DIR: "/custom/state",
     } as NodeJS.ProcessEnv;
 
     expect(resolveOAuthDir(env, "/custom/state")).toBe(path.resolve("/custom/oauth"));
@@ -23,9 +23,9 @@ describe("oauth paths", () => {
     );
   });
 
-  it("derives oauth path from OPENCLAW_STATE_DIR when unset", () => {
+  it("derives oauth path from CLEOBOT_STATE_DIR when unset", () => {
     const env = {
-      OPENCLAW_STATE_DIR: "/custom/state",
+      CLEOBOT_STATE_DIR: "/custom/state",
     } as NodeJS.ProcessEnv;
 
     expect(resolveOAuthDir(env, "/custom/state")).toBe(path.join("/custom/state", "credentials"));
@@ -36,9 +36,9 @@ describe("oauth paths", () => {
 });
 
 describe("state + config path candidates", () => {
-  it("uses OPENCLAW_STATE_DIR when set", () => {
+  it("uses CLEOBOT_STATE_DIR when set", () => {
     const env = {
-      OPENCLAW_STATE_DIR: "/new/state",
+      CLEOBOT_STATE_DIR: "/new/state",
     } as NodeJS.ProcessEnv;
 
     expect(resolveStateDir(env, () => "/home/test")).toBe(path.resolve("/new/state"));
@@ -48,19 +48,19 @@ describe("state + config path candidates", () => {
     const home = "/home/test";
     const candidates = resolveDefaultConfigCandidates({} as NodeJS.ProcessEnv, () => home);
     const expected = [
-      path.join(home, ".openclaw", "openclaw.json"),
-      path.join(home, ".openclaw", "clawdbot.json"),
-      path.join(home, ".openclaw", "moltbot.json"),
-      path.join(home, ".openclaw", "moldbot.json"),
-      path.join(home, ".clawdbot", "openclaw.json"),
+      path.join(home, ".cleobot", "cleobot.json"),
+      path.join(home, ".cleobot", "clawdbot.json"),
+      path.join(home, ".cleobot", "moltbot.json"),
+      path.join(home, ".cleobot", "moldbot.json"),
+      path.join(home, ".clawdbot", "cleobot.json"),
       path.join(home, ".clawdbot", "clawdbot.json"),
       path.join(home, ".clawdbot", "moltbot.json"),
       path.join(home, ".clawdbot", "moldbot.json"),
-      path.join(home, ".moltbot", "openclaw.json"),
+      path.join(home, ".moltbot", "cleobot.json"),
       path.join(home, ".moltbot", "clawdbot.json"),
       path.join(home, ".moltbot", "moltbot.json"),
       path.join(home, ".moltbot", "moldbot.json"),
-      path.join(home, ".moldbot", "openclaw.json"),
+      path.join(home, ".moldbot", "cleobot.json"),
       path.join(home, ".moldbot", "clawdbot.json"),
       path.join(home, ".moldbot", "moltbot.json"),
       path.join(home, ".moldbot", "moldbot.json"),
@@ -71,7 +71,7 @@ describe("state + config path candidates", () => {
   it("prefers ~/.openclaw when it exists and legacy dir is missing", async () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-state-"));
     try {
-      const newDir = path.join(root, ".openclaw");
+      const newDir = path.join(root, ".cleobot");
       await fs.mkdir(newDir, { recursive: true });
       const resolved = resolveStateDir({} as NodeJS.ProcessEnv, () => root);
       expect(resolved).toBe(newDir);
@@ -86,12 +86,12 @@ describe("state + config path candidates", () => {
     const previousUserProfile = process.env.USERPROFILE;
     const previousHomeDrive = process.env.HOMEDRIVE;
     const previousHomePath = process.env.HOMEPATH;
-    const previousOpenClawConfig = process.env.OPENCLAW_CONFIG_PATH;
-    const previousOpenClawState = process.env.OPENCLAW_STATE_DIR;
+    const previousCleoBotConfig = process.env.CLEOBOT_CONFIG_PATH;
+    const previousCleoBotState = process.env.CLEOBOT_STATE_DIR;
     try {
-      const legacyDir = path.join(root, ".openclaw");
+      const legacyDir = path.join(root, ".cleobot");
       await fs.mkdir(legacyDir, { recursive: true });
-      const legacyPath = path.join(legacyDir, "openclaw.json");
+      const legacyPath = path.join(legacyDir, "cleobot.json");
       await fs.writeFile(legacyPath, "{}", "utf-8");
 
       process.env.HOME = root;
@@ -101,8 +101,8 @@ describe("state + config path candidates", () => {
         process.env.HOMEDRIVE = parsed.root.replace(/\\$/, "");
         process.env.HOMEPATH = root.slice(parsed.root.length - 1);
       }
-      delete process.env.OPENCLAW_CONFIG_PATH;
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.CLEOBOT_CONFIG_PATH;
+      delete process.env.CLEOBOT_STATE_DIR;
 
       vi.resetModules();
       const { CONFIG_PATH } = await import("./paths.js");
@@ -128,25 +128,25 @@ describe("state + config path candidates", () => {
       } else {
         process.env.HOMEPATH = previousHomePath;
       }
-      if (previousOpenClawConfig === undefined) {
-        delete process.env.OPENCLAW_CONFIG_PATH;
+      if (previousCleoBotConfig === undefined) {
+        delete process.env.CLEOBOT_CONFIG_PATH;
       } else {
-        process.env.OPENCLAW_CONFIG_PATH = previousOpenClawConfig;
+        process.env.CLEOBOT_CONFIG_PATH = previousCleoBotConfig;
       }
-      if (previousOpenClawConfig === undefined) {
-        delete process.env.OPENCLAW_CONFIG_PATH;
+      if (previousCleoBotConfig === undefined) {
+        delete process.env.CLEOBOT_CONFIG_PATH;
       } else {
-        process.env.OPENCLAW_CONFIG_PATH = previousOpenClawConfig;
+        process.env.CLEOBOT_CONFIG_PATH = previousCleoBotConfig;
       }
-      if (previousOpenClawState === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+      if (previousCleoBotState === undefined) {
+        delete process.env.CLEOBOT_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousOpenClawState;
+        process.env.CLEOBOT_STATE_DIR = previousCleoBotState;
       }
-      if (previousOpenClawState === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+      if (previousCleoBotState === undefined) {
+        delete process.env.CLEOBOT_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousOpenClawState;
+        process.env.CLEOBOT_STATE_DIR = previousCleoBotState;
       }
       await fs.rm(root, { recursive: true, force: true });
       vi.resetModules();
@@ -156,15 +156,15 @@ describe("state + config path candidates", () => {
   it("respects state dir overrides when config is missing", async () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-config-override-"));
     try {
-      const legacyDir = path.join(root, ".openclaw");
+      const legacyDir = path.join(root, ".cleobot");
       await fs.mkdir(legacyDir, { recursive: true });
-      const legacyConfig = path.join(legacyDir, "openclaw.json");
+      const legacyConfig = path.join(legacyDir, "cleobot.json");
       await fs.writeFile(legacyConfig, "{}", "utf-8");
 
       const overrideDir = path.join(root, "override");
-      const env = { OPENCLAW_STATE_DIR: overrideDir } as NodeJS.ProcessEnv;
+      const env = { CLEOBOT_STATE_DIR: overrideDir } as NodeJS.ProcessEnv;
       const resolved = resolveConfigPath(env, overrideDir, () => root);
-      expect(resolved).toBe(path.join(overrideDir, "openclaw.json"));
+      expect(resolved).toBe(path.join(overrideDir, "cleobot.json"));
     } finally {
       await fs.rm(root, { recursive: true, force: true });
     }

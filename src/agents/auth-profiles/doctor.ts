@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../config/config.js";
+import type { CleoBotConfig } from "../../config/config.js";
 import type { AuthProfileStore } from "./types.js";
 import { formatCliCommand } from "../../cli/command-format.js";
 import { normalizeProviderId } from "../model-selection.js";
@@ -6,7 +6,7 @@ import { listProfilesForProvider } from "./profiles.js";
 import { suggestOAuthProfileIdForLegacyDefault } from "./repair.js";
 
 export function formatAuthDoctorHint(params: {
-  cfg?: OpenClawConfig;
+  cfg?: CleoBotConfig;
   store: AuthProfileStore;
   provider: string;
   profileId?: string;

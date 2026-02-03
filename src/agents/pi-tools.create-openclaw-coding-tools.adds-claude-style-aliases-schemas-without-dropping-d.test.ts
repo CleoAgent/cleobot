@@ -4,11 +4,11 @@ import path from "node:path";
 import sharp from "sharp";
 import { describe, expect, it } from "vitest";
 import "./test-helpers/fast-coding-tools.js";
-import { createOpenClawCodingTools } from "./pi-tools.js";
+import { createCleoBotCodingTools } from "./pi-tools.js";
 
-const defaultTools = createOpenClawCodingTools();
+const defaultTools = createCleoBotCodingTools();
 
-describe("createOpenClawCodingTools", () => {
+describe("createCleoBotCodingTools", () => {
   it("keeps read tool image metadata intact", async () => {
     const readTool = defaultTools.find((tool) => tool.name === "read");
     expect(readTool).toBeDefined();
@@ -46,7 +46,7 @@ describe("createOpenClawCodingTools", () => {
     }
   });
   it("returns text content without image blocks for text files", async () => {
-    const tools = createOpenClawCodingTools();
+    const tools = createCleoBotCodingTools();
     const readTool = tools.find((tool) => tool.name === "read");
     expect(readTool).toBeDefined();
 
@@ -78,11 +78,11 @@ describe("createOpenClawCodingTools", () => {
       workspaceDir: path.join(os.tmpdir(), "openclaw-sandbox"),
       agentWorkspaceDir: path.join(os.tmpdir(), "openclaw-workspace"),
       workspaceAccess: "none",
-      containerName: "openclaw-sbx-test",
+      containerName: "cleobot-sbx-test",
       containerWorkdir: "/workspace",
       docker: {
         image: "openclaw-sandbox:bookworm-slim",
-        containerPrefix: "openclaw-sbx-",
+        containerPrefix: "cleobot-sbx-",
         workdir: "/workspace",
         readOnlyRoot: true,
         tmpfs: [],
@@ -97,7 +97,7 @@ describe("createOpenClawCodingTools", () => {
       },
       browserAllowHostControl: false,
     };
-    const tools = createOpenClawCodingTools({ sandbox });
+    const tools = createCleoBotCodingTools({ sandbox });
     expect(tools.some((tool) => tool.name === "exec")).toBe(true);
     expect(tools.some((tool) => tool.name === "read")).toBe(false);
     expect(tools.some((tool) => tool.name === "browser")).toBe(false);
@@ -109,11 +109,11 @@ describe("createOpenClawCodingTools", () => {
       workspaceDir: path.join(os.tmpdir(), "openclaw-sandbox"),
       agentWorkspaceDir: path.join(os.tmpdir(), "openclaw-workspace"),
       workspaceAccess: "ro",
-      containerName: "openclaw-sbx-test",
+      containerName: "cleobot-sbx-test",
       containerWorkdir: "/workspace",
       docker: {
         image: "openclaw-sandbox:bookworm-slim",
-        containerPrefix: "openclaw-sbx-",
+        containerPrefix: "cleobot-sbx-",
         workdir: "/workspace",
         readOnlyRoot: true,
         tmpfs: [],
@@ -128,13 +128,13 @@ describe("createOpenClawCodingTools", () => {
       },
       browserAllowHostControl: false,
     };
-    const tools = createOpenClawCodingTools({ sandbox });
+    const tools = createCleoBotCodingTools({ sandbox });
     expect(tools.some((tool) => tool.name === "read")).toBe(true);
     expect(tools.some((tool) => tool.name === "write")).toBe(false);
     expect(tools.some((tool) => tool.name === "edit")).toBe(false);
   });
   it("filters tools by agent tool policy even without sandbox", () => {
-    const tools = createOpenClawCodingTools({
+    const tools = createCleoBotCodingTools({
       config: { tools: { deny: ["browser"] } },
     });
     expect(tools.some((tool) => tool.name === "exec")).toBe(true);

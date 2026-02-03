@@ -62,25 +62,25 @@ describe("applyCliProfileEnv", () => {
       homedir: () => "/home/peter",
     });
     const expectedStateDir = path.join("/home/peter", ".openclaw-dev");
-    expect(env.OPENCLAW_PROFILE).toBe("dev");
-    expect(env.OPENCLAW_STATE_DIR).toBe(expectedStateDir);
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(expectedStateDir, "openclaw.json"));
-    expect(env.OPENCLAW_GATEWAY_PORT).toBe("19001");
+    expect(env.CLEOBOT_PROFILE).toBe("dev");
+    expect(env.CLEOBOT_STATE_DIR).toBe(expectedStateDir);
+    expect(env.CLEOBOT_CONFIG_PATH).toBe(path.join(expectedStateDir, "cleobot.json"));
+    expect(env.CLEOBOT_GATEWAY_PORT).toBe("19001");
   });
 
   it("does not override explicit env values", () => {
     const env: Record<string, string | undefined> = {
-      OPENCLAW_STATE_DIR: "/custom",
-      OPENCLAW_GATEWAY_PORT: "19099",
+      CLEOBOT_STATE_DIR: "/custom",
+      CLEOBOT_GATEWAY_PORT: "19099",
     };
     applyCliProfileEnv({
       profile: "dev",
       env,
       homedir: () => "/home/peter",
     });
-    expect(env.OPENCLAW_STATE_DIR).toBe("/custom");
-    expect(env.OPENCLAW_GATEWAY_PORT).toBe("19099");
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join("/custom", "openclaw.json"));
+    expect(env.CLEOBOT_STATE_DIR).toBe("/custom");
+    expect(env.CLEOBOT_GATEWAY_PORT).toBe("19099");
+    expect(env.CLEOBOT_CONFIG_PATH).toBe(path.join("/custom", "cleobot.json"));
   });
 });
 
@@ -90,55 +90,55 @@ describe("formatCliCommand", () => {
   });
 
   it("returns command unchanged when profile is default", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { OPENCLAW_PROFILE: "default" })).toBe(
+    expect(formatCliCommand("openclaw doctor --fix", { CLEOBOT_PROFILE: "default" })).toBe(
       "openclaw doctor --fix",
     );
   });
 
   it("returns command unchanged when profile is Default (case-insensitive)", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { OPENCLAW_PROFILE: "Default" })).toBe(
+    expect(formatCliCommand("openclaw doctor --fix", { CLEOBOT_PROFILE: "Default" })).toBe(
       "openclaw doctor --fix",
     );
   });
 
   it("returns command unchanged when profile is invalid", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { OPENCLAW_PROFILE: "bad profile" })).toBe(
+    expect(formatCliCommand("openclaw doctor --fix", { CLEOBOT_PROFILE: "bad profile" })).toBe(
       "openclaw doctor --fix",
     );
   });
 
   it("returns command unchanged when --profile is already present", () => {
     expect(
-      formatCliCommand("openclaw --profile work doctor --fix", { OPENCLAW_PROFILE: "work" }),
+      formatCliCommand("openclaw --profile work doctor --fix", { CLEOBOT_PROFILE: "work" }),
     ).toBe("openclaw --profile work doctor --fix");
   });
 
   it("returns command unchanged when --dev is already present", () => {
-    expect(formatCliCommand("openclaw --dev doctor", { OPENCLAW_PROFILE: "dev" })).toBe(
+    expect(formatCliCommand("openclaw --dev doctor", { CLEOBOT_PROFILE: "dev" })).toBe(
       "openclaw --dev doctor",
     );
   });
 
   it("inserts --profile flag when profile is set", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { OPENCLAW_PROFILE: "work" })).toBe(
+    expect(formatCliCommand("openclaw doctor --fix", { CLEOBOT_PROFILE: "work" })).toBe(
       "openclaw --profile work doctor --fix",
     );
   });
 
   it("trims whitespace from profile", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { OPENCLAW_PROFILE: "  jbopenclaw  " })).toBe(
+    expect(formatCliCommand("openclaw doctor --fix", { CLEOBOT_PROFILE: "  jbopenclaw  " })).toBe(
       "openclaw --profile jbopenclaw doctor --fix",
     );
   });
 
   it("handles command with no args after openclaw", () => {
-    expect(formatCliCommand("openclaw", { OPENCLAW_PROFILE: "test" })).toBe(
+    expect(formatCliCommand("openclaw", { CLEOBOT_PROFILE: "test" })).toBe(
       "openclaw --profile test",
     );
   });
 
   it("handles pnpm wrapper", () => {
-    expect(formatCliCommand("pnpm openclaw doctor", { OPENCLAW_PROFILE: "work" })).toBe(
+    expect(formatCliCommand("pnpm openclaw doctor", { CLEOBOT_PROFILE: "work" })).toBe(
       "pnpm openclaw --profile work doctor",
     );
   });

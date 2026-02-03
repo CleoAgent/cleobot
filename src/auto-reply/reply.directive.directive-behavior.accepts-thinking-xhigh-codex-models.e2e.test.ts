@@ -39,8 +39,8 @@ async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
     },
     {
       env: {
-        OPENCLAW_AGENT_DIR: (home) => path.join(home, ".openclaw", "agent"),
-        PI_CODING_AGENT_DIR: (home) => path.join(home, ".openclaw", "agent"),
+        CLEOBOT_AGENT_DIR: (home) => path.join(home, ".cleobot", "agent"),
+        PI_CODING_AGENT_DIR: (home) => path.join(home, ".cleobot", "agent"),
       },
       prefix: "openclaw-reply-",
     },

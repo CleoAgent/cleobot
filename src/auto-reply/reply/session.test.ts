@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { CleoBotConfig } from "../../config/config.js";
 import { saveSessionStore } from "../../config/sessions.js";
 import { initSessionState } from "./session.js";
 
@@ -46,7 +46,7 @@ describe("initSessionState thread forking", () => {
 
     const cfg = {
       session: { store: storePath },
-    } as OpenClawConfig;
+    } as CleoBotConfig;
 
     const threadSessionKey = "agent:main:slack:channel:c1:thread:123";
     const threadLabel = "Slack thread #general: starter";
@@ -85,7 +85,7 @@ describe("initSessionState thread forking", () => {
 
     const cfg = {
       session: { store: storePath },
-    } as OpenClawConfig;
+    } as CleoBotConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -109,7 +109,7 @@ describe("initSessionState RawBody", () => {
   it("triggerBodyNormalized correctly extracts commands when Body contains context but RawBody is clean", async () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-rawbody-"));
     const storePath = path.join(root, "sessions.json");
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as CleoBotConfig;
 
     const groupMessageCtx = {
       Body: `[Chat messages since your last reply - for context]\n[WhatsApp ...] Someone: hello\n\n[Current message - respond to this]\n[WhatsApp ...] Jake: /status\n[from: Jake McInteer (+6421807830)]`,
@@ -130,7 +130,7 @@ describe("initSessionState RawBody", () => {
   it("Reset triggers (/new, /reset) work with RawBody", async () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-rawbody-reset-"));
     const storePath = path.join(root, "sessions.json");
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as CleoBotConfig;
 
     const groupMessageCtx = {
       Body: `[Context]\nJake: /new\n[from: Jake]`,
@@ -158,7 +158,7 @@ describe("initSessionState RawBody", () => {
         store: storePath,
         resetTriggers: ["/new"],
       },
-    } as OpenClawConfig;
+    } as CleoBotConfig;
 
     const ctx = {
       RawBody: "/NEW KeepThisCase",
@@ -180,7 +180,7 @@ describe("initSessionState RawBody", () => {
   it("falls back to Body when RawBody is undefined", async () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-rawbody-fallback-"));
     const storePath = path.join(root, "sessions.json");
-    const cfg = { session: { store: storePath } } as OpenClawConfig;
+    const cfg = { session: { store: storePath } } as CleoBotConfig;
 
     const ctx = {
       Body: "/status",
@@ -214,7 +214,7 @@ describe("initSessionState reset policy", () => {
         },
       });
 
-      const cfg = { session: { store: storePath } } as OpenClawConfig;
+      const cfg = { session: { store: storePath } } as CleoBotConfig;
       const result = await initSessionState({
         ctx: { Body: "hello", SessionKey: sessionKey },
         cfg,
@@ -244,7 +244,7 @@ describe("initSessionState reset policy", () => {
         },
       });
 
-      const cfg = { session: { store: storePath } } as OpenClawConfig;
+      const cfg = { session: { store: storePath } } as CleoBotConfig;
       const result = await initSessionState({
         ctx: { Body: "hello", SessionKey: sessionKey },
         cfg,
@@ -279,7 +279,7 @@ describe("initSessionState reset policy", () => {
           store: storePath,
           reset: { mode: "daily", atHour: 4, idleMinutes: 30 },
         },
-      } as OpenClawConfig;
+      } as CleoBotConfig;
       const result = await initSessionState({
         ctx: { Body: "hello", SessionKey: sessionKey },
         cfg,
@@ -315,7 +315,7 @@ describe("initSessionState reset policy", () => {
           reset: { mode: "daily", atHour: 4 },
           resetByType: { thread: { mode: "idle", idleMinutes: 180 } },
         },
-      } as OpenClawConfig;
+      } as CleoBotConfig;
       const result = await initSessionState({
         ctx: { Body: "reply", SessionKey: sessionKey, ThreadLabel: "Slack thread" },
         cfg,
@@ -350,7 +350,7 @@ describe("initSessionState reset policy", () => {
           store: storePath,
           resetByType: { thread: { mode: "idle", idleMinutes: 180 } },
         },
-      } as OpenClawConfig;
+      } as CleoBotConfig;
       const result = await initSessionState({
         ctx: { Body: "reply", SessionKey: sessionKey, ThreadLabel: "Discord thread" },
         cfg,
@@ -385,7 +385,7 @@ describe("initSessionState reset policy", () => {
           store: storePath,
           resetByType: { thread: { mode: "idle", idleMinutes: 60 } },
         },
-      } as OpenClawConfig;
+      } as CleoBotConfig;
       const result = await initSessionState({
         ctx: { Body: "hello", SessionKey: sessionKey },
         cfg,
@@ -420,7 +420,7 @@ describe("initSessionState reset policy", () => {
           store: storePath,
           idleMinutes: 240,
         },
-      } as OpenClawConfig;
+      } as CleoBotConfig;
       const result = await initSessionState({
         ctx: { Body: "hello", SessionKey: sessionKey },
         cfg,
@@ -457,7 +457,7 @@ describe("initSessionState channel reset overrides", () => {
         resetByType: { dm: { mode: "idle", idleMinutes: 10 } },
         resetByChannel: { discord: { mode: "idle", idleMinutes: 10080 } },
       },
-    } as OpenClawConfig;
+    } as CleoBotConfig;
 
     const result = await initSessionState({
       ctx: {

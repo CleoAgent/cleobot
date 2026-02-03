@@ -5,11 +5,11 @@ import { createBrowserRouteContext } from "./server-context.js";
 vi.mock("./chrome.js", () => ({
   isChromeCdpReady: vi.fn(async () => true),
   isChromeReachable: vi.fn(async () => true),
-  launchOpenClawChrome: vi.fn(async () => {
+  launchCleoBotChrome: vi.fn(async () => {
     throw new Error("unexpected launch");
   }),
-  resolveOpenClawUserDataDir: vi.fn(() => "/tmp/openclaw"),
-  stopOpenClawChrome: vi.fn(async () => {}),
+  resolveCleoBotUserDataDir: vi.fn(() => "/tmp/openclaw"),
+  stopCleoBotChrome: vi.fn(async () => {}),
 }));
 
 describe("browser server-context ensureTabAvailable", () => {

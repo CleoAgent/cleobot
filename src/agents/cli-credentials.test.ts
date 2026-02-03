@@ -181,7 +181,7 @@ describe("cli credentials", () => {
   });
 
   it("reads Codex credentials from keychain when available", async () => {
-    const tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-codex-"));
+    const tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "cleobot-codex-"));
     process.env.CODEX_HOME = tempHome;
 
     const accountHash = "cli|";
@@ -210,7 +210,7 @@ describe("cli credentials", () => {
   });
 
   it("falls back to Codex auth.json when keychain is unavailable", async () => {
-    const tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-codex-"));
+    const tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "cleobot-codex-"));
     process.env.CODEX_HOME = tempHome;
     execSyncMock.mockImplementation(() => {
       throw new Error("not found");

@@ -49,7 +49,7 @@ const runtime: RuntimeEnv = {
 };
 
 const baseSnapshot = {
-  path: "/tmp/openclaw.json",
+  path: "/tmp/cleobot.json",
   exists: true,
   raw: "{}",
   parsed: {},

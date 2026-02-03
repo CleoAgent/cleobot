@@ -9,14 +9,14 @@ import { acquireGatewayLock, GatewayLockError } from "./gateway-lock.js";
 
 async function makeEnv() {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-gateway-lock-"));
-  const configPath = path.join(dir, "openclaw.json");
+  const configPath = path.join(dir, "cleobot.json");
   await fs.writeFile(configPath, "{}", "utf8");
   await fs.mkdir(resolveGatewayLockDir(), { recursive: true });
   return {
     env: {
       ...process.env,
-      OPENCLAW_STATE_DIR: dir,
-      OPENCLAW_CONFIG_PATH: configPath,
+      CLEOBOT_STATE_DIR: dir,
+      CLEOBOT_CONFIG_PATH: configPath,
     },
     cleanup: async () => {
       await fs.rm(dir, { recursive: true, force: true });

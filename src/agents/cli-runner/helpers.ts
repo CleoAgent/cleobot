@@ -5,7 +5,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import type { ThinkLevel } from "../../auto-reply/thinking.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { CleoBotConfig } from "../../config/config.js";
 import type { CliBackendConfig } from "../../config/types.js";
 import type { EmbeddedContextFile } from "../pi-embedded-helpers.js";
 import { runExec } from "../../process/exec.js";
@@ -101,7 +101,7 @@ function tokenToRegex(token: string): string {
 }
 
 /**
- * Cleanup suspended OpenClaw CLI processes that have accumulated.
+ * Cleanup suspended CleoBot CLI processes that have accumulated.
  * Only cleans up if there are more than the threshold (default: 10).
  */
 export async function cleanupSuspendedCliProcesses(
@@ -177,7 +177,7 @@ export type CliOutput = {
   usage?: CliUsage;
 };
 
-function buildModelAliasLines(cfg?: OpenClawConfig) {
+function buildModelAliasLines(cfg?: CleoBotConfig) {
   const models = cfg?.agents?.defaults?.models ?? {};
   const entries: Array<{ alias: string; model: string }> = [];
   for (const [keyRaw, entryRaw] of Object.entries(models)) {
@@ -198,7 +198,7 @@ function buildModelAliasLines(cfg?: OpenClawConfig) {
 
 export function buildSystemPrompt(params: {
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: CleoBotConfig;
   defaultThinkLevel?: ThinkLevel;
   extraSystemPrompt?: string;
   ownerNumbers?: string[];

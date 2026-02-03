@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { CleoBotConfig } from "../config/config.js";
 import { slackPlugin } from "../../extensions/slack/src/channel.js";
 import { setSlackRuntime } from "../../extensions/slack/src/runtime.js";
 import { telegramPlugin } from "../../extensions/telegram/src/channel.js";
@@ -39,7 +39,7 @@ describe("runHeartbeatOnce", () => {
     const storePath = path.join(tmpDir, "sessions.json");
     const replySpy = vi.spyOn(replyModule, "getReplyFromConfig");
     try {
-      const cfg: OpenClawConfig = {
+      const cfg: CleoBotConfig = {
         agents: {
           defaults: {
             workspace: tmpDir,
