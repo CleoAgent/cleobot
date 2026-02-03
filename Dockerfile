@@ -8,11 +8,16 @@ RUN corepack enable
 
 WORKDIR /app
 
-# Install jq (required for CLEO JSON processing)
+# Install jq (required for CLEO JSON processing) and curl (for CLEO installer)
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends jq && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends jq curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+
+# Install CLEO CLI for task management
+# Run as root here, then fix permissions later
+RUN curl -fsSL https://github.com/kryptobaseddev/cleo/releases/latest/download/install.sh | CLEO_INSTALL_DIR=/opt/cleo bash && \
+    ln -sf /opt/cleo/bin/cleo /usr/local/bin/cleo
 
 ARG CLEOBOT_DOCKER_APT_PACKAGES=""
 RUN if [ -n "$CLEOBOT_DOCKER_APT_PACKAGES" ]; then \

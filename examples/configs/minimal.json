@@ -1,0 +1,16 @@
+{
+  "$schema": "https://cleobot.ai/schema/cleobot.json",
+  "meta": {
+    "description": "Minimal CleoBot config - just the essentials"
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-sonnet-4-5"
+      }
+    }
+  },
+  "gateway": {
+    "mode": "local"
+  }
+}
