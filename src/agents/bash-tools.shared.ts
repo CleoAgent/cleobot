@@ -68,14 +68,21 @@ export function buildDockerExecArgs(params: {
   const hasCustomPath = typeof params.env.PATH === "string" && params.env.PATH.length > 0;
   if (hasCustomPath) {
     // Avoid interpolating PATH into the shell command; pass it via env instead.
-    args.push("-e", `CLEOBOT_PREPEND_PATH=${params.env.PATH}`);
+    args.push("-e", `OPENCLAW_PREPEND_PATH=${params.env.PATH}`);
   }
   // Login shell (-l) sources /etc/profile which resets PATH to a minimal set,
   // overriding both Docker ENV and -e PATH=... environment variables.
   // Prepend custom PATH after profile sourcing to ensure custom tools are accessible
   // while preserving system paths that /etc/profile may have added.
-  const pathExport = hasCustomPath
-    ? 'export PATH="${CLEOBOT_PREPEND_PATH}:$PATH"; unset CLEOBOT_PREPEND_PATH; '
+  // Also add node_modules/.bin from workdir to support tools like tsx.
+  const nodeModulesBin = params.workdir ? `${params.workdir}/node_modules/.bin` : "";
+  const pathPrefix = hasCustomPath
+    ? nodeModulesBin
+      ? `${nodeModulesBin}:\${OPENCLAW_PREPEND_PATH}`
+      : "\${OPENCLAW_PREPEND_PATH}"
+    : nodeModulesBin;
+  const pathExport = pathPrefix
+    ? `export PATH="${pathPrefix}:\$PATH"; unset OPENCLAW_PREPEND_PATH; `
     : "";
   args.push(params.containerName, "sh", "-lc", `${pathExport}${params.command}`);
   return args;
