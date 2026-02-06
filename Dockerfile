@@ -42,11 +42,14 @@ RUN CLEOBOT_A2UI_SKIP_MISSING=1 pnpm build
 ENV CLEOBOT_PREFER_PNPM=1
 RUN pnpm ui:build
 
-# Force rebuild of better-sqlite3 AFTER all builds to ensure native module is compiled
-RUN pnpm rebuild better-sqlite3 && \
+# Force rebuild of better-sqlite3 with verbose output to debug the issue
+# Try to use node-gyp rebuild with explicit configuration
+RUN cd /app/node_modules/.pnpm/better-sqlite3@12.6.2/node_modules/better-sqlite3 && \
+    npm run build-release && \
     echo "=== Verifying better-sqlite3 native module ===" && \
-    find /app/node_modules/.pnpm/better-sqlite3*/node_modules/better-sqlite3 -name "*.node" -ls || \
-    (echo "ERROR: No .node file found after rebuild!" && exit 1)
+    find /app/node_modules/.pnpm/better-sqlite3*/node_modules/better-sqlite3 -name "*.node" -ls && \
+    ls -la build/Release/ || \
+    (echo "ERROR: Build failed!" && exit 1)
 
 ENV NODE_ENV=production
 
