@@ -9,8 +9,10 @@ RUN corepack enable
 WORKDIR /app
 
 # Install jq (required for CLEO JSON processing) and curl (for CLEO installer)
+# Also install build tools for native modules (better-sqlite3, etc.)
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends jq curl && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    jq curl build-essential python3 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
