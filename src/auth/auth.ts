@@ -52,20 +52,30 @@ export const API_KEY_SCOPES = {
 export type ApiKeyScope = keyof typeof API_KEY_SCOPES;
 
 // Better-Auth instance (internal - not exported to avoid TS4023 type issues)
-const authInstance = betterAuth({
-  baseURL: process.env.BETTER_AUTH_BASE_URL || "http://localhost:18789",
-  database: {
-    db,
-    type: "sqlite",
-  },
-  emailAndPassword: {
-    enabled: true,
-  },
-  session: {
-    expiresIn: 60 * 60 * 24 * 30, // 30 days
-    updateAge: 60 * 60 * 24, // 1 day
-  },
-});
+let authInstance: any;
+try {
+  authInstance = betterAuth({
+    baseURL: process.env.BETTER_AUTH_BASE_URL || "http://localhost:18789",
+    database: {
+      db,
+      type: "sqlite",
+    },
+    emailAndPassword: {
+      enabled: true,
+    },
+    session: {
+      expiresIn: 60 * 60 * 24 * 30, // 30 days
+      updateAge: 60 * 60 * 24, // 1 day
+    },
+  });
+  console.log(
+    "[Better-Auth] Initialized successfully with baseURL:",
+    process.env.BETTER_AUTH_BASE_URL || "http://localhost:18789",
+  );
+} catch (error) {
+  console.error("[Better-Auth] Initialization failed:", error);
+  throw error;
+}
 
 // Wrapper functions to expose auth functionality without exporting the instance
 export async function signInEmail(email: string, password: string) {
