@@ -13,6 +13,7 @@ import { resolveAgentAvatar } from "../agents/identity-avatar.js";
 import { handleA2uiHttpRequest } from "../canvas-host/a2ui.js";
 import { loadConfig } from "../config/config.js";
 import { handleSlackHttpRequest } from "../slack/http/index.js";
+import { handleAuthHttpRequest } from "./auth-http.js";
 import { handleControlUiAvatarRequest, handleControlUiHttpRequest } from "./control-ui.js";
 import { applyHookMappings } from "./hooks-mapping.js";
 import {
@@ -242,6 +243,13 @@ export function createGatewayHttpServer(opts: {
     try {
       const configSnapshot = loadConfig();
       const trustedProxies = configSnapshot.gateway?.trustedProxies ?? [];
+
+      // Handle auth endpoints first
+      const url = new URL(req.url ?? "/", `http://localhost`);
+      if (await handleAuthHttpRequest(req, res, url)) {
+        return;
+      }
+
       if (await handleHooksRequest(req, res)) {
         return;
       }
