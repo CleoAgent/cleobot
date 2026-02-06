@@ -5,7 +5,6 @@
 
 import { betterAuth } from "better-auth";
 import Database, { type Database as DatabaseType } from "better-sqlite3";
-import { Kysely, SqliteDialect } from "kysely";
 import { mkdirSync, existsSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
@@ -18,15 +17,8 @@ if (!existsSync(CLEOBOT_DIR)) {
 
 const DB_PATH = join(CLEOBOT_DIR, "auth.db");
 
-// Initialize SQLite database (raw for custom queries)
+// Initialize SQLite database
 const db: DatabaseType = new Database(DB_PATH);
-
-// Initialize Kysely adapter for Better-Auth
-const kysely = new Kysely<any>({
-  dialect: new SqliteDialect({
-    database: db,
-  }),
-});
 
 // Create Better-Auth schema tables if they don't exist
 try {
@@ -119,7 +111,7 @@ let authInstance: any;
 try {
   authInstance = betterAuth({
     baseURL: process.env.BETTER_AUTH_BASE_URL || "http://localhost:18789",
-    database: kysely,
+    database: db,
     emailAndPassword: {
       enabled: true,
     },
@@ -133,7 +125,10 @@ try {
     process.env.BETTER_AUTH_BASE_URL || "http://localhost:18789",
   );
 } catch (error) {
-  console.error("[Better-Auth] Initialization failed:", error);
+  console.error("[Better-Auth] Initialization failed:");
+  console.error("Error details:", error);
+  console.error("Error stack:", error instanceof Error ? error.stack : "N/A");
+  console.error("Error cause:", error instanceof Error ? error.cause : "N/A");
   throw error;
 }
 
