@@ -4,7 +4,7 @@ import { parseAgentSessionKey } from "../../../src/routing/session-key.js";
 import { refreshChatAvatar } from "./app-chat";
 import { renderChatControls, renderTab, renderThemeToggle } from "./app-render.helpers";
 import { renderLogin } from "./views/login.js";
-import { renderSetupWizard as renderSetup } from "./views/setup-wizard.js";
+import { renderSetup } from "./views/setup-wizard.js";
 import { completeSetup, attemptLogin } from "./controllers/auth.js";
 import { loadAgentFileContent, loadAgentFiles, saveAgentFile } from "./controllers/agent-files";
 import { loadAgentIdentities, loadAgentIdentity } from "./controllers/agent-identity";
