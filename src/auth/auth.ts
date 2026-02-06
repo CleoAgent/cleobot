@@ -5,6 +5,7 @@
 
 import { betterAuth } from "better-auth";
 import Database, { type Database as DatabaseType } from "better-sqlite3";
+import { Kysely, SqliteDialect } from "kysely";
 import { mkdirSync, existsSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
@@ -17,8 +18,15 @@ if (!existsSync(CLEOBOT_DIR)) {
 
 const DB_PATH = join(CLEOBOT_DIR, "auth.db");
 
-// Initialize SQLite database
+// Initialize SQLite database (raw for custom queries)
 const db: DatabaseType = new Database(DB_PATH);
+
+// Initialize Kysely adapter for Better-Auth
+const kysely = new Kysely({
+  dialect: new SqliteDialect({
+    database: db,
+  }),
+});
 
 // Create API keys table (Better-Auth doesn't have built-in API key support)
 db.exec(`
@@ -56,10 +64,7 @@ let authInstance: any;
 try {
   authInstance = betterAuth({
     baseURL: process.env.BETTER_AUTH_BASE_URL || "http://localhost:18789",
-    database: {
-      db,
-      type: "sqlite",
-    },
+    database: kysely,
     emailAndPassword: {
       enabled: true,
     },
