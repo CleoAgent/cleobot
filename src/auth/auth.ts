@@ -22,11 +22,66 @@ const DB_PATH = join(CLEOBOT_DIR, "auth.db");
 const db: DatabaseType = new Database(DB_PATH);
 
 // Initialize Kysely adapter for Better-Auth
-const kysely = new Kysely({
+const kysely = new Kysely<any>({
   dialect: new SqliteDialect({
     database: db,
   }),
 });
+
+// Create Better-Auth schema tables if they don't exist
+try {
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS user (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL UNIQUE,
+      emailVerified INTEGER NOT NULL DEFAULT 0,
+      image TEXT,
+      createdAt INTEGER NOT NULL,
+      updatedAt INTEGER NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS session (
+      id TEXT PRIMARY KEY,
+      userId TEXT NOT NULL,
+      expiresAt INTEGER NOT NULL,
+      token TEXT NOT NULL UNIQUE,
+      ipAddress TEXT,
+      userAgent TEXT,
+      createdAt INTEGER NOT NULL,
+      updatedAt INTEGER NOT NULL,
+      FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE
+    );
+
+    CREATE TABLE IF NOT EXISTS account (
+      id TEXT PRIMARY KEY,
+      userId TEXT NOT NULL,
+      accountId TEXT NOT NULL,
+      providerId TEXT NOT NULL,
+      accessToken TEXT,
+      refreshToken TEXT,
+      idToken TEXT,
+      accessTokenExpiresAt INTEGER,
+      refreshTokenExpiresAt INTEGER,
+      scope TEXT,
+      password TEXT,
+      createdAt INTEGER NOT NULL,
+      updatedAt INTEGER NOT NULL,
+      FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE
+    );
+
+    CREATE TABLE IF NOT EXISTS verification (
+      id TEXT PRIMARY KEY,
+      identifier TEXT NOT NULL,
+      value TEXT NOT NULL,
+      expiresAt INTEGER NOT NULL,
+      createdAt INTEGER NOT NULL,
+      updatedAt INTEGER NOT NULL
+    );
+  `);
+} catch (error) {
+  console.error("[Better-Auth] Failed to create schema:", error);
+}
 
 // Create API keys table (Better-Auth doesn't have built-in API key support)
 db.exec(`
