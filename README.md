@@ -45,6 +45,33 @@ Open `http://localhost:18789` in your browser.
 
 📖 See [Getting Started](docs/GETTING-STARTED.md) for detailed instructions.
 
+## Authentication
+
+CleoBot features a built-in authentication system for secure web UI access:
+
+**First Run:**
+- Visit `http://localhost:18789`
+- You'll see a setup wizard
+- Create your admin username and password
+- System generates an API key for programmatic access
+
+**Login:**
+- Username/password authentication
+- 30-day session cookies
+- API keys for scripts and integrations
+
+**API Endpoints:**
+- `POST /api/auth/setup` — Create first admin
+- `POST /api/auth/sign-in` — User login
+- `GET /api/auth/session` — Check authentication
+- `POST /api/auth/sign-out` — Logout
+
+**Legacy Compatibility:**
+- Old gateway tokens still work
+- Set `CLEOBOT_GATEWAY_TOKEN` for backward compatibility
+
+📖 See [Authentication Guide](docs/AUTH.md) for details.
+
 ## Configuration
 
 CleoBot uses JSON configuration files. Example configs in `examples/configs/`:
