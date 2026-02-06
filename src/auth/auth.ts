@@ -53,6 +53,7 @@ export type ApiKeyScope = keyof typeof API_KEY_SCOPES;
 
 // Better-Auth instance (internal - not exported to avoid TS4023 type issues)
 const authInstance = betterAuth({
+  baseURL: process.env.BETTER_AUTH_BASE_URL || "http://localhost:18789",
   database: {
     db,
     type: "sqlite",
