@@ -3,6 +3,8 @@ import type { AppViewState } from "./app-view-state";
 import { parseAgentSessionKey } from "../../../src/routing/session-key.js";
 import { refreshChatAvatar } from "./app-chat";
 import { renderChatControls, renderTab, renderThemeToggle } from "./app-render.helpers";
+import { renderLogin } from "./views/login.js";
+import { renderSetupWizard } from "./views/setup-wizard.js";
 import { loadAgentFileContent, loadAgentFiles, saveAgentFile } from "./controllers/agent-files";
 import { loadAgentIdentities, loadAgentIdentity } from "./controllers/agent-identity";
 import { loadAgentSkills } from "./controllers/agent-skills";
