@@ -50,8 +50,21 @@ export function handleConnected(host: LifecycleHost) {
   }
 }
 
-export function handleFirstUpdated(host: LifecycleHost) {
+export async function handleFirstUpdated(host: LifecycleHost) {
   observeTopbar(host as unknown as Parameters<typeof observeTopbar>[0]);
+  
+  // Check if this is first-run and should show setup wizard
+  if (!host.onboarding) {
+    try {
+      const response = await fetch("/api/auth/first-run");
+      const data = await response.json();
+      if (data.firstRun === true) {
+        host.onboarding = true;
+      }
+    } catch (error) {
+      console.error("Failed to check first-run status:", error);
+    }
+  }
 }
 
 export function handleDisconnected(host: LifecycleHost) {
