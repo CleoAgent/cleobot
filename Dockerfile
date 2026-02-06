@@ -36,6 +36,9 @@ COPY scripts ./scripts
 
 RUN pnpm install --frozen-lockfile
 
+# Force rebuild of better-sqlite3 to ensure native module is compiled
+RUN pnpm rebuild better-sqlite3
+
 COPY . .
 RUN CLEOBOT_A2UI_SKIP_MISSING=1 pnpm build
 # Force pnpm for UI build (Bun may fail on ARM/Synology architectures)
