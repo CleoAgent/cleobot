@@ -142,6 +142,11 @@ export function isUnhandledRejectionHandled(reason: unknown): boolean {
 
 export function installUnhandledRejectionHandler(): void {
   process.on("unhandledRejection", (reason, _promise) => {
+    // DEBUG: Log raw error to diagnose empty error messages
+    console.error("[openclaw] RAW unhandled rejection:", reason);
+    console.error("[openclaw] RAW rejection type:", typeof reason);
+    console.error("[openclaw] RAW rejection constructor:", reason?.constructor?.name);
+
     if (isUnhandledRejectionHandled(reason)) {
       return;
     }
