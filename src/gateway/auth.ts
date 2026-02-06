@@ -1,6 +1,7 @@
 import type { IncomingMessage } from "node:http";
 import { timingSafeEqual } from "node:crypto";
 import type { GatewayAuthConfig, GatewayTailscaleMode } from "../config/config.js";
+import { getSession, validateApiKey } from "../auth/index.js";
 import { readTailscaleWhoisIdentity, type TailscaleWhoisIdentity } from "../infra/tailscale.js";
 import { isTrustedProxyAddress, parseForwardedForClientIp, resolveGatewayClientIp } from "./net.js";
 export type ResolvedGatewayAuthMode = "token" | "password";
@@ -245,6 +246,38 @@ export async function authorizeGatewayConnect(params: {
   const { auth, connectAuth, req, trustedProxies } = params;
   const tailscaleWhois = params.tailscaleWhois ?? readTailscaleWhoisIdentity;
   const localDirect = isLocalDirectRequest(req, trustedProxies);
+
+  // Check Better-Auth session cookie first (highest priority)
+  if (req?.headers.cookie) {
+    try {
+      const session = await getSession(req.headers.cookie);
+      if (session?.user) {
+        return {
+          ok: true,
+          method: "token", // Use "token" for compatibility
+          user: session.user.name || session.user.email,
+        };
+      }
+    } catch {
+      // Session invalid or expired, continue to other auth methods
+    }
+  }
+
+  // Check for API key in Authorization header
+  const authHeader = req?.headers.authorization;
+  if (authHeader?.startsWith("Bearer ")) {
+    const token = authHeader.slice(7);
+    if (token.startsWith("cleobot_")) {
+      const result = validateApiKey(token);
+      if (result.valid) {
+        return {
+          ok: true,
+          method: "token",
+          user: result.userId,
+        };
+      }
+    }
+  }
 
   if (auth.allowTailscale && !localDirect) {
     const tailscaleCheck = await resolveVerifiedTailscaleUser({
