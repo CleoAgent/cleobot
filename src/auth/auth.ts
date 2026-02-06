@@ -5,6 +5,7 @@
 
 import { betterAuth } from "better-auth";
 import Database, { type Database as DatabaseType } from "better-sqlite3";
+import { randomBytes, randomUUID, createHash } from "node:crypto";
 import { mkdirSync, existsSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
@@ -151,12 +152,11 @@ export function generateApiKey(
   name: string,
   scopes: ApiKeyScope[] = ["agents:execute"],
 ): { key: string; prefix: string; id: string } {
-  const crypto = require("node:crypto");
-  const id = crypto.randomUUID();
-  const rawKey = crypto.randomBytes(32).toString("base64url");
+  const id = randomUUID();
+  const rawKey = randomBytes(32).toString("base64url");
   const prefix = `cleobot_${rawKey.slice(0, 8)}`;
   const fullKey = `${prefix}_${rawKey}`;
-  const keyHash = crypto.createHash("sha256").update(fullKey).digest("hex");
+  const keyHash = createHash("sha256").update(fullKey).digest("hex");
 
   db.prepare(`
     INSERT INTO api_keys (id, user_id, name, key_hash, prefix, scopes, created_at)
@@ -171,8 +171,7 @@ export function validateApiKey(key: string): {
   userId?: string;
   scopes?: ApiKeyScope[];
 } {
-  const crypto = require("node:crypto");
-  const keyHash = crypto.createHash("sha256").update(key).digest("hex");
+  const keyHash = createHash("sha256").update(key).digest("hex");
 
   const row = db
     .prepare(`
