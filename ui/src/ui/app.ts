@@ -79,6 +79,8 @@ import { resolveInjectedAssistantIdentity } from "./assistant-identity";
 import { loadAssistantIdentity as loadAssistantIdentityInternal } from "./controllers/assistant-identity";
 import { loadSettings, type UiSettings } from "./storage";
 import { type ChatAttachment, type ChatQueueItem, type CronFormState } from "./ui-types";
+import { createDefaultLoginState, type LoginState } from "./views/login.js";
+import { createDefaultSetupState, type SetupState } from "./views/setup-wizard.js";
 
 declare global {
   interface Window {
@@ -107,6 +109,8 @@ export class CleoBotApp extends LitElement {
   @state() password = "";
   @state() tab: Tab = "chat";
   @state() onboarding = resolveOnboardingMode();
+  @state() loginState: LoginState = createDefaultLoginState();
+  @state() setupState: SetupState = createDefaultSetupState();
   @state() connected = false;
   @state() theme: ThemeMode = this.settings.theme ?? "system";
   @state() themeResolved: ResolvedTheme = "dark";

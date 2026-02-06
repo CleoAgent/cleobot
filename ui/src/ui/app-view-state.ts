@@ -8,6 +8,8 @@ import type { Tab } from "./navigation";
 import type { UiSettings } from "./storage";
 import type { ThemeMode } from "./theme";
 import type { ThemeTransitionContext } from "./theme-transition";
+import type { LoginState } from "./views/login.js";
+import type { SetupState } from "./views/setup-wizard.js";
 import type {
   AgentsListResult,
   AgentsFilesListResult,
@@ -36,6 +38,8 @@ export type AppViewState = {
   onboarding: boolean;
   basePath: string;
   connected: boolean;
+  loginState: LoginState;
+  setupState: SetupState;
   theme: ThemeMode;
   themeResolved: "light" | "dark";
   hello: GatewayHelloOk | null;
