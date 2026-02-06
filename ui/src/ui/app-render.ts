@@ -195,6 +195,45 @@ export function renderApp(state: AppViewState) {
           </div>
         </section>
 
+        <!-- Auth and Setup Views -->
+        ${state.onboarding
+            ? html`${renderSetup(state, state.setupState, (updates) => {
+                state.setupState = { ...state.setupState, ...updates };
+              }, async () => {
+                state.setupState.loading = true;
+                const result = await completeSetup(
+                  state.setupState.username,
+                  state.setupState.password
+                );
+                state.setupState.loading = false;
+                if (result.success) {
+                  state.onboarding = false;
+                } else {
+                  state.setupState.error = result.error;
+                }
+              })}
+            `
+            : !state.connected
+            ? html`${renderLogin(state, state.loginState, (updates) => {
+                state.loginState = { ...state.loginState, ...updates };
+              }, async () => {
+                state.loginState.loading = true;
+                const result = await attemptLogin(
+                  state.loginState.username,
+                  state.loginState.password
+                );
+                state.loginState.loading = false;
+                if (result.success) {
+                  state.tab = 'overview';
+                  await state.loadOverview();
+                } else {
+                  state.loginState.error = result.error;
+                }
+              })}
+            ` : nothing}
+
+
+
         ${
           state.tab === "overview"
             ? renderOverview({
