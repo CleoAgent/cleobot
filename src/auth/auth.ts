@@ -197,8 +197,14 @@ export function revokeApiKey(keyId: string, userId: string): boolean {
 
 // Check if this is first run (no users exist)
 export function isFirstRun(): boolean {
-  const count = db.prepare("SELECT COUNT(*) as count FROM user").get() as { count: number };
-  return count.count === 0;
+  try {
+    const count = db.prepare("SELECT COUNT(*) as count FROM user").get() as { count: number };
+    return count.count === 0;
+  } catch (error) {
+    // If table doesn't exist yet (SQLITE_ERROR), this is definitely first run
+    // Better-Auth will create the user table on first use
+    return true;
+  }
 }
 
 // Create first admin user
