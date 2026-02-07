@@ -64,7 +64,7 @@ export async function attemptLogin(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: `${username}@cleobot.local`,
+        username,
         password,
       }),
     });
