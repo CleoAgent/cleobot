@@ -133,7 +133,7 @@ describe("BrowserProfilesService", () => {
       },
     });
 
-    const tempDir = fs.mkdtempSync(path.join("/tmp", "openclaw-profile-"));
+    const tempDir = fs.mkdtemp(path.join(os.tmpdir(), "cleobot-profile-"));
     const userDataDir = path.join(tempDir, "work", "user-data");
     fs.mkdirSync(path.dirname(userDataDir), { recursive: true });
     vi.mocked(resolveCleoBotUserDataDir).mockReturnValue(userDataDir);

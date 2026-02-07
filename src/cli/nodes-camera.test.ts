@@ -55,7 +55,7 @@ describe("nodes camera helpers", () => {
   });
 
   it("writes base64 to file", async () => {
-    const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-test-"));
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-test-"));
     const out = path.join(dir, "x.bin");
     await writeBase64ToFile(out, "aGk=");
     await expect(fs.readFile(out, "utf8")).resolves.toBe("hi");

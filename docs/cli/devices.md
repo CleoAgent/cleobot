@@ -1,18 +1,18 @@
 ---
-summary: "CLI reference for `openclaw devices` (device pairing + token rotation/revocation)"
+summary: "CLI reference for `cleobot devices` (device pairing + token rotation/revocation)"
 read_when:
   - You are approving device pairing requests
   - You need to rotate or revoke device tokens
 title: "devices"
 ---
 
-# `openclaw devices`
+# `cleobot devices`
 
 Manage device pairing requests and device-scoped tokens.
 
 ## Commands
 
-### `openclaw devices list`
+### `cleobot devices list`
 
 List pending pairing requests and paired devices.
 
@@ -21,7 +21,7 @@ openclaw devices list
 openclaw devices list --json
 ```
 
-### `openclaw devices approve <requestId>`
+### `cleobot devices approve <requestId>`
 
 Approve a pending device pairing request.
 
@@ -29,7 +29,7 @@ Approve a pending device pairing request.
 openclaw devices approve <requestId>
 ```
 
-### `openclaw devices reject <requestId>`
+### `cleobot devices reject <requestId>`
 
 Reject a pending device pairing request.
 
@@ -37,7 +37,7 @@ Reject a pending device pairing request.
 openclaw devices reject <requestId>
 ```
 
-### `openclaw devices rotate --device <id> --role <role> [--scope <scope...>]`
+### `cleobot devices rotate --device <id> --role <role> [--scope <scope...>]`
 
 Rotate a device token for a specific role (optionally updating scopes).
 
@@ -45,7 +45,7 @@ Rotate a device token for a specific role (optionally updating scopes).
 openclaw devices rotate --device <deviceId> --role operator --scope operator.read --scope operator.write
 ```
 
-### `openclaw devices revoke --device <id> --role <role>`
+### `cleobot devices revoke --device <id> --role <role>`
 
 Revoke a device token for a specific role.
 

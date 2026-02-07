@@ -94,7 +94,7 @@ describe("resolveTaskScriptPath", () => {
 
 describe("readScheduledTaskCommand", () => {
   it("parses basic command script", async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-schtasks-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-schtasks-test-"));
     try {
       const scriptPath = path.join(tmpDir, ".cleobot", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
@@ -115,7 +115,7 @@ describe("readScheduledTaskCommand", () => {
   });
 
   it("parses script with working directory", async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-schtasks-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-schtasks-test-"));
     try {
       const scriptPath = path.join(tmpDir, ".cleobot", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
@@ -137,7 +137,7 @@ describe("readScheduledTaskCommand", () => {
   });
 
   it("parses script with environment variables", async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-schtasks-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-schtasks-test-"));
     try {
       const scriptPath = path.join(tmpDir, ".cleobot", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
@@ -162,7 +162,7 @@ describe("readScheduledTaskCommand", () => {
   });
 
   it("parses script with quoted arguments containing spaces", async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-schtasks-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-schtasks-test-"));
     try {
       const scriptPath = path.join(tmpDir, ".cleobot", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
@@ -184,7 +184,7 @@ describe("readScheduledTaskCommand", () => {
   });
 
   it("returns null when script does not exist", async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-schtasks-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-schtasks-test-"));
     try {
       const env = { USERPROFILE: tmpDir, CLEOBOT_PROFILE: "default" };
       const result = await readScheduledTaskCommand(env);
@@ -195,7 +195,7 @@ describe("readScheduledTaskCommand", () => {
   });
 
   it("returns null when script has no command", async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-schtasks-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-schtasks-test-"));
     try {
       const scriptPath = path.join(tmpDir, ".cleobot", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
@@ -214,7 +214,7 @@ describe("readScheduledTaskCommand", () => {
   });
 
   it("parses full script with all components", async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-schtasks-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-schtasks-test-"));
     try {
       const scriptPath = path.join(tmpDir, ".cleobot", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });

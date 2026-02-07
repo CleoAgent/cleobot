@@ -58,7 +58,7 @@ Params:
 
 - WhatsApp: 2-12 options, `maxSelections` must be within option count, ignores `durationHours`.
 - Discord: 2-10 options, `durationHours` clamped to 1-768 hours (default 24). `maxSelections > 1` enables multi-select; Discord does not support a strict selection count.
-- MS Teams: Adaptive Card polls (OpenClaw-managed). No native poll API; `durationHours` is ignored.
+- MS Teams: Adaptive Card polls (CleoBot-managed). No native poll API; `durationHours` is ignored.
 
 ## Agent tool (Message)
 
@@ -66,4 +66,4 @@ Use the `message` tool with `poll` action (`to`, `pollQuestion`, `pollOption`, o
 
 Note: Discord has no “pick exactly N” mode; `pollMulti` maps to multi-select.
 Teams polls are rendered as Adaptive Cards and require the gateway to stay online
-to record votes in `~/.openclaw/msteams-polls.json`.
+to record votes in `~/.cleobot/msteams-polls.json`.

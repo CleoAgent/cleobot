@@ -209,7 +209,7 @@ vi.mock("../gateway/call.js", async (importOriginal) => {
 vi.mock("../gateway/session-utils.js", () => ({
   listAgentsForGateway: mocks.listAgentsForGateway,
 }));
-vi.mock("../infra/openclaw-root.js", () => ({
+vi.mock("../infra/cleobot-root.js", () => ({
   resolveCleoBotPackageRoot: vi.fn().mockResolvedValue("/tmp/openclaw"),
 }));
 vi.mock("../infra/os-summary.js", () => ({

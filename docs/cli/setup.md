@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `openclaw setup` (initialize config + workspace)"
+summary: "CLI reference for `cleobot setup` (initialize config + workspace)"
 read_when:
   - You’re doing first-run setup without the full onboarding wizard
   - You want to set the default workspace path
 title: "setup"
 ---
 
-# `openclaw setup`
+# `cleobot setup`
 
 Initialize `~/.openclaw/openclaw.json` and the agent workspace.
 

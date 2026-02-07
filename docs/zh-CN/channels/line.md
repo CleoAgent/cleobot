@@ -1,6 +1,6 @@
 ---
 read_when:
-  - 你想将 OpenClaw 连接到 LINE
+  - 你想将 CleoBot 连接到 LINE
   - 你需要 LINE webhook + 凭据设置
   - 你需要 LINE 特定的消息选项
 summary: LINE Messaging API 插件设置、配置和使用
@@ -16,7 +16,7 @@ x-i18n:
 
 # LINE（插件）
 
-LINE 通过 LINE Messaging API 连接到 OpenClaw。插件作为 Gateway网关上的 webhook 接收器运行，使用你的频道访问 token + 频道密钥进行认证。
+LINE 通过 LINE Messaging API 连接到 CleoBot。插件作为 Gateway网关上的 webhook 接收器运行，使用你的频道访问 token + 频道密钥进行认证。
 
 状态：通过插件支持。支持私信、群聊、媒体、位置、Flex 消息、模板消息和快速回复。不支持回应和线程。
 

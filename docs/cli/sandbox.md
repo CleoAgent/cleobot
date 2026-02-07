@@ -11,11 +11,11 @@ Manage Docker-based sandbox containers for isolated agent execution.
 
 ## Overview
 
-OpenClaw can run agents in isolated Docker containers for security. The `sandbox` commands help you manage these containers, especially after updates or configuration changes.
+CleoBot can run agents in isolated Docker containers for security. The `sandbox` commands help you manage these containers, especially after updates or configuration changes.
 
 ## Commands
 
-### `openclaw sandbox explain`
+### `cleobot sandbox explain`
 
 Inspect the **effective** sandbox mode/scope/workspace access, sandbox tool policy, and elevated gates (with fix-it config key paths).
 
@@ -26,7 +26,7 @@ openclaw sandbox explain --agent work
 openclaw sandbox explain --json
 ```
 
-### `openclaw sandbox list`
+### `cleobot sandbox list`
 
 List all sandbox containers with their status and configuration.
 
@@ -44,7 +44,7 @@ openclaw sandbox list --json     # JSON output
 - Idle time (time since last use)
 - Associated session/agent
 
-### `openclaw sandbox recreate`
+### `cleobot sandbox recreate`
 
 Remove sandbox containers to force recreation with updated images/config.
 
@@ -72,8 +72,8 @@ openclaw sandbox recreate --all --force        # Skip confirmation
 
 ```bash
 # Pull new image
-docker pull openclaw-sandbox:latest
-docker tag openclaw-sandbox:latest openclaw-sandbox:bookworm-slim
+docker pull cleobot-sandbox:latest
+docker tag cleobot-sandbox:latest cleobot-sandbox:bookworm-slim
 
 # Update config to use new image
 # Edit config: agents.defaults.sandbox.docker.image (or agents.list[].sandbox.docker.image)
@@ -114,9 +114,9 @@ openclaw sandbox recreate --agent alfred
 - Containers are only pruned after 24h of inactivity
 - Regularly-used agents keep old containers running indefinitely
 
-**Solution:** Use `openclaw sandbox recreate` to force removal of old containers. They'll be recreated automatically with current settings when next needed.
+**Solution:** Use `cleobot sandbox recreate` to force removal of old containers. They'll be recreated automatically with current settings when next needed.
 
-Tip: prefer `openclaw sandbox recreate` over manual `docker rm`. It uses the
+Tip: prefer `cleobot sandbox recreate` over manual `docker rm`. It uses the
 Gateway’s container naming and avoids mismatches when scope/session keys change.
 
 ## Configuration
@@ -131,8 +131,8 @@ Sandbox settings live in `~/.openclaw/openclaw.json` under `agents.defaults.sand
         "mode": "all", // off, non-main, all
         "scope": "agent", // session, agent, shared
         "docker": {
-          "image": "openclaw-sandbox:bookworm-slim",
-          "containerPrefix": "openclaw-sbx-",
+          "image": "cleobot-sandbox:bookworm-slim",
+          "containerPrefix": "cleobot-sbx-",
           // ... more Docker options
         },
         "prune": {

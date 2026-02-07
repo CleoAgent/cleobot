@@ -6,7 +6,7 @@ import { resolveControlUiDistIndexPath, resolveControlUiRepoRoot } from "./contr
 
 describe("control UI assets helpers", () => {
   it("resolves repo root from src argv1", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-ui-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-ui-"));
     try {
       await fs.mkdir(path.join(tmp, "ui"), { recursive: true });
       await fs.writeFile(path.join(tmp, "ui", "vite.config.ts"), "export {};\n");
@@ -21,7 +21,7 @@ describe("control UI assets helpers", () => {
   });
 
   it("resolves repo root from dist argv1", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-ui-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-ui-"));
     try {
       await fs.mkdir(path.join(tmp, "ui"), { recursive: true });
       await fs.writeFile(path.join(tmp, "ui", "vite.config.ts"), "export {};\n");
@@ -44,7 +44,7 @@ describe("control UI assets helpers", () => {
   });
 
   it("resolves dist control-ui index path from package root argv1", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-ui-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-ui-"));
     try {
       await fs.writeFile(path.join(tmp, "package.json"), JSON.stringify({ name: "openclaw" }));
       await fs.writeFile(path.join(tmp, "openclaw.mjs"), "export {};\n");
@@ -60,7 +60,7 @@ describe("control UI assets helpers", () => {
   });
 
   it("resolves dist control-ui index path from .bin argv1", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-ui-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-ui-"));
     try {
       const binDir = path.join(tmp, "node_modules", ".bin");
       const pkgRoot = path.join(tmp, "node_modules", "openclaw");

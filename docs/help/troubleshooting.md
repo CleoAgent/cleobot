@@ -48,7 +48,7 @@ For beta installs:
 curl -fsSL https://openclaw.ai/install.sh | bash -s -- --beta --verbose
 ```
 
-You can also set `OPENCLAW_VERBOSE=1` instead of the flag.
+You can also set `CLEOBOT_VERBOSE=1` instead of the flag.
 
 ### Gateway “unauthorized”, can’t connect, or keeps reconnecting
 
@@ -83,7 +83,7 @@ Disable Advanced Security or add `docs.openclaw.ai` to the allowlist, then retry
 This usually means `agents.defaults.models` is configured as an allowlist. When it’s non-empty,
 only those provider/model keys can be selected.
 
-- Check the allowlist: `openclaw config get agents.defaults.models`
+- Check the allowlist: `cleobot config get agents.defaults.models`
 - Add the model you want (or clear the allowlist) and retry `/model`
 - Use `/models` to browse the allowed providers/models
 
@@ -95,4 +95,4 @@ Paste a safe report:
 openclaw status --all
 ```
 
-If you can, include the relevant log tail from `openclaw logs --follow`.
+If you can, include the relevant log tail from `cleobot logs --follow`.

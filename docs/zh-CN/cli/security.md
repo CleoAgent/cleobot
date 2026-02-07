@@ -2,7 +2,7 @@
 read_when:
   - 想要对配置/状态进行快速安全审计
   - 想要应用安全的"修复"建议（chmod、收紧默认值）
-summary: 审计和修复常见安全隐患的 `openclaw security` CLI 参考
+summary: 审计和修复常见安全隐患的 `cleobot security` CLI 参考
 title: security
 x-i18n:
   generated_at: "2026-02-01T20:21:24Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 14
 ---
 
-# `openclaw security`
+# `cleobot security`
 
 安全工具（审计 + 可选修复）。
 

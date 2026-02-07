@@ -1,7 +1,7 @@
 ---
 read_when:
   - 添加或修改智能体 CLI 入口点
-summary: 直接通过 `openclaw agent` CLI 运行（支持可选的消息投递）
+summary: 直接通过 `cleobot agent` CLI 运行（支持可选的消息投递）
 title: 智能体发送
 x-i18n:
   generated_at: "2026-02-01T21:39:16Z"
@@ -12,9 +12,9 @@ x-i18n:
   workflow: 15
 ---
 
-# `openclaw agent`（直接运行智能体）
+# `cleobot agent`（直接运行智能体）
 
-`openclaw agent` 无需入站聊天消息即可运行单次智能体轮次。
+`cleobot agent` 无需入站聊天消息即可运行单次智能体轮次。
 默认情况下它**通过 Gateway网关** 运行；添加 `--local` 可强制使用当前机器上的嵌入式
 运行时。
 
@@ -30,7 +30,7 @@ x-i18n:
 - 输出：
   - 默认：打印回复文本（加上 `MEDIA:<url>` 行）
   - `--json`：打印结构化载荷 + 元数据
-- 可选通过 `--deliver` + `--channel` 将回复投递回渠道（目标格式与 `openclaw message --target` 一致）。
+- 可选通过 `--deliver` + `--channel` 将回复投递回渠道（目标格式与 `cleobot message --target` 一致）。
 - 使用 `--reply-channel`/`--reply-to`/`--reply-account` 可在不改变会话的情况下覆盖投递设置。
 
 如果 Gateway网关不可达，CLI 会**回退**到嵌入式本地运行。

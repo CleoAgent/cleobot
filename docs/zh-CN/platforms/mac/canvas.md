@@ -22,17 +22,17 @@ macOS 应用使用 `WKWebView` 嵌入了一个智能体控制的 **Canvas 面板
 
 Canvas 状态存储在 Application Support 目录下：
 
-- `~/Library/Application Support/OpenClaw/canvas/<session>/...`
+- `~/Library/Application Support/CleoBot/canvas/<session>/...`
 
 Canvas 面板通过**自定义 URL scheme** 提供这些文件：
 
-- `openclaw-canvas://<session>/<path>`
+- `cleobot-canvas://<session>/<path>`
 
 示例：
 
-- `openclaw-canvas://main/` → `<canvasRoot>/main/index.html`
-- `openclaw-canvas://main/assets/app.css` → `<canvasRoot>/main/assets/app.css`
-- `openclaw-canvas://main/widgets/todo/` → `<canvasRoot>/main/widgets/todo/index.html`
+- `cleobot-canvas://main/` → `<canvasRoot>/main/index.html`
+- `cleobot-canvas://main/assets/app.css` → `<canvasRoot>/main/assets/app.css`
+- `cleobot-canvas://main/widgets/todo/` → `<canvasRoot>/main/widgets/todo/index.html`
 
 如果根目录下不存在 `index.html`，应用会显示一个**内置脚手架页面**。
 

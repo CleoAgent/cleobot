@@ -1,5 +1,5 @@
 ---
-description: Deploy OpenClaw on Fly.io
+description: Deploy CleoBot on Fly.io
 title: Fly.io
 x-i18n:
   generated_at: "2026-02-01T21:21:15Z"
@@ -12,7 +12,7 @@ x-i18n:
 
 # Fly.io 部署
 
-**目标：** 在 [Fly.io](https://fly.io) 机器上运行 OpenClaw Gateway网关，配备持久化存储、自动 HTTPS 和 Discord/渠道访问。
+**目标：** 在 [Fly.io](https://fly.io) 机器上运行 CleoBot Gateway网关，配备持久化存储、自动 HTTPS 和 Discord/渠道访问。
 
 ## 你需要什么
 
@@ -59,8 +59,8 @@ primary_region = "iad"
 
 [env]
   NODE_ENV = "production"
-  OPENCLAW_PREFER_PNPM = "1"
-  OPENCLAW_STATE_DIR = "/data"
+  CLEOBOT_PREFER_PNPM = "1"
+  CLEOBOT_STATE_DIR = "/data"
   NODE_OPTIONS = "--max-old-space-size=1536"
 
 [processes]
@@ -89,15 +89,15 @@ primary_region = "iad"
 | ------------------------------ | ------------------------------------------------------------------------- |
 | `--bind lan`                   | 绑定到 `0.0.0.0`，使 Fly 的代理能够访问 Gateway网关                       |
 | `--allow-unconfigured`         | 无需配置文件即可启动（之后再创建）                                        |
-| `internal_port = 3000`         | 必须与 `--port 3000`（或 `OPENCLAW_GATEWAY_PORT`）匹配，用于 Fly 健康检查 |
+| `internal_port = 3000`         | 必须与 `--port 3000`（或 `CLEOBOT_GATEWAY_PORT`）匹配，用于 Fly 健康检查 |
 | `memory = "2048mb"`            | 512MB 太小；推荐 2GB                                                      |
-| `OPENCLAW_STATE_DIR = "/data"` | 将状态持久化到卷上                                                        |
+| `CLEOBOT_STATE_DIR = "/data"` | 将状态持久化到卷上                                                        |
 
 ## 3）设置密钥
 
 ```bash
 # 必需：Gateway网关令牌（用于非 local loopback 绑定）
-fly secrets set OPENCLAW_GATEWAY_TOKEN=$(openssl rand -hex 32)
+fly secrets set CLEOBOT_GATEWAY_TOKEN=$(openssl rand -hex 32)
 
 # 模型提供商 API 密钥
 fly secrets set ANTHROPIC_API_KEY=sk-ant-...
@@ -112,7 +112,7 @@ fly secrets set DISCORD_BOT_TOKEN=MTQ...
 
 **注意事项：**
 
-- 非 local loopback 绑定（`--bind lan`）出于安全需要 `OPENCLAW_GATEWAY_TOKEN`。
+- 非 local loopback 绑定（`--bind lan`）出于安全需要 `CLEOBOT_GATEWAY_TOKEN`。
 - 请像对待密码一样对待这些令牌。
 - **所有 API 密钥和令牌优先使用环境变量而非配置文件**。这样可以避免密钥出现在 `openclaw.json` 中，防止意外暴露或被记录到日志。
 
@@ -202,7 +202,7 @@ cat > /data/openclaw.json << 'EOF'
 EOF
 ```
 
-**注意：** 当 `OPENCLAW_STATE_DIR=/data` 时，配置路径为 `/data/openclaw.json`。
+**注意：** 当 `CLEOBOT_STATE_DIR=/data` 时，配置路径为 `/data/openclaw.json`。
 
 **注意：** Discord 令牌可以来自：
 
@@ -230,7 +230,7 @@ fly open
 
 或访问 `https://my-openclaw.fly.dev/`
 
-粘贴你的 Gateway网关令牌（即 `OPENCLAW_GATEWAY_TOKEN` 的值）进行认证。
+粘贴你的 Gateway网关令牌（即 `CLEOBOT_GATEWAY_TOKEN` 的值）进行认证。
 
 ### 日志
 
@@ -257,7 +257,7 @@ Gateway网关绑定到了 `127.0.0.1` 而不是 `0.0.0.0`。
 
 Fly 无法通过配置的端口访问 Gateway网关。
 
-**修复：** 确保 `internal_port` 与 Gateway网关端口匹配（设置 `--port 3000` 或 `OPENCLAW_GATEWAY_PORT=3000`）。
+**修复：** 确保 `internal_port` 与 Gateway网关端口匹配（设置 `--port 3000` 或 `CLEOBOT_GATEWAY_PORT=3000`）。
 
 ### 内存不足（OOM）/ 内存问题
 
@@ -326,7 +326,7 @@ fly ssh console --command "rm /data/openclaw.json"
 
 如果重启后凭据或会话丢失，说明状态目录写入了容器文件系统。
 
-**修复：** 确保 `fly.toml` 中设置了 `OPENCLAW_STATE_DIR=/data` 并重新部署。
+**修复：** 确保 `fly.toml` 中设置了 `CLEOBOT_STATE_DIR=/data` 并重新部署。
 
 ## 更新
 

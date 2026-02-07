@@ -7,7 +7,7 @@ title: "Tlon"
 
 # Tlon (plugin)
 
-Tlon is a decentralized messenger built on Urbit. OpenClaw connects to your Urbit ship and can
+Tlon is a decentralized messenger built on Urbit. CleoBot connects to your Urbit ship and can
 respond to DMs and group chat messages. Group replies require an @ mention by default and can
 be further restricted via allowlists.
 
@@ -120,7 +120,7 @@ Group authorization (restricted by default):
 
 ## Delivery targets (CLI/cron)
 
-Use these with `openclaw message send` or cron delivery:
+Use these with `cleobot message send` or cron delivery:
 
 - DM: `~sampel-palnet` or `dm/~sampel-palnet`
 - Group: `chat/~host-ship/channel` or `group:~host-ship/channel`
@@ -128,5 +128,5 @@ Use these with `openclaw message send` or cron delivery:
 ## Notes
 
 - Group replies require a mention (e.g. `~your-bot-ship`) to respond.
-- Thread replies: if the inbound message is in a thread, OpenClaw replies in-thread.
+- Thread replies: if the inbound message is in a thread, CleoBot replies in-thread.
 - Media: `sendMedia` falls back to text + URL (no native upload).

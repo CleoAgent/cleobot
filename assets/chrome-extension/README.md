@@ -1,10 +1,10 @@
-# OpenClaw Chrome Extension (Browser Relay)
+# CleoBot Chrome Extension (Browser Relay)
 
-Purpose: attach OpenClaw to an existing Chrome tab so the Gateway can automate it (via the local CDP relay server).
+Purpose: attach CleoBot to an existing Chrome tab so the Gateway can automate it (via the local CDP relay server).
 
 ## Dev / load unpacked
 
-1. Build/run OpenClaw Gateway with browser control enabled.
+1. Build/run CleoBot Gateway with browser control enabled.
 2. Ensure the relay server is reachable at `http://127.0.0.1:18792/` (default).
 3. Install the extension to a stable path:
 

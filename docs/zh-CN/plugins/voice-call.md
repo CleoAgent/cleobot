@@ -1,6 +1,6 @@
 ---
 read_when:
-  - 你想通过 OpenClaw 发起外呼语音通话
+  - 你想通过 CleoBot 发起外呼语音通话
   - 你正在配置或开发语音通话插件
 summary: 语音通话插件：通过 Twilio/Telnyx/Plivo 进行外呼和来电（插件安装 + 配置 + CLI）
 title: 语音通话插件
@@ -15,7 +15,7 @@ x-i18n:
 
 # 语音通话（插件）
 
-通过插件为 OpenClaw 提供语音通话功能。支持外呼通知和多轮对话的来电策略。
+通过插件为 CleoBot 提供语音通话功能。支持外呼通知和多轮对话的来电策略。
 
 当前支持的提供商：
 
@@ -29,7 +29,7 @@ x-i18n:
 - 安装插件
 - 重启 Gateway网关
 - 在 `plugins.entries.voice-call.config` 下进行配置
-- 使用 `openclaw voicecall ...` 或 `voice_call` 工具
+- 使用 `cleobot voicecall ...` 或 `voice_call` 工具
 
 ## 运行位置（本地 vs 远程）
 
@@ -218,7 +218,7 @@ cd ./extensions/voice-call && pnpm install
 ## CLI
 
 ```bash
-openclaw voicecall call --to "+15555550123" --message "Hello from OpenClaw"
+openclaw voicecall call --to "+15555550123" --message "Hello from CleoBot"
 openclaw voicecall continue --call-id <id> --message "Any questions?"
 openclaw voicecall speak --call-id <id> --message "One moment"
 openclaw voicecall end --call-id <id>

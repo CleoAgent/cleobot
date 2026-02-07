@@ -13,7 +13,7 @@ A **node** is a companion device (macOS/iOS/Android/headless) that connects to t
 
 Legacy transport: [Bridge protocol](/gateway/bridge-protocol) (TCP JSONL; deprecated/removed for current nodes).
 
-macOS can also run in **node mode**: the menubar app connects to the Gateway’s WS server and exposes its local canvas/camera commands as a node (so `openclaw nodes …` works against this Mac).
+macOS can also run in **node mode**: the menubar app connects to the Gateway’s WS server and exposes its local canvas/camera commands as a node (so `cleobot nodes …` works against this Mac).
 
 Notes:
 
@@ -38,7 +38,7 @@ openclaw nodes describe --node <idOrNameOrIp>
 Notes:
 
 - `nodes status` marks a node as **paired** when its device pairing role includes `node`.
-- `node.pair.*` (CLI: `openclaw nodes pending/approve/reject`) is a separate gateway-owned
+- `node.pair.*` (CLI: `cleobot nodes pending/approve/reject`) is a separate gateway-owned
   node pairing store; it does **not** gate the WS `connect` handshake.
 
 ## Remote node host (system.run)
@@ -74,14 +74,14 @@ Example (node host -> gateway host):
 ssh -N -L 18790:127.0.0.1:18789 user@gateway-host
 
 # Terminal B: export the gateway token and connect through the tunnel
-export OPENCLAW_GATEWAY_TOKEN="<gateway-token>"
+export CLEOBOT_GATEWAY_TOKEN="<gateway-token>"
 openclaw node run --host 127.0.0.1 --port 18790 --display-name "Build Node"
 ```
 
 Notes:
 
 - The token is `gateway.auth.token` from the gateway config (`~/.openclaw/openclaw.json` on the gateway host).
-- `openclaw node run` reads `OPENCLAW_GATEWAY_TOKEN` for auth.
+- `cleobot node run` reads `CLEOBOT_GATEWAY_TOKEN` for auth.
 
 ### Start a node host (service)
 
@@ -102,8 +102,8 @@ openclaw nodes list
 
 Naming options:
 
-- `--display-name` on `openclaw node run` / `openclaw node install` (persists in `~/.openclaw/node.json` on the node).
-- `openclaw nodes rename --node <id|name|ip> --name "Build Node"` (gateway override).
+- `--display-name` on `cleobot node run` / `cleobot node install` (persists in `~/.openclaw/node.json` on the node).
+- `cleobot nodes rename --node <id|name|ip> --name "Build Node"` (gateway override).
 
 ### Allowlist the commands
 
@@ -252,7 +252,7 @@ Android nodes can expose `sms.send` when the user grants **SMS** permission and 
 Low-level invoke:
 
 ```bash
-openclaw nodes invoke --node <idOrNameOrIp> --command sms.send --params '{"to":"+15555550123","message":"Hello from OpenClaw"}'
+openclaw nodes invoke --node <idOrNameOrIp> --command sms.send --params '{"to":"+15555550123","message":"Hello from CleoBot"}'
 ```
 
 Notes:
@@ -314,7 +314,7 @@ Nodes may include a `permissions` map in `node.list` / `node.describe`, keyed by
 
 ## Headless node host (cross-platform)
 
-OpenClaw can run a **headless node host** (no UI) that connects to the Gateway
+CleoBot can run a **headless node host** (no UI) that connects to the Gateway
 WebSocket and exposes `system.run` / `system.which`. This is useful on Linux/Windows
 or for running a minimal node alongside a server.
 
@@ -331,11 +331,11 @@ Notes:
 - Exec approvals are enforced locally via `~/.openclaw/exec-approvals.json`
   (see [Exec approvals](/tools/exec-approvals)).
 - On macOS, the headless node host prefers the companion app exec host when reachable and falls
-  back to local execution if the app is unavailable. Set `OPENCLAW_NODE_EXEC_HOST=app` to require
-  the app, or `OPENCLAW_NODE_EXEC_FALLBACK=0` to disable fallback.
+  back to local execution if the app is unavailable. Set `CLEOBOT_NODE_EXEC_HOST=app` to require
+  the app, or `CLEOBOT_NODE_EXEC_FALLBACK=0` to disable fallback.
 - Add `--tls` / `--tls-fingerprint` when the Gateway WS uses TLS.
 
 ## Mac node mode
 
-- The macOS menubar app connects to the Gateway WS server as a node (so `openclaw nodes …` works against this Mac).
+- The macOS menubar app connects to the Gateway WS server as a node (so `cleobot nodes …` works against this Mac).
 - In remote mode, the app opens an SSH tunnel for the Gateway port and connects to `localhost`.

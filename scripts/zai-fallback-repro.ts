@@ -76,7 +76,7 @@ async function main() {
     process.exit(1);
   }
 
-  const baseDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-zai-fallback-"));
+  const baseDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-zai-fallback-"));
   const stateDir = path.join(baseDir, "state");
   const configPath = path.join(baseDir, "openclaw.json");
   await fs.mkdir(stateDir, { recursive: true });
@@ -98,14 +98,14 @@ async function main() {
   await fs.writeFile(configPath, JSON.stringify(config, null, 2), "utf8");
 
   const sessionId =
-    process.env.OPENCLAW_ZAI_FALLBACK_SESSION_ID ??
+    process.env.CLEOBOT_ZAI_FALLBACK_SESSION_ID ??
     process.env.CLAWDBOT_ZAI_FALLBACK_SESSION_ID ??
     randomUUID();
 
   const baseEnv: NodeJS.ProcessEnv = {
     ...process.env,
-    OPENCLAW_CONFIG_PATH: configPath,
-    OPENCLAW_STATE_DIR: stateDir,
+    CLEOBOT_CONFIG_PATH: configPath,
+    CLEOBOT_STATE_DIR: stateDir,
     CLAWDBOT_CONFIG_PATH: configPath,
     CLAWDBOT_STATE_DIR: stateDir,
     ZAI_API_KEY: zaiKey,

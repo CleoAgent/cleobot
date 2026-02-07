@@ -9,7 +9,7 @@ import {
 } from "./workspace-templates.js";
 
 async function makeTempRoot(): Promise<string> {
-  return await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-templates-"));
+  return await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-templates-"));
 }
 
 describe("resolveWorkspaceTemplateDir", () => {

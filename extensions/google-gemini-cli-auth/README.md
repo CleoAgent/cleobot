@@ -1,4 +1,4 @@
-# Google Gemini CLI Auth (OpenClaw plugin)
+# Google Gemini CLI Auth (CleoBot plugin)
 
 OAuth provider plugin for **Gemini CLI** (Google Code Assist).
 
@@ -31,5 +31,5 @@ brew install gemini-cli
 
 Override auto-detected credentials with:
 
-- `OPENCLAW_GEMINI_OAUTH_CLIENT_ID` / `GEMINI_CLI_OAUTH_CLIENT_ID`
-- `OPENCLAW_GEMINI_OAUTH_CLIENT_SECRET` / `GEMINI_CLI_OAUTH_CLIENT_SECRET`
+- `CLEOBOT_GEMINI_OAUTH_CLIENT_ID` / `GEMINI_CLI_OAUTH_CLIENT_ID`
+- `CLEOBOT_GEMINI_OAUTH_CLIENT_SECRET` / `GEMINI_CLI_OAUTH_CLIENT_SECRET`

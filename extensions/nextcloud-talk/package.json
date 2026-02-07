@@ -1,12 +1,12 @@
 {
   "name": "@openclaw/nextcloud-talk",
   "version": "2026.2.1",
-  "description": "OpenClaw Nextcloud Talk channel plugin",
+  "description": "CleoBot Nextcloud Talk channel plugin",
   "type": "module",
   "devDependencies": {
     "cleobot": "workspace:*"
   },
-  "openclaw": {
+  "cleobot": {
     "extensions": [
       "./index.ts"
     ],

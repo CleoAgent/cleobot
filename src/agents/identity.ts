@@ -50,7 +50,7 @@ export function resolveMessagePrefix(
     return "";
   }
 
-  return resolveIdentityNamePrefix(cfg, agentId) ?? opts?.fallback ?? "[openclaw]";
+  return resolveIdentityNamePrefix(cfg, agentId) ?? opts?.fallback ?? "[cleobot]";
 }
 
 export function resolveResponsePrefix(cfg: CleoBotConfig, agentId: string): string | undefined {

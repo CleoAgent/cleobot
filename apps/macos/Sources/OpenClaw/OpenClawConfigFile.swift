@@ -1,19 +1,19 @@
-import OpenClawProtocol
+import CleoBotProtocol
 import Foundation
 
-enum OpenClawConfigFile {
-    private static let logger = Logger(subsystem: "ai.openclaw", category: "config")
+enum CleoBotConfigFile {
+    private static let logger = Logger(subsystem: "ai.cleobot", category: "config")
 
     static func url() -> URL {
-        OpenClawPaths.configURL
+        CleoBotPaths.configURL
     }
 
     static func stateDirURL() -> URL {
-        OpenClawPaths.stateDirURL
+        CleoBotPaths.stateDirURL
     }
 
     static func defaultWorkspaceURL() -> URL {
-        OpenClawPaths.workspaceURL
+        CleoBotPaths.workspaceURL
     }
 
     static func loadDict() -> [String: Any] {

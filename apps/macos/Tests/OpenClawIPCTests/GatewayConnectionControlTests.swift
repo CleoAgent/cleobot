@@ -1,8 +1,8 @@
-import OpenClawKit
+import CleoBotKit
 import Foundation
 import Testing
-@testable import OpenClaw
-@testable import OpenClawIPC
+@testable import CleoBot
+@testable import CleoBotIPC
 
 private final class FakeWebSocketTask: WebSocketTasking, @unchecked Sendable {
     var state: URLSessionTask.State = .running

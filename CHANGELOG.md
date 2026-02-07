@@ -6,7 +6,7 @@ Docs: https://github.com/CleoAgent/cleobot
 
 ### Breaking Changes
 
-- **Rebrand:** OpenClaw is now **CleoBot**. Environment variables use `CLEOBOT_*` prefix.
+- **Rebrand:** CleoBot is now **CleoBot**. Environment variables use `CLEOBOT_*` prefix.
 - **Paths:** Default config directory is `~/.cleobot` (was `~/.openclaw`).
 - **Config:** Config file is `cleobot.json` (was `openclaw.json`).
 
@@ -33,7 +33,7 @@ Docs: https://github.com/CleoAgent/cleobot
 
 ### UI
 
-- **Rebrand:** OpenClawApp → CleoBotApp, updated all component names.
+- **Rebrand:** CleoBotApp → CleoBotApp, updated all component names.
 - **Title:** Web UI title changed to "CleoBot".
 
 ### Internal
@@ -199,7 +199,7 @@ Docs: https://github.com/CleoAgent/cleobot
 - Web UI: refresh sessions after chat commands and improve session display names.
 - Build: move TypeScript builds to `tsdown` + `tsgo` (faster builds, CI typechecks), update tsconfig target, and clean up lint rules.
 - Build: align npm tar override and bin metadata so the `openclaw` CLI entrypoint is preserved in npm publishes.
-- Docs: add pi/pi-dev docs and update OpenClaw branding + install links.
+- Docs: add pi/pi-dev docs and update CleoBot branding + install links.
 - Docker E2E: stabilize gateway readiness, plugin installs/manifests, and cleanup/doctor switch entrypoint checks.
 
 ### Fixes
@@ -263,7 +263,7 @@ Docs: https://github.com/CleoAgent/cleobot
 - CLI: use Node's module compile cache for faster startup. (#2808) Thanks @pi0.
 - Auth: show copyable Google auth URL after ASCII prompt. (#1787) Thanks @robbyczgw-cla.
 - TUI: avoid width overflow when rendering selection lists. (#1686) Thanks @mossein.
-- macOS: finish OpenClaw app rename for macOS sources, bundle identifiers, and shared kit paths. (#2844) Thanks @fal3.
+- macOS: finish CleoBot app rename for macOS sources, bundle identifiers, and shared kit paths. (#2844) Thanks @fal3.
 - Branding: update launchd labels, mobile bundle IDs, and logging subsystems to bot.molt (legacy bundle ID migrations). Thanks @thewilloftheshadow.
 - macOS: limit project-local `node_modules/.bin` PATH preference to debug builds (reduce PATH hijacking risk).
 - macOS: keep custom SSH usernames in remote target. (#2046) Thanks @algal.
@@ -676,7 +676,7 @@ Docs: https://github.com/CleoAgent/cleobot
 - Android: remove legacy bridge transport code now that nodes use the gateway protocol.
 - Android: bump okhttp + dnsjava to satisfy lint dependency checks.
 - Build: update workspace + core/plugin deps.
-- Build: use tsgo for dev/watch builds by default (opt out with `OPENCLAW_TS_COMPILER=tsc`).
+- Build: use tsgo for dev/watch builds by default (opt out with `CLEOBOT_TS_COMPILER=tsc`).
 - Repo: remove the Peekaboo git submodule now that the SPM release is used.
 - macOS: switch PeekabooBridge integration to the tagged Swift Package Manager release.
 - macOS: stop syncing Peekaboo in postinstall.
@@ -1335,7 +1335,7 @@ Thanks @AlexMikhalev, @CoreyH, @John-Rood, @KrauseFx, @MaudeBot, @Nachx639, @Nic
 - Gateway/Agent: accept image attachments on `agent` (multimodal message) and add live gateway image probe (`CLAWDBOT_LIVE_GATEWAY_IMAGE_PROBE=1`).
 - CLI: `openclaw sessions` now includes `elev:*` + `usage:*` flags in the table output.
 - CLI/Pairing: accept positional provider for `pairing list|approve` (npm-run compatible); update docs/bot hints.
-- Branding: normalize legacy casing/branding to “OpenClaw” (CLI, status, docs).
+- Branding: normalize legacy casing/branding to “CleoBot” (CLI, status, docs).
 - Auto-reply: fix native `/model` not updating the actual chat session (Telegram/Slack/Discord). (#646)
 - Doctor: offer to run `openclaw update` first on git installs (keeps doctor output aligned with latest).
 - Doctor: avoid false legacy workspace warning when install dir is `~/openclaw`. (#660)
@@ -1490,7 +1490,7 @@ Thanks @AlexMikhalev, @CoreyH, @John-Rood, @KrauseFx, @MaudeBot, @Nachx639, @Nic
 - WhatsApp: mark offline history sync messages as read without auto-reply. (#193) — thanks @mcinteerj
 - Discord: avoid duplicate replies when a provider emits late streaming `text_end` events (OpenAI/GPT).
 - CLI: use tailnet IP for local gateway calls when bind is tailnet/auto (fixes #176).
-- Env: load global `$OPENCLAW_STATE_DIR/.env` (`~/.openclaw/.env`) as a fallback after CWD `.env`.
+- Env: load global `$CLEOBOT_STATE_DIR/.env` (`~/.openclaw/.env`) as a fallback after CWD `.env`.
 - Env: optional login-shell env fallback (opt-in; imports expected keys without overriding existing env).
 - Agent tools: OpenAI-compatible tool JSON Schemas (fix `browser`, normalize union schemas).
 - Onboarding: when running from source, auto-build missing Control UI assets (`bun run ui:build`).

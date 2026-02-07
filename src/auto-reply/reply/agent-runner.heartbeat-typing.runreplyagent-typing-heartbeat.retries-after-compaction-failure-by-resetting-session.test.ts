@@ -127,7 +127,7 @@ describe("runReplyAgent typing (heartbeat)", () => {
 
   it("retries after compaction failure by resetting the session", async () => {
     const prevStateDir = process.env.CLEOBOT_STATE_DIR;
-    const stateDir = await fs.mkdtemp(path.join(tmpdir(), "openclaw-session-compaction-reset-"));
+    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-session-compaction-reset-"));
     process.env.CLEOBOT_STATE_DIR = stateDir;
     try {
       const sessionId = "session";
@@ -176,7 +176,7 @@ describe("runReplyAgent typing (heartbeat)", () => {
 
   it("retries after context overflow payload by resetting the session", async () => {
     const prevStateDir = process.env.CLEOBOT_STATE_DIR;
-    const stateDir = await fs.mkdtemp(path.join(tmpdir(), "openclaw-session-overflow-reset-"));
+    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-session-overflow-reset-"));
     process.env.CLEOBOT_STATE_DIR = stateDir;
     try {
       const sessionId = "session";
@@ -230,7 +230,7 @@ describe("runReplyAgent typing (heartbeat)", () => {
 
   it("resets the session after role ordering payloads", async () => {
     const prevStateDir = process.env.CLEOBOT_STATE_DIR;
-    const stateDir = await fs.mkdtemp(path.join(tmpdir(), "openclaw-session-role-ordering-"));
+    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-session-role-ordering-"));
     process.env.CLEOBOT_STATE_DIR = stateDir;
     try {
       const sessionId = "session";

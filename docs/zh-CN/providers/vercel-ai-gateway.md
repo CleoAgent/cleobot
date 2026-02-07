@@ -1,6 +1,6 @@
 ---
 read_when:
-  - 你想要将 Vercel AI Gateway 与 OpenClaw 配合使用
+  - 你想要将 Vercel AI Gateway 与 CleoBot 配合使用
   - 你需要 API 密钥环境变量或 CLI 认证选项
 summary: Vercel AI Gateway 设置（认证 + 模型选择）
 title: Vercel AI Gateway
@@ -53,5 +53,5 @@ openclaw onboard --non-interactive \
 ## 环境说明
 
 如果 Gateway网关以守护进程（launchd/systemd）方式运行，请确保 `AI_GATEWAY_API_KEY`
-对该进程可用（例如，在 `~/.openclaw/.env` 中或通过
+对该进程可用（例如，在 `~/.cleobot/.env` 中或通过
 `env.shellEnv` 设置）。

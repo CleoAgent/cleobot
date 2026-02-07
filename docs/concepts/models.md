@@ -15,7 +15,7 @@ Quick provider overview + examples: [/concepts/model-providers](/concepts/model-
 
 ## How model selection works
 
-OpenClaw selects models in this order:
+CleoBot selects models in this order:
 
 1. **Primary** model (`agents.defaults.model.primary` or `agents.defaults.model`).
 2. **Fallbacks** in `agents.defaults.model.fallbacks` (in order).
@@ -24,7 +24,7 @@ OpenClaw selects models in this order:
 
 Related:
 
-- `agents.defaults.models` is the allowlist/catalog of models OpenClaw can use (plus aliases).
+- `agents.defaults.models` is the allowlist/catalog of models CleoBot can use (plus aliases).
 - `agents.defaults.imageModel` is used **only when** the primary model can’t accept images.
 - Per-agent defaults can override `agents.defaults.model` via `agents.list[].model` plus bindings (see [/concepts/multi-agent](/concepts/multi-agent)).
 
@@ -62,7 +62,7 @@ Provider configuration examples (including OpenCode Zen) live in
 
 If `agents.defaults.models` is set, it becomes the **allowlist** for `/model` and for
 session overrides. When a user selects a model that isn’t in that allowlist,
-OpenClaw returns:
+CleoBot returns:
 
 ```
 Model "provider/model" is not allowed. Use /model to list available models.
@@ -108,7 +108,7 @@ Notes:
 - `/model status` is the detailed view (auth candidates and, when configured, provider endpoint `baseUrl` + `api` mode).
 - Model refs are parsed by splitting on the **first** `/`. Use `provider/model` when typing `/model <ref>`.
 - If the model ID itself contains `/` (OpenRouter-style), you must include the provider prefix (example: `/model openrouter/moonshotai/kimi-k2`).
-- If you omit the provider, OpenClaw treats the input as an alias or a model for the **default provider** (only works when there is no `/` in the model ID).
+- If you omit the provider, CleoBot treats the input as an alias or a model for the **default provider** (only works when there is no `/` in the model ID).
 
 Full command behavior/config: [Slash commands](/tools/slash-commands).
 
@@ -135,7 +135,7 @@ openclaw models image-fallbacks remove <provider/model>
 openclaw models image-fallbacks clear
 ```
 
-`openclaw models` (no subcommand) is a shortcut for `models status`.
+`cleobot models` (no subcommand) is a shortcut for `models status`.
 
 ### `models list`
 
@@ -168,7 +168,7 @@ openclaw models status
 
 ## Scanning (OpenRouter free models)
 
-`openclaw models scan` inspects OpenRouter’s **free model catalog** and can
+`cleobot models scan` inspects OpenRouter’s **free model catalog** and can
 optionally probe models for tool and image support.
 
 Key flags:
@@ -204,5 +204,5 @@ mode, pass `--yes` to accept defaults.
 ## Models registry (`models.json`)
 
 Custom providers in `models.providers` are written into `models.json` under the
-agent directory (default `~/.openclaw/agents/<agentId>/models.json`). This file
+agent directory (default `~/.cleobot/agents/<agentId>/models.json`). This file
 is merged by default unless `models.mode` is set to `replace`.

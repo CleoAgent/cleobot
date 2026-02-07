@@ -2,7 +2,7 @@
 read_when:
   - 在同一台机器上运行多个 Gateway网关
   - 需要为每个 Gateway网关提供独立的配置/状态/端口
-summary: 在同一主机上运行多个 OpenClaw Gateway网关（隔离、端口和配置文件）
+summary: 在同一主机上运行多个 CleoBot Gateway网关（隔离、端口和配置文件）
 title: 多个 Gateway网关
 x-i18n:
   generated_at: "2026-02-01T20:35:02Z"
@@ -19,8 +19,8 @@ x-i18n:
 
 ## 隔离检查清单（必需）
 
-- `OPENCLAW_CONFIG_PATH` — 每个实例独立的配置文件
-- `OPENCLAW_STATE_DIR` — 每个实例独立的会话、凭据、缓存
+- `CLEOBOT_CONFIG_PATH` — 每个实例独立的配置文件
+- `CLEOBOT_STATE_DIR` — 每个实例独立的会话、凭据、缓存
 - `agents.defaults.workspace` — 每个实例独立的工作区根目录
 - `gateway.port`（或 `--port`）— 每个实例唯一
 - 派生端口（浏览器/画布）不得重叠
@@ -29,7 +29,7 @@ x-i18n:
 
 ## 推荐方式：配置文件（`--profile`）
 
-配置文件会自动限定 `OPENCLAW_STATE_DIR` + `OPENCLAW_CONFIG_PATH` 的作用域，并为服务名称添加后缀。
+配置文件会自动限定 `CLEOBOT_STATE_DIR` + `CLEOBOT_CONFIG_PATH` 的作用域，并为服务名称添加后缀。
 
 ```bash
 # 主实例
@@ -83,7 +83,7 @@ openclaw --profile rescue gateway install
 
 ## 端口映射（派生）
 
-基础端口 = `gateway.port`（或 `OPENCLAW_GATEWAY_PORT` / `--port`）。
+基础端口 = `gateway.port`（或 `CLEOBOT_GATEWAY_PORT` / `--port`）。
 
 - 浏览器控制服务端口 = 基础端口 + 2（仅限 local loopback）
 - `canvasHost.port = 基础端口 + 4`
@@ -101,12 +101,12 @@ openclaw --profile rescue gateway install
 ## 手动环境变量示例
 
 ```bash
-OPENCLAW_CONFIG_PATH=~/.openclaw/main.json \
-OPENCLAW_STATE_DIR=~/.openclaw-main \
+CLEOBOT_CONFIG_PATH=~/.cleobot/main.json \
+CLEOBOT_STATE_DIR=~/.cleobot-main \
 openclaw gateway --port 18789
 
-OPENCLAW_CONFIG_PATH=~/.openclaw/rescue.json \
-OPENCLAW_STATE_DIR=~/.openclaw-rescue \
+CLEOBOT_CONFIG_PATH=~/.cleobot/rescue.json \
+CLEOBOT_STATE_DIR=~/.cleobot-rescue \
 openclaw gateway --port 19001
 ```
 

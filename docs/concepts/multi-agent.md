@@ -15,12 +15,12 @@ An **agent** is a fully scoped brain with its own:
 
 - **Workspace** (files, AGENTS.md/SOUL.md/USER.md, local notes, persona rules).
 - **State directory** (`agentDir`) for auth profiles, model registry, and per-agent config.
-- **Session store** (chat history + routing state) under `~/.openclaw/agents/<agentId>/sessions`.
+- **Session store** (chat history + routing state) under `~/.cleobot/agents/<agentId>/sessions`.
 
 Auth profiles are **per-agent**. Each agent reads from its own:
 
 ```
-~/.openclaw/agents/<agentId>/agent/auth-profiles.json
+~/.cleobot/agents/<agentId>/agent/auth-profiles.json
 ```
 
 Main agent credentials are **not** shared automatically. Never reuse `agentDir`
@@ -28,7 +28,7 @@ across agents (it causes auth/session collisions). If you want to share creds,
 copy `auth-profiles.json` into the other agent's `agentDir`.
 
 Skills are per-agent via each workspace’s `skills/` folder, with shared skills
-available from `~/.openclaw/skills`. See [Skills: per-agent vs shared](/tools/skills#per-agent-vs-shared-skills).
+available from `~/.cleobot/skills`. See [Skills: per-agent vs shared](/tools/skills#per-agent-vs-shared-skills).
 
 The Gateway can host **one agent** (default) or **many agents** side-by-side.
 
@@ -39,20 +39,20 @@ reach other host locations unless sandboxing is enabled. See
 
 ## Paths (quick map)
 
-- Config: `~/.openclaw/openclaw.json` (or `OPENCLAW_CONFIG_PATH`)
-- State dir: `~/.openclaw` (or `OPENCLAW_STATE_DIR`)
-- Workspace: `~/.openclaw/workspace` (or `~/.openclaw/workspace-<agentId>`)
-- Agent dir: `~/.openclaw/agents/<agentId>/agent` (or `agents.list[].agentDir`)
-- Sessions: `~/.openclaw/agents/<agentId>/sessions`
+- Config: `~/.cleobot/openclaw.json` (or `CLEOBOT_CONFIG_PATH`)
+- State dir: `~/.cleobot` (or `CLEOBOT_STATE_DIR`)
+- Workspace: `~/.cleobot/workspace` (or `~/.cleobot/workspace-<agentId>`)
+- Agent dir: `~/.cleobot/agents/<agentId>/agent` (or `agents.list[].agentDir`)
+- Sessions: `~/.cleobot/agents/<agentId>/sessions`
 
 ### Single-agent mode (default)
 
-If you do nothing, OpenClaw runs a single agent:
+If you do nothing, CleoBot runs a single agent:
 
 - `agentId` defaults to **`main`**.
 - Sessions are keyed as `agent:main:<mainKey>`.
-- Workspace defaults to `~/.openclaw/workspace` (or `~/.openclaw/workspace-<profile>` when `OPENCLAW_PROFILE` is set).
-- State defaults to `~/.openclaw/agents/main/agent`.
+- Workspace defaults to `~/.cleobot/workspace` (or `~/.cleobot/workspace-<profile>` when `CLEOBOT_PROFILE` is set).
+- State defaults to `~/.cleobot/agents/main/agent`.
 
 ## Agent helper
 
@@ -92,8 +92,8 @@ Example:
 {
   agents: {
     list: [
-      { id: "alex", workspace: "~/.openclaw/workspace-alex" },
-      { id: "mia", workspace: "~/.openclaw/workspace-mia" },
+      { id: "alex", workspace: "~/.cleobot/workspace-alex" },
+      { id: "mia", workspace: "~/.cleobot/workspace-mia" },
     ],
   },
   bindings: [
@@ -140,7 +140,7 @@ multiple phone numbers without mixing sessions.
 
 ## Example: two WhatsApps → two agents
 
-`~/.openclaw/openclaw.json` (JSON5):
+`~/.cleobot/openclaw.json` (JSON5):
 
 ```js
 {
@@ -150,14 +150,14 @@ multiple phone numbers without mixing sessions.
         id: "home",
         default: true,
         name: "Home",
-        workspace: "~/.openclaw/workspace-home",
-        agentDir: "~/.openclaw/agents/home/agent",
+        workspace: "~/.cleobot/workspace-home",
+        agentDir: "~/.cleobot/agents/home/agent",
       },
       {
         id: "work",
         name: "Work",
-        workspace: "~/.openclaw/workspace-work",
-        agentDir: "~/.openclaw/agents/work/agent",
+        workspace: "~/.cleobot/workspace-work",
+        agentDir: "~/.cleobot/agents/work/agent",
       },
     ],
   },
@@ -190,12 +190,12 @@ multiple phone numbers without mixing sessions.
     whatsapp: {
       accounts: {
         personal: {
-          // Optional override. Default: ~/.openclaw/credentials/whatsapp/personal
-          // authDir: "~/.openclaw/credentials/whatsapp/personal",
+          // Optional override. Default: ~/.cleobot/credentials/whatsapp/personal
+          // authDir: "~/.cleobot/credentials/whatsapp/personal",
         },
         biz: {
-          // Optional override. Default: ~/.openclaw/credentials/whatsapp/biz
-          // authDir: "~/.openclaw/credentials/whatsapp/biz",
+          // Optional override. Default: ~/.cleobot/credentials/whatsapp/biz
+          // authDir: "~/.cleobot/credentials/whatsapp/biz",
         },
       },
     },
@@ -214,13 +214,13 @@ Split by channel: route WhatsApp to a fast everyday agent and Telegram to an Opu
       {
         id: "chat",
         name: "Everyday",
-        workspace: "~/.openclaw/workspace-chat",
+        workspace: "~/.cleobot/workspace-chat",
         model: "anthropic/claude-sonnet-4-5",
       },
       {
         id: "opus",
         name: "Deep Work",
-        workspace: "~/.openclaw/workspace-opus",
+        workspace: "~/.cleobot/workspace-opus",
         model: "anthropic/claude-opus-4-5",
       },
     ],
@@ -248,13 +248,13 @@ Keep WhatsApp on the fast agent, but route one DM to Opus:
       {
         id: "chat",
         name: "Everyday",
-        workspace: "~/.openclaw/workspace-chat",
+        workspace: "~/.cleobot/workspace-chat",
         model: "anthropic/claude-sonnet-4-5",
       },
       {
         id: "opus",
         name: "Deep Work",
-        workspace: "~/.openclaw/workspace-opus",
+        workspace: "~/.cleobot/workspace-opus",
         model: "anthropic/claude-opus-4-5",
       },
     ],
@@ -280,7 +280,7 @@ and a tighter tool policy:
       {
         id: "family",
         name: "Family",
-        workspace: "~/.openclaw/workspace-family",
+        workspace: "~/.cleobot/workspace-family",
         identity: { name: "Family Bot" },
         groupChat: {
           mentionPatterns: ["@family", "@familybot", "@Family Bot"],
@@ -333,7 +333,7 @@ Starting with v2026.1.6, each agent can have its own sandbox and tool restrictio
     list: [
       {
         id: "personal",
-        workspace: "~/.openclaw/workspace-personal",
+        workspace: "~/.cleobot/workspace-personal",
         sandbox: {
           mode: "off",  // No sandbox for personal agent
         },
@@ -341,7 +341,7 @@ Starting with v2026.1.6, each agent can have its own sandbox and tool restrictio
       },
       {
         id: "family",
-        workspace: "~/.openclaw/workspace-family",
+        workspace: "~/.cleobot/workspace-family",
         sandbox: {
           mode: "all",     // Always sandboxed
           scope: "agent",  // One container per agent

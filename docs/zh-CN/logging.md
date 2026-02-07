@@ -16,7 +16,7 @@ x-i18n:
 
 # 日志
 
-OpenClaw 在两个地方记录日志：
+CleoBot 在两个地方记录日志：
 
 - **文件日志**（JSON 行格式），由 Gateway网关写入。
 - **控制台输出**，显示在终端和控制界面中。
@@ -27,11 +27,11 @@ OpenClaw 在两个地方记录日志：
 
 默认情况下，Gateway网关会在以下路径写入滚动日志文件：
 
-`/tmp/openclaw/openclaw-YYYY-MM-DD.log`
+`/tmp/openclaw/cleobot-YYYY-MM-DD.log`
 
 日期使用 Gateway网关主机的本地时区。
 
-你可以在 `~/.openclaw/openclaw.json` 中覆盖此设置：
+你可以在 `~/.cleobot/openclaw.json` 中覆盖此设置：
 
 ```json
 {
@@ -103,13 +103,13 @@ openclaw channels logs --channel whatsapp
 
 ## 配置日志
 
-所有日志配置位于 `~/.openclaw/openclaw.json` 的 `logging` 下。
+所有日志配置位于 `~/.cleobot/openclaw.json` 的 `logging` 下。
 
 ```json
 {
   "logging": {
     "level": "info",
-    "file": "/tmp/openclaw/openclaw-YYYY-MM-DD.log",
+    "file": "/tmp/openclaw/cleobot-YYYY-MM-DD.log",
     "consoleLevel": "info",
     "consoleStyle": "pretty",
     "redactSensitive": "tools",
@@ -152,7 +152,7 @@ openclaw channels logs --channel whatsapp
 
 - **OpenTelemetry (OTel)**：用于追踪、指标和日志的数据模型 + SDK。
 - **OTLP**：用于将 OTel 数据导出到收集器/后端的传输协议。
-- OpenClaw 目前通过 **OTLP/HTTP (protobuf)** 导出。
+- CleoBot 目前通过 **OTLP/HTTP (protobuf)** 导出。
 
 ### 导出的信号
 
@@ -210,7 +210,7 @@ openclaw channels logs --channel whatsapp
 环境变量覆盖（一次性）：
 
 ```
-OPENCLAW_DIAGNOSTICS=telegram.http,telegram.payload
+CLEOBOT_DIAGNOSTICS=telegram.http,telegram.payload
 ```
 
 注意事项：
@@ -239,7 +239,7 @@ OPENCLAW_DIAGNOSTICS=telegram.http,telegram.payload
       "enabled": true,
       "endpoint": "http://otel-collector:4318",
       "protocol": "http/protobuf",
-      "serviceName": "openclaw-gateway",
+      "serviceName": "cleobot-gateway",
       "traces": true,
       "metrics": true,
       "logs": true,
@@ -252,7 +252,7 @@ OPENCLAW_DIAGNOSTICS=telegram.http,telegram.payload
 
 注意事项：
 
-- 你也可以使用 `openclaw plugins enable diagnostics-otel` 来启用插件。
+- 你也可以使用 `cleobot plugins enable diagnostics-otel` 来启用插件。
 - `protocol` 目前仅支持 `http/protobuf`。`grpc` 会被忽略。
 - 指标包括令牌使用、成本、上下文大小、运行持续时间，以及消息流计数器/直方图（webhook、队列、会话状态、队列深度/等待时间）。
 - 追踪/指标可以通过 `traces` / `metrics` 切换（默认：开启）。启用时，追踪包括模型使用 span 以及 webhook/消息处理 span。
@@ -323,6 +323,6 @@ OPENCLAW_DIAGNOSTICS=telegram.http,telegram.payload
 
 ## 故障排除提示
 
-- **Gateway网关不可达？** 先运行 `openclaw doctor`。
+- **Gateway网关不可达？** 先运行 `cleobot doctor`。
 - **日志为空？** 检查 Gateway网关是否正在运行并写入 `logging.file` 中指定的文件路径。
 - **需要更多细节？** 将 `logging.level` 设置为 `debug` 或 `trace` 并重试。

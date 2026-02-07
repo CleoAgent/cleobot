@@ -1,10 +1,10 @@
 ---
 read_when:
-  - 你希望将 OpenClaw 与主 macOS 环境隔离运行
+  - 你希望将 CleoBot 与主 macOS 环境隔离运行
   - 你需要在沙盒中集成 iMessage（BlueBubbles）
   - 你需要一个可重置、可克隆的 macOS 环境
   - 你想比较本地与托管 macOS 虚拟机方案
-summary: 在沙盒化的 macOS 虚拟机（本地或托管）中运行 OpenClaw，适用于需要隔离环境或 iMessage 的场景
+summary: 在沙盒化的 macOS 虚拟机（本地或托管）中运行 CleoBot，适用于需要隔离环境或 iMessage 的场景
 title: macOS 虚拟机
 x-i18n:
   generated_at: "2026-02-01T21:33:51Z"
@@ -15,7 +15,7 @@ x-i18n:
   workflow: 15
 ---
 
-# 在 macOS 虚拟机上运行 OpenClaw（沙盒化）
+# 在 macOS 虚拟机上运行 CleoBot（沙盒化）
 
 ## 推荐默认方案（大多数用户）
 
@@ -29,7 +29,7 @@ x-i18n:
 
 ### 在 Apple Silicon Mac 上运行本地虚拟机（Lume）
 
-使用 [Lume](https://cua.ai/docs/lume) 在现有的 Apple Silicon Mac 上以沙盒化的 macOS 虚拟机运行 OpenClaw。
+使用 [Lume](https://cua.ai/docs/lume) 在现有的 Apple Silicon Mac 上以沙盒化的 macOS 虚拟机运行 CleoBot。
 
 这将为你提供：
 
@@ -52,10 +52,10 @@ x-i18n:
 ## 快速路径（Lume，有经验的用户）
 
 1. 安装 Lume
-2. `lume create openclaw --os macos --ipsw latest`
+2. `lume create cleobot --os macos --ipsw latest`
 3. 完成设置助理，启用远程登录（SSH）
-4. `lume run openclaw --no-display`
-5. SSH 登录，安装 OpenClaw，配置渠道
+4. `lume run cleobot --no-display`
+5. SSH 登录，安装 CleoBot，配置渠道
 6. 完成
 
 ---
@@ -94,7 +94,7 @@ lume --version
 ## 2) 创建 macOS 虚拟机
 
 ```bash
-lume create openclaw --os macos --ipsw latest
+lume create cleobot --os macos --ipsw latest
 ```
 
 这将下载 macOS 并创建虚拟机。VNC 窗口会自动打开。
@@ -139,7 +139,7 @@ ssh youruser@192.168.64.X
 
 ---
 
-## 6) 安装 OpenClaw
+## 6) 安装 CleoBot
 
 在虚拟机内：
 
@@ -157,7 +157,7 @@ openclaw onboard --install-daemon
 编辑配置文件：
 
 ```bash
-nano ~/.openclaw/openclaw.json
+nano ~/.cleobot/openclaw.json
 ```
 
 添加你的渠道：
@@ -190,10 +190,10 @@ openclaw channels login
 
 ```bash
 lume stop openclaw
-lume run openclaw --no-display
+lume run cleobot --no-display
 ```
 
-虚拟机将在后台运行。OpenClaw 的守护进程会保持 Gateway网关运行。
+虚拟机将在后台运行。CleoBot 的守护进程会保持 Gateway网关运行。
 
 检查状态：
 
@@ -205,7 +205,7 @@ ssh youruser@192.168.64.X "openclaw status"
 
 ## 附加功能：iMessage 集成
 
-这是在 macOS 上运行的杀手级功能。使用 [BlueBubbles](https://bluebubbles.app) 将 iMessage 添加到 OpenClaw。
+这是在 macOS 上运行的杀手级功能。使用 [BlueBubbles](https://bluebubbles.app) 将 iMessage 添加到 CleoBot。
 
 在虚拟机内：
 
@@ -214,7 +214,7 @@ ssh youruser@192.168.64.X "openclaw status"
 3. 启用 Web API 并设置密码
 4. 将 BlueBubbles webhook 指向你的 Gateway网关（示例：`https://your-gateway-host:3000/bluebubbles-webhook?password=<password>`）
 
-添加到你的 OpenClaw 配置：
+添加到你的 CleoBot 配置：
 
 ```json
 {
@@ -240,15 +240,15 @@ ssh youruser@192.168.64.X "openclaw status"
 
 ```bash
 lume stop openclaw
-lume clone openclaw openclaw-golden
+lume clone cleobot cleobot-golden
 ```
 
 随时重置：
 
 ```bash
-lume stop openclaw && lume delete openclaw
-lume clone openclaw-golden openclaw
-lume run openclaw --no-display
+lume stop cleobot && lume delete openclaw
+lume clone cleobot-golden openclaw
+lume run cleobot --no-display
 ```
 
 ---
@@ -272,7 +272,7 @@ lume run openclaw --no-display
 | 无法 SSH 登录虚拟机     | 检查虚拟机系统设置中是否已启用"远程登录"                        |
 | 虚拟机 IP 未显示        | 等待虚拟机完全启动，再次运行 `lume get openclaw`                |
 | Lume 命令未找到         | 将 `~/.local/bin` 添加到你的 PATH                               |
-| WhatsApp 二维码无法扫描 | 确保运行 `openclaw channels login` 时登录的是虚拟机（非宿主机） |
+| WhatsApp 二维码无法扫描 | 确保运行 `cleobot channels login` 时登录的是虚拟机（非宿主机） |
 
 ---
 

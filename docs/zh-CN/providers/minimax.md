@@ -1,8 +1,8 @@
 ---
 read_when:
-  - 你想在 OpenClaw 中使用 MiniMax 模型
+  - 你想在 CleoBot 中使用 MiniMax 模型
   - 你需要 MiniMax 设置指导
-summary: 在 OpenClaw 中使用 MiniMax M2.1
+summary: 在 CleoBot 中使用 MiniMax M2.1
 title: MiniMax
 x-i18n:
   generated_at: "2026-02-01T21:35:21Z"
@@ -63,7 +63,7 @@ openclaw onboard --auth-choice minimax-portal
 
 通过 CLI 配置：
 
-- 运行 `openclaw configure`
+- 运行 `cleobot configure`
 - 选择 **Model/auth**
 - 选择 **MiniMax M2.1**
 
@@ -156,11 +156,11 @@ openclaw onboard --auth-choice minimax-portal
 }
 ```
 
-## 通过 `openclaw configure` 配置
+## 通过 `cleobot configure` 配置
 
 使用交互式配置向导设置 MiniMax，无需编辑 JSON：
 
-1. 运行 `openclaw configure`。
+1. 运行 `cleobot configure`。
 2. 选择 **Model/auth**。
 3. 选择 **MiniMax M2.1**。
 4. 在提示时选择你的默认模型。
@@ -181,7 +181,7 @@ openclaw onboard --auth-choice minimax-portal
 - 如需精确成本跟踪，请更新 `models.json` 中的定价值。
 - MiniMax 编程计划推荐链接（9 折优惠）：https://platform.minimax.io/subscribe/coding-plan?code=DbXJTRClnb&source=link
 - 提供商规则请参阅 [/concepts/model-providers](/concepts/model-providers)。
-- 使用 `openclaw models list` 和 `openclaw models set minimax/MiniMax-M2.1` 进行切换。
+- 使用 `cleobot models list` 和 `cleobot models set minimax/MiniMax-M2.1` 进行切换。
 
 ## 故障排除
 
@@ -190,7 +190,7 @@ openclaw onboard --auth-choice minimax-portal
 这通常意味着 **MiniMax 提供商未配置**（没有提供商条目，也未找到 MiniMax 认证配置文件/环境变量密钥）。此检测的修复包含在 **2026.1.12** 版本中（撰写本文时尚未发布）。修复方法：
 
 - 升级到 **2026.1.12**（或从源码 `main` 分支运行），然后重启 Gateway网关。
-- 运行 `openclaw configure` 并选择 **MiniMax M2.1**，或
+- 运行 `cleobot configure` 并选择 **MiniMax M2.1**，或
 - 手动添加 `models.providers.minimax` 配置块，或
 - 设置 `MINIMAX_API_KEY`（或 MiniMax 认证配置文件）以便注入提供商。
 

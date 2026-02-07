@@ -17,7 +17,7 @@ x-i18n:
 
 最后更新：2026-01-21
 
-OpenClaw 提供三个更新渠道：
+CleoBot 提供三个更新渠道：
 
 - **stable**：npm dist-tag `latest`。
 - **beta**：npm dist-tag `beta`（测试中的构建）。
@@ -48,16 +48,16 @@ openclaw update --channel dev
 
 这会通过对应的 npm dist-tag（`latest`、`beta`、`dev`）进行更新。
 
-当你**显式**使用 `--channel` 切换渠道时，OpenClaw 也会同步调整安装方式：
+当你**显式**使用 `--channel` 切换渠道时，CleoBot 也会同步调整安装方式：
 
-- `dev` 确保存在 git checkout（默认 `~/openclaw`，可通过 `OPENCLAW_GIT_DIR` 覆盖），更新它，并从该 checkout 安装全局 CLI。
+- `dev` 确保存在 git checkout（默认 `~/openclaw`，可通过 `CLEOBOT_GIT_DIR` 覆盖），更新它，并从该 checkout 安装全局 CLI。
 - `stable`/`beta` 使用匹配的 dist-tag 从 npm 安装。
 
 提示：如果你想同时使用 stable 和 dev，可以保留两个克隆，并将 Gateway网关指向 stable 的那个。
 
 ## 插件与渠道
 
-使用 `openclaw update` 切换渠道时，OpenClaw 也会同步插件来源：
+使用 `cleobot update` 切换渠道时，CleoBot 也会同步插件来源：
 
 - `dev` 优先使用 git checkout 中内置的插件。
 - `stable` 和 `beta` 恢复通过 npm 安装的插件包。

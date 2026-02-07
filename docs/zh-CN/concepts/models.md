@@ -21,7 +21,7 @@ x-i18n:
 
 ## 模型选择的工作方式
 
-OpenClaw 按以下顺序选择模型：
+CleoBot 按以下顺序选择模型：
 
 1. **主模型**（`agents.defaults.model.primary` 或 `agents.defaults.model`）。
 2. `agents.defaults.model.fallbacks` 中的**回退模型**（按顺序）。
@@ -29,7 +29,7 @@ OpenClaw 按以下顺序选择模型：
 
 相关说明：
 
-- `agents.defaults.models` 是 OpenClaw 可使用的模型白名单/目录（含别名）。
+- `agents.defaults.models` 是 CleoBot 可使用的模型白名单/目录（含别名）。
 - `agents.defaults.imageModel` **仅在**主模型无法处理图像时使用。
 - 每个智能体的默认值可以通过 `agents.list[].model` 加绑定覆盖 `agents.defaults.model`（参见 [/concepts/multi-agent](/concepts/multi-agent)）。
 
@@ -61,7 +61,7 @@ openclaw onboard
 
 ## "Model is not allowed"（以及为什么回复停止）
 
-如果设置了 `agents.defaults.models`，它将成为 `/model` 和会话覆盖的**白名单**。当用户选择了不在白名单中的模型时，OpenClaw 会返回：
+如果设置了 `agents.defaults.models`，它将成为 `/model` 和会话覆盖的**白名单**。当用户选择了不在白名单中的模型时，CleoBot 会返回：
 
 ```
 Model "provider/model" is not allowed. Use /model to list available models.
@@ -106,7 +106,7 @@ Model "provider/model" is not allowed. Use /model to list available models.
 - `/model status` 是详细视图（认证候选项，以及配置后的提供商端点 `baseUrl` + `api` 模式）。
 - 模型引用通过**第一个** `/` 进行分割解析。输入 `/model <ref>` 时请使用 `provider/model` 格式。
 - 如果模型 ID 本身包含 `/`（OpenRouter 风格），必须包含提供商前缀（例如：`/model openrouter/moonshotai/kimi-k2`）。
-- 如果省略提供商，OpenClaw 会将输入视为别名或**默认提供商**的模型（仅在模型 ID 中不含 `/` 时有效）。
+- 如果省略提供商，CleoBot 会将输入视为别名或**默认提供商**的模型（仅在模型 ID 中不含 `/` 时有效）。
 
 完整命令行为/配置：[斜杠命令](/tools/slash-commands)。
 
@@ -133,7 +133,7 @@ openclaw models image-fallbacks remove <provider/model>
 openclaw models image-fallbacks clear
 ```
 
-`openclaw models`（无子命令）是 `models status` 的快捷方式。
+`cleobot models`（无子命令）是 `models status` 的快捷方式。
 
 ### `models list`
 
@@ -161,7 +161,7 @@ openclaw models status
 
 ## 扫描（OpenRouter 免费模型）
 
-`openclaw models scan` 检查 OpenRouter 的**免费模型目录**，并可选择性地探测模型的工具和图像支持情况。
+`cleobot models scan` 检查 OpenRouter 的**免费模型目录**，并可选择性地探测模型的工具和图像支持情况。
 
 主要标志：
 
@@ -193,4 +193,4 @@ openclaw models status
 
 ## 模型注册表（`models.json`）
 
-`models.providers` 中的自定义提供商会被写入智能体目录下的 `models.json`（默认为 `~/.openclaw/agents/<agentId>/models.json`）。除非 `models.mode` 设置为 `replace`，否则此文件默认会被合并。
+`models.providers` 中的自定义提供商会被写入智能体目录下的 `models.json`（默认为 `~/.cleobot/agents/<agentId>/models.json`）。除非 `models.mode` 设置为 `replace`，否则此文件默认会被合并。

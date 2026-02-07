@@ -8,7 +8,7 @@ title: "Bonjour Discovery"
 
 # Bonjour / mDNS discovery
 
-OpenClaw uses Bonjour (mDNS / DNS‑SD) as a **LAN‑only convenience** to discover
+CleoBot uses Bonjour (mDNS / DNS‑SD) as a **LAN‑only convenience** to discover
 an active Gateway (WebSocket endpoint). It is best‑effort and does **not** replace SSH or
 Tailnet-based connectivity.
 
@@ -21,12 +21,12 @@ boundary. You can keep the same discovery UX by switching to **unicast DNS‑SD*
 High‑level steps:
 
 1. Run a DNS server on the gateway host (reachable over Tailnet).
-2. Publish DNS‑SD records for `_openclaw-gw._tcp` under a dedicated zone
+2. Publish DNS‑SD records for `_cleobot-gw._tcp` under a dedicated zone
    (example: `openclaw.internal.`).
 3. Configure Tailscale **split DNS** so your chosen domain resolves via that
    DNS server for clients (including iOS).
 
-OpenClaw supports any discovery domain; `openclaw.internal.` is just an example.
+CleoBot supports any discovery domain; `openclaw.internal.` is just an example.
 iOS/Android nodes browse both `local.` and your configured wide‑area domain.
 
 ### Gateway config (recommended)
@@ -52,8 +52,8 @@ This installs CoreDNS and configures it to:
 Validate from a tailnet‑connected machine:
 
 ```bash
-dns-sd -B _openclaw-gw._tcp openclaw.internal.
-dig @<TAILNET_IPV4> -p 53 _openclaw-gw._tcp.openclaw.internal PTR +short
+dns-sd -B _cleobot-gw._tcp openclaw.internal.
+dig @<TAILNET_IPV4> -p 53 _cleobot-gw._tcp.openclaw.internal PTR +short
 ```
 
 ### Tailscale DNS settings
@@ -64,7 +64,7 @@ In the Tailscale admin console:
 - Add split DNS so your discovery domain uses that nameserver.
 
 Once clients accept tailnet DNS, iOS nodes can browse
-`_openclaw-gw._tcp` in your discovery domain without multicast.
+`_cleobot-gw._tcp` in your discovery domain without multicast.
 
 ### Gateway listener security (recommended)
 
@@ -78,11 +78,11 @@ For tailnet‑only setups:
 
 ## What advertises
 
-Only the Gateway advertises `_openclaw-gw._tcp`.
+Only the Gateway advertises `_cleobot-gw._tcp`.
 
 ## Service types
 
-- `_openclaw-gw._tcp` — gateway transport beacon (used by macOS/iOS/Android nodes).
+- `_cleobot-gw._tcp` — gateway transport beacon (used by macOS/iOS/Android nodes).
 
 ## TXT keys (non‑secret hints)
 
@@ -106,11 +106,11 @@ Useful built‑in tools:
 
 - Browse instances:
   ```bash
-  dns-sd -B _openclaw-gw._tcp local.
+  dns-sd -B _cleobot-gw._tcp local.
   ```
 - Resolve one instance (replace `<instance>`):
   ```bash
-  dns-sd -L "<instance>" _openclaw-gw._tcp local.
+  dns-sd -L "<instance>" _cleobot-gw._tcp local.
   ```
 
 If browsing works but resolving fails, you’re usually hitting a LAN policy or
@@ -127,7 +127,7 @@ The Gateway writes a rolling log file (printed on startup as
 
 ## Debugging on iOS node
 
-The iOS node uses `NWBrowser` to discover `_openclaw-gw._tcp`.
+The iOS node uses `NWBrowser` to discover `_cleobot-gw._tcp`.
 
 To capture logs:
 
@@ -155,11 +155,11 @@ sequences (e.g. spaces become `\032`).
 
 ## Disabling / configuration
 
-- `OPENCLAW_DISABLE_BONJOUR=1` disables advertising (legacy: `OPENCLAW_DISABLE_BONJOUR`).
+- `CLEOBOT_DISABLE_BONJOUR=1` disables advertising (legacy: `CLEOBOT_DISABLE_BONJOUR`).
 - `gateway.bind` in `~/.openclaw/openclaw.json` controls the Gateway bind mode.
-- `OPENCLAW_SSH_PORT` overrides the SSH port advertised in TXT (legacy: `OPENCLAW_SSH_PORT`).
-- `OPENCLAW_TAILNET_DNS` publishes a MagicDNS hint in TXT (legacy: `OPENCLAW_TAILNET_DNS`).
-- `OPENCLAW_CLI_PATH` overrides the advertised CLI path (legacy: `OPENCLAW_CLI_PATH`).
+- `CLEOBOT_SSH_PORT` overrides the SSH port advertised in TXT (legacy: `CLEOBOT_SSH_PORT`).
+- `CLEOBOT_TAILNET_DNS` publishes a MagicDNS hint in TXT (legacy: `CLEOBOT_TAILNET_DNS`).
+- `CLEOBOT_CLI_PATH` overrides the advertised CLI path (legacy: `CLEOBOT_CLI_PATH`).
 
 ## Related docs
 

@@ -1,17 +1,17 @@
 ---
-summary: "OpenClaw on Raspberry Pi (budget self-hosted setup)"
+summary: "CleoBot on Raspberry Pi (budget self-hosted setup)"
 read_when:
-  - Setting up OpenClaw on a Raspberry Pi
-  - Running OpenClaw on ARM devices
+  - Setting up CleoBot on a Raspberry Pi
+  - Running CleoBot on ARM devices
   - Building a cheap always-on personal AI
 title: "Raspberry Pi"
 ---
 
-# OpenClaw on Raspberry Pi
+# CleoBot on Raspberry Pi
 
 ## Goal
 
-Run a persistent, always-on OpenClaw Gateway on a Raspberry Pi for **~$35-80** one-time cost (no monthly fees).
+Run a persistent, always-on CleoBot Gateway on a Raspberry Pi for **~$35-80** one-time cost (no monthly fees).
 
 Perfect for:
 
@@ -107,7 +107,7 @@ echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ```
 
-## 6) Install OpenClaw
+## 6) Install CleoBot
 
 ### Option A: Standard Install (Recommended)
 
@@ -150,7 +150,7 @@ openclaw status
 sudo systemctl status openclaw
 
 # View logs
-journalctl -u openclaw -f
+journalctl -u cleobot -f
 ```
 
 ## 9) Access the Dashboard
@@ -221,7 +221,7 @@ htop
 
 ### Binary Compatibility
 
-Most OpenClaw features work on ARM64, but some external binaries may need ARM builds:
+Most CleoBot features work on ARM64, but some external binaries may need ARM builds:
 
 | Tool               | ARM64 Status | Notes                               |
 | ------------------ | ------------ | ----------------------------------- |
@@ -304,7 +304,7 @@ free -h
 
 ```bash
 # Check logs
-journalctl -u openclaw --no-pager -n 100
+journalctl -u cleobot --no-pager -n 100
 
 # Common fix: rebuild
 cd ~/openclaw  # if using hackable install

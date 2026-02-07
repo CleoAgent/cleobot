@@ -517,7 +517,7 @@ describe("gateway server auth/connect", () => {
     const { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } =
       await import("../utils/message-channel.js");
     const { server, ws, port, prevToken } = await startServerWithClient("secret");
-    const identityDir = await mkdtemp(join(tmpdir(), "openclaw-device-scope-"));
+    const identityDir = await mkdtemp(path.join(os.tmpdir(), "cleobot-device-scope-"));
     const identity = loadOrCreateDeviceIdentity(join(identityDir, "device.json"));
     const client = {
       id: GATEWAY_CLIENT_NAMES.TEST,

@@ -6,7 +6,7 @@ import type { CleoBotConfig } from "../config/config.js";
 import { resolveTelegramToken } from "./token.js";
 
 function withTempDir(): string {
-  return fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-telegram-token-"));
+  return fs.mkdtemp(path.join(os.tmpdir(), "cleobot-telegram-token-"));
 }
 
 describe("resolveTelegramToken", () => {

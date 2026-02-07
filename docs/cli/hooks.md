@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `openclaw hooks` (agent hooks)"
+summary: "CLI reference for `cleobot hooks` (agent hooks)"
 read_when:
   - You want to manage agent hooks
   - You want to install or update hooks
 title: "hooks"
 ---
 
-# `openclaw hooks`
+# `cleobot hooks`
 
 Manage agent hooks (event-driven automations for commands like `/new`, `/reset`, and gateway startup).
 
@@ -87,7 +87,7 @@ openclaw hooks info session-memory
 Save session context to memory when /new command is issued
 
 Details:
-  Source: openclaw-bundled
+  Source: cleobot-bundled
   Path: /path/to/openclaw/hooks/bundled/session-memory/HOOK.md
   Handler: /path/to/openclaw/hooks/bundled/session-memory/handler.ts
   Homepage: https://docs.openclaw.ai/hooks#session-memory
@@ -127,7 +127,7 @@ openclaw hooks enable <name>
 
 Enable a specific hook by adding it to your config (`~/.openclaw/config.json`).
 
-**Note:** Hooks managed by plugins show `plugin:<id>` in `openclaw hooks list` and
+**Note:** Hooks managed by plugins show `plugin:<id>` in `cleobot hooks list` and
 can’t be enabled/disabled here. Enable/disable the plugin instead.
 
 **Arguments:**

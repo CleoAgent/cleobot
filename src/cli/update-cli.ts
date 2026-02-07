@@ -9,7 +9,7 @@ import {
   resolveUpdateAvailability,
 } from "../commands/status.update.js";
 import { readConfigFileSnapshot, writeConfigFile } from "../config/config.js";
-import { resolveCleoBotPackageRoot } from "../infra/openclaw-root.js";
+import { resolveCleoBotPackageRoot } from "../infra/cleobot-root.js";
 import { trimLogTail } from "../infra/restart-sentinel.js";
 import { parseSemver } from "../infra/runtime-guard.js";
 import {
@@ -289,7 +289,7 @@ async function ensureGitCheckout(params: {
     const empty = await isEmptyDir(params.dir);
     if (!empty) {
       throw new Error(
-        `CLEOBOT_GIT_DIR points at a non-git directory: ${params.dir}. Set CLEOBOT_GIT_DIR to an empty folder or an openclaw checkout.`,
+        `CLEOBOT_GIT_DIR points at a non-git directory: ${params.dir}. Set CLEOBOT_GIT_DIR to an empty folder or an cleobot checkout.`,
       );
     }
     return await runUpdateStep({
@@ -1019,7 +1019,7 @@ export async function updateCommand(opts: UpdateCommandOptions): Promise<void> {
 export async function updateWizardCommand(opts: UpdateWizardOptions = {}): Promise<void> {
   if (!process.stdin.isTTY) {
     defaultRuntime.error(
-      "Update wizard requires a TTY. Use `openclaw update --channel <stable|beta|dev>` instead.",
+      "Update wizard requires a TTY. Use `cleobot update --channel <stable|beta|dev>` instead.",
     );
     defaultRuntime.exit(1);
     return;
@@ -1110,7 +1110,7 @@ export async function updateWizardCommand(opts: UpdateWizardOptions = {}): Promi
         const empty = await isEmptyDir(gitDir);
         if (!empty) {
           defaultRuntime.error(
-            `CLEOBOT_GIT_DIR points at a non-git directory: ${gitDir}. Set CLEOBOT_GIT_DIR to an empty folder or an openclaw checkout.`,
+            `CLEOBOT_GIT_DIR points at a non-git directory: ${gitDir}. Set CLEOBOT_GIT_DIR to an empty folder or an cleobot checkout.`,
           );
           defaultRuntime.exit(1);
           return;
@@ -1172,7 +1172,7 @@ export function registerUpdateCli(program: Command) {
         ["openclaw update --json", "Output result as JSON"],
         ["openclaw update --yes", "Non-interactive (accept downgrade prompts)"],
         ["openclaw update wizard", "Interactive update wizard"],
-        ["openclaw --update", "Shorthand for openclaw update"],
+        ["openclaw --update", "Shorthand for cleobot update"],
       ] as const;
       const fmtExamples = examples
         .map(([cmd, desc]) => `  ${theme.command(cmd)} ${theme.muted(`# ${desc}`)}`)
@@ -1184,7 +1184,7 @@ ${theme.heading("What this does:")}
 
 ${theme.heading("Switch channels:")}
   - Use --channel stable|beta|dev to persist the update channel in config
-  - Run openclaw update status to see the active channel and source
+  - Run cleobot update status to see the active channel and source
   - Use --tag <dist-tag|version> for a one-off npm update without persisting
 
 ${theme.heading("Non-interactive:")}

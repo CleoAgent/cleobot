@@ -1,16 +1,16 @@
 ---
-summary: "OpenClaw on DigitalOcean (simple paid VPS option)"
+summary: "CleoBot on DigitalOcean (simple paid VPS option)"
 read_when:
-  - Setting up OpenClaw on DigitalOcean
-  - Looking for cheap VPS hosting for OpenClaw
+  - Setting up CleoBot on DigitalOcean
+  - Looking for cheap VPS hosting for CleoBot
 title: "DigitalOcean"
 ---
 
-# OpenClaw on DigitalOcean
+# CleoBot on DigitalOcean
 
 ## Goal
 
-Run a persistent OpenClaw Gateway on DigitalOcean for **$6/month** (or $4/mo with reserved pricing).
+Run a persistent CleoBot Gateway on DigitalOcean for **$6/month** (or $4/mo with reserved pricing).
 
 If you want a $0/month option and don’t mind ARM + provider-specific setup, see the [Oracle Cloud guide](/platforms/oracle).
 
@@ -56,7 +56,7 @@ If you want a $0/month option and don’t mind ARM + provider-specific setup, se
 ssh root@YOUR_DROPLET_IP
 ```
 
-## 3) Install OpenClaw
+## 3) Install CleoBot
 
 ```bash
 # Update system
@@ -66,7 +66,7 @@ apt update && apt upgrade -y
 curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
 apt install -y nodejs
 
-# Install OpenClaw
+# Install CleoBot
 curl -fsSL https://openclaw.ai/install.sh | bash
 
 # Verify
@@ -93,10 +93,10 @@ The wizard will walk you through:
 openclaw status
 
 # Check service
-systemctl --user status openclaw-gateway.service
+systemctl --user status cleobot-gateway.service
 
 # View logs
-journalctl --user -u openclaw-gateway.service -f
+journalctl --user -u cleobot-gateway.service -f
 ```
 
 ## 6) Access the Dashboard
@@ -200,7 +200,7 @@ All state lives in:
 These survive reboots. Back them up periodically:
 
 ```bash
-tar -czvf openclaw-backup.tar.gz ~/.openclaw ~/.openclaw/workspace
+tar -czvf cleobot-backup.tar.gz ~/.openclaw ~/.openclaw/workspace
 ```
 
 ---
@@ -232,7 +232,7 @@ For the full setup guide, see [Oracle Cloud](/platforms/oracle). For signup tips
 ```bash
 openclaw gateway status
 openclaw doctor --non-interactive
-journalctl -u openclaw --no-pager -n 50
+journalctl -u cleobot --no-pager -n 50
 ```
 
 ### Port already in use

@@ -15,7 +15,7 @@ x-i18n:
 
 # Doctor
 
-`openclaw doctor` 是 OpenClaw 的修复 + 迁移工具。它修复过时的配置/状态、检查健康状况，并提供可操作的修复步骤。
+`cleobot doctor` 是 CleoBot 的修复 + 迁移工具。它修复过时的配置/状态、检查健康状况，并提供可操作的修复步骤。
 
 ## 快速开始
 
@@ -59,7 +59,7 @@ openclaw doctor --deep
 如果你想在写入前查看更改，请先打开配置文件：
 
 ```bash
-cat ~/.openclaw/openclaw.json
+cat ~/.cleobot/openclaw.json
 ```
 
 ## 功能概述
@@ -100,13 +100,13 @@ cat ~/.openclaw/openclaw.json
 
 ### 2) 遗留配置键迁移
 
-当配置包含已弃用的键时，其他命令会拒绝运行并要求你运行 `openclaw doctor`。
+当配置包含已弃用的键时，其他命令会拒绝运行并要求你运行 `cleobot doctor`。
 
 Doctor 将：
 
 - 说明找到了哪些遗留键。
 - 显示它应用的迁移。
-- 使用更新后的 schema 重写 `~/.openclaw/openclaw.json`。
+- 使用更新后的 schema 重写 `~/.cleobot/openclaw.json`。
 
 Gateway网关在启动时检测到遗留配置格式时也会自动运行 doctor 迁移，因此过时的配置无需手动干预即可修复。
 
@@ -136,14 +136,14 @@ Gateway网关在启动时检测到遗留配置格式时也会自动运行 doctor
 Doctor 可以将旧版磁盘布局迁移到当前结构：
 
 - 会话存储 + 转录：
-  - 从 `~/.openclaw/sessions/` 到 `~/.openclaw/agents/<agentId>/sessions/`
+  - 从 `~/.cleobot/sessions/` 到 `~/.cleobot/agents/<agentId>/sessions/`
 - 智能体目录：
-  - 从 `~/.openclaw/agent/` 到 `~/.openclaw/agents/<agentId>/agent/`
+  - 从 `~/.cleobot/agent/` 到 `~/.cleobot/agents/<agentId>/agent/`
 - WhatsApp 认证状态（Baileys）：
-  - 从遗留的 `~/.openclaw/credentials/*.json`（`oauth.json` 除外）
-  - 到 `~/.openclaw/credentials/whatsapp/<accountId>/...`（默认账户 ID：`default`）
+  - 从遗留的 `~/.cleobot/credentials/*.json`（`oauth.json` 除外）
+  - 到 `~/.cleobot/credentials/whatsapp/<accountId>/...`（默认账户 ID：`default`）
 
-这些迁移尽力执行且幂等；当 doctor 保留任何遗留文件夹作为备份时会发出警告。Gateway网关/CLI 在启动时也会自动迁移遗留会话 + 智能体目录，使历史/认证/模型落入每个智能体的路径中，无需手动运行 doctor。WhatsApp 认证仅通过 `openclaw doctor` 进行迁移。
+这些迁移尽力执行且幂等；当 doctor 保留任何遗留文件夹作为备份时会发出警告。Gateway网关/CLI 在启动时也会自动迁移遗留会话 + 智能体目录，使历史/认证/模型落入每个智能体的路径中，无需手动运行 doctor。WhatsApp 认证仅通过 `cleobot doctor` 进行迁移。
 
 ### 4) 状态完整性检查（会话持久化、路由和安全性）
 
@@ -156,9 +156,9 @@ Doctor 检查：
 - **会话目录缺失**：`sessions/` 和会话存储目录是持久化历史记录和避免 `ENOENT` 崩溃所必需的。
 - **转录不匹配**：当近期会话条目缺少转录文件时发出警告。
 - **主会话"单行 JSONL"**：当主转录只有一行时标记（历史记录未在累积）。
-- **多个状态目录**：当多个 `~/.openclaw` 文件夹存在于不同的 home 目录中，或 `OPENCLAW_STATE_DIR` 指向其他位置时发出警告（历史记录可能在不同安装间分裂）。
+- **多个状态目录**：当多个 `~/.cleobot` 文件夹存在于不同的 home 目录中，或 `CLEOBOT_STATE_DIR` 指向其他位置时发出警告（历史记录可能在不同安装间分裂）。
 - **远程模式提醒**：如果 `gateway.mode=remote`，doctor 提醒你在远程主机上运行（状态存储在那里）。
-- **配置文件权限**：当 `~/.openclaw/openclaw.json` 对组/其他用户可读时发出警告，并提供收紧为 `600` 的选项。
+- **配置文件权限**：当 `~/.cleobot/openclaw.json` 对组/其他用户可读时发出警告，并提供收紧为 `600` 的选项。
 
 ### 5) 模型认证健康（OAuth 过期）
 
@@ -179,7 +179,7 @@ Doctor 还会报告由于以下原因暂时不可用的认证配置：
 
 ### 8) Gateway网关服务迁移和清理提示
 
-Doctor 检测遗留 Gateway网关服务（launchd/systemd/schtasks），并提供删除它们并使用当前 Gateway网关端口安装 OpenClaw 服务的选项。它还可以扫描额外的类 Gateway网关服务并打印清理提示。以配置文件命名的 OpenClaw Gateway网关服务被视为一等公民，不会被标记为"额外"。
+Doctor 检测遗留 Gateway网关服务（launchd/systemd/schtasks），并提供删除它们并使用当前 Gateway网关端口安装 CleoBot 服务的选项。它还可以扫描额外的类 Gateway网关服务并打印清理提示。以配置文件命名的 CleoBot Gateway网关服务被视为一等公民，不会被标记为"额外"。
 
 ### 9) 安全警告
 
@@ -195,7 +195,7 @@ Doctor 打印当前工作区可用/缺失/受阻 Skills 的快速摘要。
 
 ### 12) Gateway网关认证检查（本地令牌）
 
-当本地 Gateway网关缺少 `gateway.auth` 时，doctor 发出警告并提供生成令牌的选项。使用 `openclaw doctor --generate-gateway-token` 在自动化中强制创建令牌。
+当本地 Gateway网关缺少 `gateway.auth` 时，doctor 发出警告并提供生成令牌的选项。使用 `cleobot doctor --generate-gateway-token` 在自动化中强制创建令牌。
 
 ### 13) Gateway网关健康检查 + 重启
 
@@ -211,11 +211,11 @@ Doctor 检查已安装的 supervisor 配置（launchd/systemd/schtasks）是否�
 
 说明：
 
-- `openclaw doctor` 在重写 supervisor 配置前会提示确认。
-- `openclaw doctor --yes` 接受默认修复提示。
-- `openclaw doctor --repair` 无需提示即应用推荐修复。
-- `openclaw doctor --repair --force` 覆盖自定义 supervisor 配置。
-- 你始终可以通过 `openclaw gateway install --force` 强制完全重写。
+- `cleobot doctor` 在重写 supervisor 配置前会提示确认。
+- `cleobot doctor --yes` 接受默认修复提示。
+- `cleobot doctor --repair` 无需提示即应用推荐修复。
+- `cleobot doctor --repair --force` 覆盖自定义 supervisor 配置。
+- 你始终可以通过 `cleobot gateway install --force` 强制完全重写。
 
 ### 16) Gateway网关运行时 + 端口诊断
 

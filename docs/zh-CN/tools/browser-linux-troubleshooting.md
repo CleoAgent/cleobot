@@ -1,6 +1,6 @@
 ---
 read_when: Browser control fails on Linux, especially with snap Chromium
-summary: 修复 Linux 上 OpenClaw 浏览器控制的 Chrome/Brave/Edge/Chromium CDP 启动问题
+summary: 修复 Linux 上 CleoBot 浏览器控制的 Chrome/Brave/Edge/Chromium CDP 启动问题
 title: 浏览器故障排除
 x-i18n:
   generated_at: "2026-02-01T21:39:41Z"
@@ -15,7 +15,7 @@ x-i18n:
 
 ## 问题："Failed to start Chrome CDP on port 18800"
 
-OpenClaw 的浏览器控制服务器无法启动 Chrome/Brave/Edge/Chromium，报错如下：
+CleoBot 的浏览器控制服务器无法启动 Chrome/Brave/Edge/Chromium，报错如下：
 
 ```
 {"error":"Error: Failed to start Chrome CDP on port 18800 for profile \"openclaw\"."}
@@ -23,7 +23,7 @@ OpenClaw 的浏览器控制服务器无法启动 Chrome/Brave/Edge/Chromium，�
 
 ### 根本原因
 
-在 Ubuntu（以及许多 Linux 发行版）上，默认的 Chromium 安装是一个 **snap 包**。Snap 的 AppArmor 沙箱限制会干扰 OpenClaw 生成和监控浏览器进程的方式。
+在 Ubuntu（以及许多 Linux 发行版）上，默认的 Chromium 安装是一个 **snap 包**。Snap 的 AppArmor 沙箱限制会干扰 CleoBot 生成和监控浏览器进程的方式。
 
 `apt install chromium` 命令安装的是一个重定向到 snap 的占位包：
 
@@ -44,7 +44,7 @@ sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt --fix-broken install -y  # 如果有依赖错误
 ```
 
-然后更新你的 OpenClaw 配置（`~/.openclaw/openclaw.json`）：
+然后更新你的 CleoBot 配置（`~/.cleobot/openclaw.json`）：
 
 ```json
 {
@@ -59,7 +59,7 @@ sudo apt --fix-broken install -y  # 如果有依赖错误
 
 ### 方案 2：使用 Snap Chromium 的仅附加模式
 
-如果你必须使用 snap Chromium，请配置 OpenClaw 附加到手动启动的浏览器：
+如果你必须使用 snap Chromium，请配置 CleoBot 附加到手动启动的浏览器：
 
 1. 更新配置：
 
@@ -86,9 +86,9 @@ chromium-browser --headless --no-sandbox --disable-gpu \
 3. 可选创建一个 systemd 用户服务来自动启动 Chrome：
 
 ```ini
-# ~/.config/systemd/user/openclaw-browser.service
+# ~/.config/systemd/user/cleobot-browser.service
 [Unit]
-Description=OpenClaw Browser (Chrome CDP)
+Description=CleoBot Browser (Chrome CDP)
 After=network.target
 
 [Service]
@@ -100,7 +100,7 @@ RestartSec=5
 WantedBy=default.target
 ```
 
-启用命令：`systemctl --user enable --now openclaw-browser.service`
+启用命令：`systemctl --user enable --now cleobot-browser.service`
 
 ### 验证浏览器是否正常工作
 
@@ -130,15 +130,15 @@ curl -s http://127.0.0.1:18791/tabs
 
 ### 问题："Chrome extension relay is running, but no tab is connected"
 
-你正在使用 `chrome` 配置文件（扩展中继）。它需要 OpenClaw
+你正在使用 `chrome` 配置文件（扩展中继）。它需要 CleoBot
 浏览器扩展附加到一个活动标签页。
 
 修复方案：
 
-1. **使用托管浏览器：** `openclaw browser start --browser-profile openclaw`
+1. **使用托管浏览器：** `cleobot browser start --browser-profile openclaw`
    （或设置 `browser.defaultProfile: "openclaw"`）。
 2. **使用扩展中继：** 安装扩展，打开一个标签页，然后点击
-   OpenClaw 扩展图标进行附加。
+   CleoBot 扩展图标进行附加。
 
 说明：
 

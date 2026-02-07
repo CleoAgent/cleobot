@@ -1175,7 +1175,7 @@ describe("createTelegramBot", () => {
     onSpy.mockReset();
     const replySpy = replyModule.__replySpy as unknown as ReturnType<typeof vi.fn>;
     replySpy.mockReset();
-    const storeDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-telegram-"));
+    const storeDir = fs.mkdtemp(path.join(os.tmpdir(), "cleobot-telegram-"));
     const storePath = path.join(storeDir, "sessions.json");
     fs.writeFileSync(
       storePath,

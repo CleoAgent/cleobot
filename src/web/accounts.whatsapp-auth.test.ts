@@ -15,7 +15,7 @@ describe("hasAnyWhatsAppAuth", () => {
 
   beforeEach(() => {
     previousOauthDir = process.env.CLEOBOT_OAUTH_DIR;
-    tempOauthDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-oauth-"));
+    tempOauthDir = fs.mkdtemp(path.join(os.tmpdir(), "cleobot-oauth-"));
     process.env.CLEOBOT_OAUTH_DIR = tempOauthDir;
   });
 
@@ -46,7 +46,7 @@ describe("hasAnyWhatsAppAuth", () => {
   });
 
   it("includes authDir overrides", () => {
-    const customDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-wa-auth-"));
+    const customDir = fs.mkdtemp(path.join(os.tmpdir(), "cleobot-wa-auth-"));
     try {
       writeCreds(customDir);
       const cfg = {

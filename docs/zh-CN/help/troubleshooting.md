@@ -55,7 +55,7 @@ curl -fsSL https://openclaw.ai/install.sh | bash -s -- --verbose
 curl -fsSL https://openclaw.ai/install.sh | bash -s -- --beta --verbose
 ```
 
-你也可以设置 `OPENCLAW_VERBOSE=1` 来代替该标志。
+你也可以设置 `CLEOBOT_VERBOSE=1` 来代替该标志。
 
 ### Gateway网关 "unauthorized"、无法连接或持续重连
 
@@ -89,7 +89,7 @@ curl -fsSL https://openclaw.ai/install.sh | bash -s -- --beta --verbose
 
 这通常意味着 `agents.defaults.models` 被配置为允许列表。当其非空时，只有那些提供商/模型键可以被选择。
 
-- 检查允许列表：`openclaw config get agents.defaults.models`
+- 检查允许列表：`cleobot config get agents.defaults.models`
 - 添加你需要的模型（或清空允许列表），然后重试 `/model`
 - 使用 `/models` 浏览允许的提供商/模型
 
@@ -101,4 +101,4 @@ curl -fsSL https://openclaw.ai/install.sh | bash -s -- --beta --verbose
 openclaw status --all
 ```
 
-如果可以，请附上 `openclaw logs --follow` 中相关的日志尾部内容。
+如果可以，请附上 `cleobot logs --follow` 中相关的日志尾部内容。

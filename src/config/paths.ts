@@ -44,7 +44,7 @@ export function resolveNewStateDir(homedir: () => string = os.homedir): string {
 /**
  * State directory for mutable data (sessions, logs, caches).
  * Can be overridden via CLEOBOT_STATE_DIR.
- * Default: ~/.openclaw
+ * Default: ~/.cleobot
  */
 export function resolveStateDir(
   env: NodeJS.ProcessEnv = process.env,
@@ -202,7 +202,7 @@ export const DEFAULT_GATEWAY_PORT = 18789;
 export function resolveGatewayLockDir(tmpdir: () => string = os.tmpdir): string {
   const base = tmpdir();
   const uid = typeof process.getuid === "function" ? process.getuid() : undefined;
-  const suffix = uid != null ? `openclaw-${uid}` : "openclaw";
+  const suffix = uid != null ? `openclaw-${uid}` : "cleobot";
   return path.join(base, suffix);
 }
 

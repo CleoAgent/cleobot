@@ -138,8 +138,8 @@ describe("formatCliCommand", () => {
   });
 
   it("handles pnpm wrapper", () => {
-    expect(formatCliCommand("pnpm openclaw doctor", { CLEOBOT_PROFILE: "work" })).toBe(
-      "pnpm openclaw --profile work doctor",
+    expect(formatCliCommand("pnpm cleobot doctor", { CLEOBOT_PROFILE: "work" })).toBe(
+      "pnpm cleobot --profile work doctor",
     );
   });
 });

@@ -11,7 +11,7 @@ x-i18n:
 
 # Pi 开发工作流
 
-本指南总结了在 OpenClaw 中进行 Pi 集成开发的合理工作流。
+本指南总结了在 CleoBot 中进行 Pi 集成开发的合理工作流。
 
 ## 类型检查和代码检查
 
@@ -50,7 +50,7 @@ scripts/pi/run-tests.sh --live
 - 以开发模式运行 Gateway网关：
   - `pnpm gateway:dev`
 - 直接触发智能体：
-  - `pnpm openclaw agent --message "Hello" --thinking low`
+  - `pnpm cleobot agent --message "Hello" --thinking low`
 - 使用 TUI 进行交互式调试：
   - `pnpm tui`
 
@@ -58,7 +58,7 @@ scripts/pi/run-tests.sh --live
 
 ## 完全重置
 
-状态存储在 OpenClaw 状态目录下。默认为 `~/.openclaw`。如果设置了 `OPENCLAW_STATE_DIR`，则使用该目录。
+状态存储在 CleoBot 状态目录下。默认为 `~/.cleobot`。如果设置了 `CLEOBOT_STATE_DIR`，则使用该目录。
 
 要重置所有内容：
 

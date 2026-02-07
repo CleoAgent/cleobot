@@ -46,7 +46,7 @@ describe("createCleoBotCodingTools safeBins", () => {
       return;
     }
 
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-safe-bins-"));
+    const tmpDir = fs.mkdtemp(path.join(os.tmpdir(), "cleobot-safe-bins-"));
     const cfg: CleoBotConfig = {
       tools: {
         exec: {

@@ -13,7 +13,7 @@ android {
 
   sourceSets {
     getByName("main") {
-      assets.srcDir(file("../../shared/OpenClawKit/Sources/OpenClawKit/Resources"))
+      assets.srcDir(file("../../shared/CleoBotKit/Sources/CleoBotKit/Resources"))
     }
   }
 

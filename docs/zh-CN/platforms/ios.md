@@ -60,7 +60,7 @@ openclaw gateway call node.list --params "{}"
 
 ### Bonjour（局域网）
 
-Gateway网关在 `local.` 上广播 `_openclaw-gw._tcp`。iOS 应用会自动列出这些服务。
+Gateway网关在 `local.` 上广播 `_cleobot-gw._tcp`。iOS 应用会自动列出这些服务。
 
 ### Tailnet（跨网络）
 
@@ -104,7 +104,7 @@ openclaw nodes invoke --node "iOS Node" --command canvas.snapshot --params '{"ma
 
 - `NODE_BACKGROUND_UNAVAILABLE`：将 iOS 应用切换到前台（画布/摄像头/屏幕命令需要前台运行）。
 - `A2UI_HOST_NOT_CONFIGURED`：Gateway网关未广播画布主机 URL；请检查 [Gateway网关配置](/gateway/configuration) 中的 `canvasHost`。
-- 配对提示始终未出现：运行 `openclaw nodes pending` 并手动批准。
+- 配对提示始终未出现：运行 `cleobot nodes pending` 并手动批准。
 - 重新安装后重连失败：钥匙串中的配对令牌已被清除；请重新配对节点。
 
 ## 相关文档

@@ -24,7 +24,7 @@ describe("onboard (non-interactive): token auth", () => {
     delete process.env.CLEOBOT_GATEWAY_TOKEN;
     delete process.env.CLEOBOT_GATEWAY_PASSWORD;
 
-    const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-onboard-token-"));
+    const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-onboard-token-"));
     process.env.HOME = tempHome;
     process.env.CLEOBOT_STATE_DIR = tempHome;
     process.env.CLEOBOT_CONFIG_PATH = path.join(tempHome, "cleobot.json");

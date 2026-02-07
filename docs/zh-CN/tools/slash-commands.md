@@ -110,9 +110,9 @@ x-i18n:
 
 - 命令在命令名和参数之间可以使用可选的 `:`（例如 `/think: high`、`/send: on`、`/help:`）。
 - `/new <model>` 接受模型别名、`provider/model` 或提供商名称（模糊匹配）；如果没有匹配，文本将被视为消息正文。
-- 要查看完整的提供商用量明细，请使用 `openclaw status --usage`。
+- 要查看完整的提供商用量明细，请使用 `cleobot status --usage`。
 - `/allowlist add|remove` 需要 `commands.config=true` 并遵循渠道的 `configWrites` 设置。
-- `/usage` 控制每次响应的用量页脚；`/usage cost` 从 OpenClaw 会话日志中打印本地费用摘要。
+- `/usage` 控制每次响应的用量页脚；`/usage cost` 从 CleoBot 会话日志中打印本地费用摘要。
 - `/restart` 默认禁用；设置 `commands.restart: true` 以启用。
 - `/verbose` 用于调试和增强可见性；正常使用时请保持**关闭**。
 - `/reasoning`（和 `/verbose`）在群组场景中存在风险：它们可能暴露你不希望公开的内部推理或工具输出。建议保持关闭，尤其是在群聊中。

@@ -1,8 +1,8 @@
 ---
 read_when:
-  - 将 Gmail 收件箱触发器接入 OpenClaw
+  - 将 Gmail 收件箱触发器接入 CleoBot
   - 为智能体唤醒设置 Pub/Sub 推送
-summary: 通过 gogcli 将 Gmail Pub/Sub 推送接入 OpenClaw webhooks
+summary: 通过 gogcli 将 Gmail Pub/Sub 推送接入 CleoBot webhooks
 title: Gmail PubSub
 x-i18n:
   generated_at: "2026-02-01T19:38:47Z"
@@ -13,15 +13,15 @@ x-i18n:
   workflow: 14
 ---
 
-# Gmail Pub/Sub -> OpenClaw
+# Gmail Pub/Sub -> CleoBot
 
-目标：Gmail watch -> Pub/Sub 推送 -> `gog gmail watch serve` -> OpenClaw webhook。
+目标：Gmail watch -> Pub/Sub 推送 -> `gog gmail watch serve` -> CleoBot webhook。
 
 ## 前置条件
 
 - 已安装并登录 `gcloud`（[安装指南](https://docs.cloud.google.com/sdk/docs/install-sdk)）。
 - 已安装 `gog`（gogcli）并已授权 Gmail 账号（[gogcli.sh](https://gogcli.sh/)）。
-- 已启用 OpenClaw hooks（参见 [Webhooks](/automation/webhook)）。
+- 已启用 CleoBot hooks（参见 [Webhooks](/automation/webhook)）。
 - 已登录 `tailscale`（[tailscale.com](https://tailscale.com/)）。支持的配置使用 Tailscale Funnel 作为公共 HTTPS 端点。
   其他隧道服务也可以使用，但属于自行配置/不受支持，需要手动接线。
   目前我们支持的是 Tailscale。
@@ -32,7 +32,7 @@ x-i18n:
 {
   hooks: {
     enabled: true,
-    token: "OPENCLAW_HOOK_TOKEN",
+    token: "CLEOBOT_HOOK_TOKEN",
     path: "/hooks",
     presets: ["gmail"],
   },
@@ -45,7 +45,7 @@ x-i18n:
 {
   hooks: {
     enabled: true,
-    token: "OPENCLAW_HOOK_TOKEN",
+    token: "CLEOBOT_HOOK_TOKEN",
     presets: ["gmail"],
     mappings: [
       {
@@ -94,7 +94,7 @@ x-i18n:
 
 ## 向导（推荐）
 
-使用 OpenClaw 辅助工具一键完成所有配置（在 macOS 上通过 brew 安装依赖）：
+使用 CleoBot 辅助工具一键完成所有配置（在 macOS 上通过 brew 安装依赖）：
 
 ```bash
 openclaw webhooks gmail setup \
@@ -104,10 +104,10 @@ openclaw webhooks gmail setup \
 默认配置：
 
 - 使用 Tailscale Funnel 作为公共推送端点。
-- 为 `openclaw webhooks gmail run` 写入 `hooks.gmail` 配置。
+- 为 `cleobot webhooks gmail run` 写入 `hooks.gmail` 配置。
 - 启用 Gmail hook 预设（`hooks.presets: ["gmail"]`）。
 
-路径说明：当启用 `tailscale.mode` 时，OpenClaw 会自动将 `hooks.gmail.serve.path` 设置为 `/`，并将公共路径保持在 `hooks.gmail.tailscale.path`（默认 `/gmail-pubsub`），因为 Tailscale 在代理前会去除设置的路径前缀。
+路径说明：当启用 `tailscale.mode` 时，CleoBot 会自动将 `hooks.gmail.serve.path` 设置为 `/`，并将公共路径保持在 `hooks.gmail.tailscale.path`（默认 `/gmail-pubsub`），因为 Tailscale 在代理前会去除设置的路径前缀。
 如果你需要后端接收带前缀的路径，请将 `hooks.gmail.tailscale.target`（或 `--tailscale-target`）设置为完整 URL，例如 `http://127.0.0.1:8788/gmail-pubsub`，并匹配 `hooks.gmail.serve.path`。
 
 需要自定义端点？使用 `--push-endpoint <url>` 或 `--tailscale off`。
@@ -117,7 +117,7 @@ openclaw webhooks gmail setup \
 Gateway网关自动启动（推荐）：
 
 - 当 `hooks.enabled=true` 且设置了 `hooks.gmail.account` 时，Gateway网关会在启动时运行 `gog gmail watch serve` 并自动续期 watch。
-- 设置 `OPENCLAW_SKIP_GMAIL_WATCHER=1` 可退出自动启动（如果你自行运行守护进程则很有用）。
+- 设置 `CLEOBOT_SKIP_GMAIL_WATCHER=1` 可退出自动启动（如果你自行运行守护进程则很有用）。
 - 不要同时运行手动守护进程，否则会遇到 `listen tcp 127.0.0.1:8788: bind: address already in use`。
 
 手动守护进程（启动 `gog gmail watch serve` + 自动续期）：
@@ -180,7 +180,7 @@ gog gmail watch serve \
   --path /gmail-pubsub \
   --token <shared> \
   --hook-url http://127.0.0.1:18789/hooks/gmail \
-  --hook-token OPENCLAW_HOOK_TOKEN \
+  --hook-token CLEOBOT_HOOK_TOKEN \
   --include-body \
   --max-bytes 20000
 ```
@@ -188,10 +188,10 @@ gog gmail watch serve \
 说明：
 
 - `--token` 保护推送端点（`x-gog-token` 或 `?token=`）。
-- `--hook-url` 指向 OpenClaw `/hooks/gmail`（已映射；隔离运行 + 摘要发送到主会话）。
-- `--include-body` 和 `--max-bytes` 控制发送到 OpenClaw 的正文片段。
+- `--hook-url` 指向 CleoBot `/hooks/gmail`（已映射；隔离运行 + 摘要发送到主会话）。
+- `--include-body` 和 `--max-bytes` 控制发送到 CleoBot 的正文片段。
 
-推荐：`openclaw webhooks gmail run` 封装了相同的流程并自动续期 watch。
+推荐：`cleobot webhooks gmail run` 封装了相同的流程并自动续期 watch。
 
 ## 暴露处理器（高级，不受支持）
 

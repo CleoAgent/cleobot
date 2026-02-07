@@ -1,5 +1,5 @@
 ---
-summary: "First-run onboarding flow for OpenClaw (macOS app)"
+summary: "First-run onboarding flow for CleoBot (macOS app)"
 read_when:
   - Designing the macOS onboarding assistant
   - Implementing auth or identity setup
@@ -49,7 +49,7 @@ The macOS app supports Anthropic OAuth (Claude Pro/Max). The flow:
 
 - Opens the browser for OAuth (PKCE)
 - Asks the user to paste the `code#state` value
-- Writes credentials to `~/.openclaw/credentials/oauth.json`
+- Writes credentials to `~/.cleobot/credentials/oauth.json`
 
 Other providers (OpenAI, custom APIs) are configured via environment variables
 or config files for now.
@@ -82,7 +82,7 @@ from your normal conversation.
 
 ## Agent bootstrap ritual
 
-On the first agent run, OpenClaw bootstraps a workspace (default `~/.openclaw/workspace`):
+On the first agent run, CleoBot bootstraps a workspace (default `~/.cleobot/workspace`):
 
 - Seeds `AGENTS.md`, `BOOTSTRAP.md`, `IDENTITY.md`, `USER.md`
 - Runs a short Q&A ritual (one question at a time)
@@ -104,7 +104,7 @@ See [/automation/gmail-pubsub](/automation/gmail-pubsub) for details.
 When the Gateway runs on another machine, credentials and workspace files live
 **on that host**. If you need OAuth in remote mode, create:
 
-- `~/.openclaw/credentials/oauth.json`
-- `~/.openclaw/agents/<agentId>/agent/auth-profiles.json`
+- `~/.cleobot/credentials/oauth.json`
+- `~/.cleobot/agents/<agentId>/agent/auth-profiles.json`
 
 on the gateway host.

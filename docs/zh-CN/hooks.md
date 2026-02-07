@@ -15,14 +15,14 @@ x-i18n:
 
 # 钩子
 
-钩子提供了一个可扩展的事件驱动系统，用于在响应智能体命令和事件时自动执行操作。钩子从目录中自动发现，并可通过 CLI 命令管理，类似于 OpenClaw 中 Skills 的工作方式。
+钩子提供了一个可扩展的事件驱动系统，用于在响应智能体命令和事件时自动执行操作。钩子从目录中自动发现，并可通过 CLI 命令管理，类似于 CleoBot 中 Skills 的工作方式。
 
 ## 快速了解
 
 钩子是在某些事件发生时运行的小脚本。有两种类型：
 
 - **钩子**（本页）：在智能体事件触发时在 Gateway网关内部运行，如 `/new`、`/reset`、`/stop` 或生命周期事件。
-- **Webhook**：外部 HTTP webhook，允许其他系统在 OpenClaw 中触发工作。参见 [Webhook 钩子](/automation/webhook) 或使用 `openclaw webhooks` 获取 Gmail 辅助命令。
+- **Webhook**：外部 HTTP webhook，允许其他系统在 CleoBot 中触发工作。参见 [Webhook 钩子](/automation/webhook) 或使用 `cleobot webhooks` 获取 Gmail 辅助命令。
 
 钩子也可以捆绑在插件中；参见 [插件](/plugin#plugin-hooks)。
 
@@ -42,16 +42,16 @@ x-i18n:
 - 在发出 `/new` 时将会话上下文保存到记忆中
 - 记录所有命令用于审计
 - 在智能体生命周期事件上触发自定义自动化
-- 扩展 OpenClaw 的行为而无需修改核心代码
+- 扩展 CleoBot 的行为而无需修改核心代码
 
 ## 快速开始
 
 ### 内置钩子
 
-OpenClaw 附带四个自动发现的内置钩子：
+CleoBot 附带四个自动发现的内置钩子：
 
-- **💾 session-memory**：在你发出 `/new` 时将会话上下文保存到智能体工作区（默认 `~/.openclaw/workspace/memory/`）
-- **📝 command-logger**：将所有命令事件记录到 `~/.openclaw/logs/commands.log`
+- **💾 session-memory**：在你发出 `/new` 时将会话上下文保存到智能体工作区（默认 `~/.cleobot/workspace/memory/`）
+- **📝 command-logger**：将所有命令事件记录到 `~/.cleobot/logs/commands.log`
 - **🚀 boot-md**：在 Gateway网关启动时运行 `BOOT.md`（需要启用内部钩子）
 - **😈 soul-evil**：在清除窗口期间或随机概率下，将注入的 `SOUL.md` 内容替换为 `SOUL_EVIL.md`
 
@@ -81,15 +81,15 @@ openclaw hooks info session-memory
 
 ### 新手引导
 
-在新手引导（`openclaw onboard`）期间，你会被提示启用推荐的钩子。向导会自动发现符合条件的钩子并展示供你选择。
+在新手引导（`cleobot onboard`）期间，你会被提示启用推荐的钩子。向导会自动发现符合条件的钩子并展示供你选择。
 
 ## 钩子发现
 
 钩子从三个目录自动发现（按优先级排序）：
 
 1. **工作区钩子**：`<workspace>/hooks/`（按智能体，最高优先级）
-2. **托管钩子**：`~/.openclaw/hooks/`（用户安装，跨工作区共享）
-3. **内置钩子**：`<openclaw>/dist/hooks/bundled/`（随 OpenClaw 附带）
+2. **托管钩子**：`~/.cleobot/hooks/`（用户安装，跨工作区共享）
+3. **内置钩子**：`<openclaw>/dist/hooks/bundled/`（随 CleoBot 附带）
 
 托管钩子目录可以是**单个钩子**或**钩子包**（包目录）。
 
@@ -122,7 +122,7 @@ openclaw hooks install <path-or-spec>
 ```
 
 每个条目指向一个包含 `HOOK.md` 和 `handler.ts`（或 `index.ts`）的钩子目录。
-钩子包可以附带依赖；它们将安装到 `~/.openclaw/hooks/<id>` 下。
+钩子包可以附带依赖；它们将安装到 `~/.cleobot/hooks/<id>` 下。
 
 ## 钩子结构
 
@@ -220,7 +220,7 @@ export default myHandler;
     senderId?: string,
     workspaceDir?: string,
     bootstrapFiles?: WorkspaceBootstrapFile[],
-    cfg?: OpenClawConfig
+    cfg?: CleoBotConfig
   }
 }
 ```
@@ -248,7 +248,7 @@ export default myHandler;
 
 ### 工具结果钩子（插件 API）
 
-这些钩子不是事件流监听器；它们允许插件在 OpenClaw 持久化工具结果之前同步调整工具结果。
+这些钩子不是事件流监听器；它们允许插件在 CleoBot 持久化工具结果之前同步调整工具结果。
 
 - **`tool_result_persist`**：在工具结果写入会话记录之前进行转换。必须是同步的；返回更新后的工具结果负载或 `undefined` 以保持原样。参见 [智能体循环](/concepts/agent-loop)。
 
@@ -267,13 +267,13 @@ export default myHandler;
 ### 1. 选择位置
 
 - **工作区钩子**（`<workspace>/hooks/`）：按智能体，最高优先级
-- **托管钩子**（`~/.openclaw/hooks/`）：跨工作区共享
+- **托管钩子**（`~/.cleobot/hooks/`）：跨工作区共享
 
 ### 2. 创建目录结构
 
 ```bash
-mkdir -p ~/.openclaw/hooks/my-hook
-cd ~/.openclaw/hooks/my-hook
+mkdir -p ~/.cleobot/hooks/my-hook
+cd ~/.cleobot/hooks/my-hook
 ```
 
 ### 3. 创建 HOOK.md
@@ -460,7 +460,7 @@ openclaw hooks disable command-logger
 
 **要求**：必须配置 `workspace.dir`
 
-**输出**：`<workspace>/memory/YYYY-MM-DD-slug.md`（默认为 `~/.openclaw/workspace`）
+**输出**：`<workspace>/memory/YYYY-MM-DD-slug.md`（默认为 `~/.cleobot/workspace`）
 
 **功能**：
 
@@ -499,7 +499,7 @@ openclaw hooks enable session-memory
 
 **要求**：无
 
-**输出**：`~/.openclaw/logs/commands.log`
+**输出**：`~/.cleobot/logs/commands.log`
 
 **功能**：
 
@@ -518,13 +518,13 @@ openclaw hooks enable session-memory
 
 ```bash
 # 查看最近的命令
-tail -n 20 ~/.openclaw/logs/commands.log
+tail -n 20 ~/.cleobot/logs/commands.log
 
 # 用 jq 美化输出
-cat ~/.openclaw/logs/commands.log | jq .
+cat ~/.cleobot/logs/commands.log | jq .
 
 # 按操作过滤
-grep '"action":"new"' ~/.openclaw/logs/commands.log | jq .
+grep '"action":"new"' ~/.cleobot/logs/commands.log | jq .
 ```
 
 **启用**：
@@ -705,7 +705,7 @@ openclaw hooks info my-hook
 ./scripts/clawlog.sh -f
 
 # 其他平台
-tail -f ~/.openclaw/gateway.log
+tail -f ~/.cleobot/gateway.log
 ```
 
 ### 直接测试钩子
@@ -781,20 +781,20 @@ Gateway网关启动
 1. 检查目录结构：
 
    ```bash
-   ls -la ~/.openclaw/hooks/my-hook/
+   ls -la ~/.cleobot/hooks/my-hook/
    # 应该显示：HOOK.md、handler.ts
    ```
 
 2. 验证 HOOK.md 格式：
 
    ```bash
-   cat ~/.openclaw/hooks/my-hook/HOOK.md
+   cat ~/.cleobot/hooks/my-hook/HOOK.md
    # 应该有包含 name 和 metadata 的 YAML 前置元数据
    ```
 
 3. 列出所有已发现的钩子：
    ```bash
-   openclaw hooks list
+   cleobot hooks list
    ```
 
 ### 钩子不符合条件
@@ -817,7 +817,7 @@ openclaw hooks info my-hook
 1. 验证钩子已启用：
 
    ```bash
-   openclaw hooks list
+   cleobot hooks list
    # 已启用的钩子旁边应显示 ✓
    ```
 
@@ -864,8 +864,8 @@ node -e "import('./path/to/handler.ts').then(console.log)"
 1. 创建钩子目录：
 
    ```bash
-   mkdir -p ~/.openclaw/hooks/my-hook
-   mv ./hooks/handlers/my-handler.ts ~/.openclaw/hooks/my-hook/handler.ts
+   mkdir -p ~/.cleobot/hooks/my-hook
+   mv ./hooks/handlers/my-handler.ts ~/.cleobot/hooks/my-hook/handler.ts
    ```
 
 2. 创建 HOOK.md：
@@ -899,7 +899,7 @@ node -e "import('./path/to/handler.ts').then(console.log)"
 
 4. 验证并重启你的 Gateway网关进程：
    ```bash
-   openclaw hooks list
+   cleobot hooks list
    # 应该显示：🎯 my-hook ✓
    ```
 

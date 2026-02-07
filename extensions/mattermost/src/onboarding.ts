@@ -1,4 +1,4 @@
-import type { ChannelOnboardingAdapter, OpenClawConfig, WizardPrompter } from "openclaw/plugin-sdk";
+import type { ChannelOnboardingAdapter, CleoBotConfig, WizardPrompter } from "openclaw/plugin-sdk";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk";
 import {
   listMattermostAccountIds,
@@ -176,7 +176,7 @@ export const mattermostOnboardingAdapter: ChannelOnboardingAdapter = {
 
     return { cfg: next, accountId };
   },
-  disable: (cfg: OpenClawConfig) => ({
+  disable: (cfg: CleoBotConfig) => ({
     ...cfg,
     channels: {
       ...cfg.channels,

@@ -1,8 +1,8 @@
 ---
 read_when:
-  - 安装 OpenClaw
+  - 安装 CleoBot
   - 你想从 GitHub 安装
-summary: 安装 OpenClaw（推荐安装器、全局安装或从源码安装）
+summary: 安装 CleoBot（推荐安装器、全局安装或从源码安装）
 title: 安装
 x-i18n:
   generated_at: "2026-02-01T21:07:34Z"
@@ -108,7 +108,7 @@ pnpm build
 openclaw onboard --install-daemon
 ```
 
-提示：如果尚未全局安装，可通过 `pnpm openclaw ...` 运行仓库命令。
+提示：如果尚未全局安装，可通过 `pnpm cleobot ...` 运行仓库命令。
 
 ### 4) 其他安装选项
 
@@ -119,10 +119,10 @@ openclaw onboard --install-daemon
 
 ## 安装后
 
-- 运行新手引导：`openclaw onboard --install-daemon`
-- 快速检查：`openclaw doctor`
-- 检查 Gateway网关健康状态：`openclaw status` + `openclaw health`
-- 打开仪表盘：`openclaw dashboard`
+- 运行新手引导：`cleobot onboard --install-daemon`
+- 快速检查：`cleobot doctor`
+- 检查 Gateway网关健康状态：`cleobot status` + `cleobot health`
+- 打开仪表盘：`cleobot dashboard`
 
 ## 安装方式：npm vs git（安装器）
 
@@ -154,12 +154,12 @@ curl -fsSL https://openclaw.ai/install.sh | bash -s -- --install-method git
 
 等效的环境变量（适用于自动化）：
 
-- `OPENCLAW_INSTALL_METHOD=git|npm`
-- `OPENCLAW_GIT_DIR=...`
-- `OPENCLAW_GIT_UPDATE=0|1`
-- `OPENCLAW_NO_PROMPT=1`
-- `OPENCLAW_DRY_RUN=1`
-- `OPENCLAW_NO_ONBOARD=1`
+- `CLEOBOT_INSTALL_METHOD=git|npm`
+- `CLEOBOT_GIT_DIR=...`
+- `CLEOBOT_GIT_UPDATE=0|1`
+- `CLEOBOT_NO_PROMPT=1`
+- `CLEOBOT_DRY_RUN=1`
+- `CLEOBOT_NO_ONBOARD=1`
 - `SHARP_IGNORE_GLOBAL_LIBVIPS=0|1`（默认：`1`；避免 `sharp` 使用系统 libvips 编译）
 
 ## 故障排除：找不到 `openclaw`（PATH 问题）

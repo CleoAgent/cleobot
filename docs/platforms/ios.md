@@ -53,7 +53,7 @@ openclaw gateway call node.list --params "{}"
 
 ### Bonjour (LAN)
 
-The Gateway advertises `_openclaw-gw._tcp` on `local.`. The iOS app lists these automatically.
+The Gateway advertises `_cleobot-gw._tcp` on `local.`. The iOS app lists these automatically.
 
 ### Tailnet (cross-network)
 
@@ -97,7 +97,7 @@ openclaw nodes invoke --node "iOS Node" --command canvas.snapshot --params '{"ma
 
 - `NODE_BACKGROUND_UNAVAILABLE`: bring the iOS app to the foreground (canvas/camera/screen commands require it).
 - `A2UI_HOST_NOT_CONFIGURED`: the Gateway did not advertise a canvas host URL; check `canvasHost` in [Gateway configuration](/gateway/configuration).
-- Pairing prompt never appears: run `openclaw nodes pending` and approve manually.
+- Pairing prompt never appears: run `cleobot nodes pending` and approve manually.
 - Reconnect fails after reinstall: the Keychain pairing token was cleared; re-pair the node.
 
 ## Related docs

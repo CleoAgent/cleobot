@@ -1,6 +1,6 @@
 import AVFAudio
-import OpenClawKit
-import OpenClawProtocol
+import CleoBotKit
+import CleoBotProtocol
 import Foundation
 import Observation
 import OSLog

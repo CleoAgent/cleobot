@@ -45,7 +45,7 @@ describe("auth-profiles (chutes)", () => {
   });
 
   it("refreshes expired Chutes OAuth credentials", async () => {
-    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-chutes-"));
+    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-chutes-"));
     process.env.CLEOBOT_STATE_DIR = tempDir;
     process.env.CLEOBOT_AGENT_DIR = path.join(tempDir, "agents", "main", "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.CLEOBOT_AGENT_DIR;

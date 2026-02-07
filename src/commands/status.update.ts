@@ -1,5 +1,5 @@
 import { formatCliCommand } from "../cli/command-format.js";
-import { resolveCleoBotPackageRoot } from "../infra/openclaw-root.js";
+import { resolveCleoBotPackageRoot } from "../infra/cleobot-root.js";
 import {
   checkUpdateStatus,
   compareSemverStrings,

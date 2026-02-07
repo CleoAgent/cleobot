@@ -34,7 +34,7 @@ describe("runGatewayUpdate", () => {
   let tempDir: string;
 
   beforeEach(async () => {
-    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-update-"));
+    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-update-"));
   });
 
   afterEach(async () => {

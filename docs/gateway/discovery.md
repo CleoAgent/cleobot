@@ -9,12 +9,12 @@ title: "Discovery and Transports"
 
 # Discovery & transports
 
-OpenClaw has two distinct problems that look similar on the surface:
+CleoBot has two distinct problems that look similar on the surface:
 
 1. **Operator remote control**: the macOS menu bar app controlling a gateway running elsewhere.
 2. **Node pairing**: iOS/Android (and future nodes) finding a gateway and pairing securely.
 
-The design goal is to keep all network discovery/advertising in the **Node Gateway** (`openclaw gateway`) and keep clients (mac app, iOS) as consumers.
+The design goal is to keep all network discovery/advertising in the **Node Gateway** (`cleobot gateway`) and keep clients (mac app, iOS) as consumers.
 
 ## Terms
 
@@ -56,7 +56,7 @@ Troubleshooting and beacon details: [Bonjour](/gateway/bonjour).
 #### Service beacon details
 
 - Service types:
-  - `_openclaw-gw._tcp` (gateway transport beacon)
+  - `_cleobot-gw._tcp` (gateway transport beacon)
 - TXT keys (non-secret):
   - `role=gateway`
   - `lanHost=<hostname>.local`
@@ -70,11 +70,11 @@ Troubleshooting and beacon details: [Bonjour](/gateway/bonjour).
 
 Disable/override:
 
-- `OPENCLAW_DISABLE_BONJOUR=1` disables advertising.
+- `CLEOBOT_DISABLE_BONJOUR=1` disables advertising.
 - `gateway.bind` in `~/.openclaw/openclaw.json` controls the Gateway bind mode.
-- `OPENCLAW_SSH_PORT` overrides the SSH port advertised in TXT (defaults to 22).
-- `OPENCLAW_TAILNET_DNS` publishes a `tailnetDns` hint (MagicDNS).
-- `OPENCLAW_CLI_PATH` overrides the advertised CLI path.
+- `CLEOBOT_SSH_PORT` overrides the SSH port advertised in TXT (defaults to 22).
+- `CLEOBOT_TAILNET_DNS` publishes a `tailnetDns` hint (MagicDNS).
+- `CLEOBOT_CLI_PATH` overrides the advertised CLI path.
 
 ### 2) Tailnet (cross-network)
 

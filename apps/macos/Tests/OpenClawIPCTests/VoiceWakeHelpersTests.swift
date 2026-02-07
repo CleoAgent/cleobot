@@ -1,5 +1,5 @@
 import Testing
-@testable import OpenClaw
+@testable import CleoBot
 
 struct VoiceWakeHelpersTests {
     @Test func sanitizeTriggersTrimsAndDropsEmpty() {

@@ -1,5 +1,5 @@
 import type { GatewayRequestHandlers } from "./types.js";
-import { resolveCleoBotPackageRoot } from "../../infra/openclaw-root.js";
+import { resolveCleoBotPackageRoot } from "../../infra/cleobot-root.js";
 import {
   formatDoctorNonInteractiveHint,
   type RestartSentinelPayload,

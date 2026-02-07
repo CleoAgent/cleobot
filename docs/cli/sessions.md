@@ -1,11 +1,11 @@
 ---
-summary: "CLI reference for `openclaw sessions` (list stored sessions + usage)"
+summary: "CLI reference for `cleobot sessions` (list stored sessions + usage)"
 read_when:
   - You want to list stored sessions and see recent activity
 title: "sessions"
 ---
 
-# `openclaw sessions`
+# `cleobot sessions`
 
 List stored conversation sessions.
 

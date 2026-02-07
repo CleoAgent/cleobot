@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import { createCleoBotTools } from "../agents/openclaw-tools.js";
+import { createCleoBotTools } from "../agents/cleobot-tools.js";
 import { resolveSessionTranscriptPath } from "../config/sessions.js";
 import { emitAgentEvent } from "../infra/agent-events.js";
 import {

@@ -68,8 +68,8 @@ describe("state + config path candidates", () => {
     expect(candidates).toEqual(expected);
   });
 
-  it("prefers ~/.openclaw when it exists and legacy dir is missing", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-state-"));
+  it("prefers ~/.cleobot when it exists and legacy dir is missing", async () => {
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-state-"));
     try {
       const newDir = path.join(root, ".cleobot");
       await fs.mkdir(newDir, { recursive: true });
@@ -81,7 +81,7 @@ describe("state + config path candidates", () => {
   });
 
   it("CONFIG_PATH prefers existing config when present", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-config-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-config-"));
     const previousHome = process.env.HOME;
     const previousUserProfile = process.env.USERPROFILE;
     const previousHomeDrive = process.env.HOMEDRIVE;
@@ -154,7 +154,7 @@ describe("state + config path candidates", () => {
   });
 
   it("respects state dir overrides when config is missing", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-config-override-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-config-override-"));
     try {
       const legacyDir = path.join(root, ".cleobot");
       await fs.mkdir(legacyDir, { recursive: true });

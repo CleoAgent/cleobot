@@ -40,7 +40,7 @@ describe("docker-setup.sh", () => {
       return;
     }
 
-    const rootDir = await mkdtemp(join(tmpdir(), "openclaw-docker-setup-"));
+    const rootDir = await mkdtemp(path.join(os.tmpdir(), "cleobot-docker-setup-"));
     const scriptPath = join(rootDir, "docker-setup.sh");
     const dockerfilePath = join(rootDir, "Dockerfile");
     const composePath = join(rootDir, "docker-compose.yml");
@@ -90,7 +90,7 @@ describe("docker-setup.sh", () => {
       return;
     }
 
-    const rootDir = await mkdtemp(join(tmpdir(), "openclaw-docker-setup-"));
+    const rootDir = await mkdtemp(path.join(os.tmpdir(), "cleobot-docker-setup-"));
     const scriptPath = join(rootDir, "docker-setup.sh");
     const dockerfilePath = join(rootDir, "Dockerfile");
     const composePath = join(rootDir, "docker-compose.yml");

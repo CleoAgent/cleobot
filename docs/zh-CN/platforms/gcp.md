@@ -1,9 +1,9 @@
 ---
 read_when:
-  - 你希望在 GCP 上全天候运行 OpenClaw
+  - 你希望在 GCP 上全天候运行 CleoBot
   - 你希望在自己的虚拟机上运行生产级、始终在线的 Gateway网关
   - 你希望完全掌控持久化、二进制文件和重启行为
-summary: 在 GCP Compute Engine 虚拟机上全天候运行 OpenClaw Gateway网关（Docker），并实现持久化状态存储
+summary: 在 GCP Compute Engine 虚拟机上全天候运行 CleoBot Gateway网关（Docker），并实现持久化状态存储
 title: GCP
 x-i18n:
   generated_at: "2026-02-01T21:33:10Z"
@@ -14,13 +14,13 @@ x-i18n:
   workflow: 15
 ---
 
-# 在 GCP Compute Engine 上运行 OpenClaw（Docker，生产环境 VPS 指南）
+# 在 GCP Compute Engine 上运行 CleoBot（Docker，生产环境 VPS 指南）
 
 ## 目标
 
-使用 Docker 在 GCP Compute Engine 虚拟机上运行持久化的 OpenClaw Gateway网关，实现持久状态存储、内置二进制文件和安全的重启行为。
+使用 Docker 在 GCP Compute Engine 虚拟机上运行持久化的 CleoBot Gateway网关，实现持久状态存储、内置二进制文件和安全的重启行为。
 
-如果你想"以每月约 $5-12 的成本全天候运行 OpenClaw"，这是在 Google Cloud 上的可靠方案。
+如果你想"以每月约 $5-12 的成本全天候运行 CleoBot"，这是在 Google Cloud 上的可靠方案。
 价格因机器类型和区域而异；选择适合你工作负载的最小虚拟机，如果遇到 OOM 再进行扩容。
 
 ## 我们要做什么（简单说明）？
@@ -28,8 +28,8 @@ x-i18n:
 - 创建 GCP 项目并启用计费
 - 创建 Compute Engine 虚拟机
 - 安装 Docker（隔离的应用运行时）
-- 在 Docker 中启动 OpenClaw Gateway网关
-- 将 `~/.openclaw` + `~/.openclaw/workspace` 持久化到宿主机（重启/重建后数据不丢失）
+- 在 Docker 中启动 CleoBot Gateway网关
+- 将 `~/.cleobot` + `~/.cleobot/workspace` 持久化到宿主机（重启/重建后数据不丢失）
 - 通过 SSH 隧道从笔记本电脑访问控制界面
 
 Gateway网关可通过以下方式访问：
@@ -49,7 +49,7 @@ Ubuntu 同样适用；请相应地映射软件包。
 2. 创建 Compute Engine 虚拟机（e2-small，Debian 12，20GB）
 3. SSH 连接到虚拟机
 4. 安装 Docker
-5. 克隆 OpenClaw 仓库
+5. 克隆 CleoBot 仓库
 6. 创建持久化宿主机目录
 7. 配置 `.env` 和 `docker-compose.yml`
 8. 内置所需二进制文件，构建并启动
@@ -96,8 +96,8 @@ gcloud auth login
 **CLI：**
 
 ```bash
-gcloud projects create my-openclaw-project --name="OpenClaw Gateway网关"
-gcloud config set project my-openclaw-project
+gcloud projects create my-cleobot-project --name="CleoBot Gateway网关"
+gcloud config set project my-cleobot-project
 ```
 
 在 https://console.cloud.google.com/billing 启用计费（Compute Engine 必需）。
@@ -129,7 +129,7 @@ gcloud services enable compute.googleapis.com
 **CLI：**
 
 ```bash
-gcloud compute instances create openclaw-gateway \
+gcloud compute instances create cleobot-gateway \
   --zone=us-central1-a \
   --machine-type=e2-small \
   --boot-disk-size=20GB \
@@ -140,7 +140,7 @@ gcloud compute instances create openclaw-gateway \
 **Console：**
 
 1. 前往 Compute Engine > VM instances > Create instance
-2. 名称：`openclaw-gateway`
+2. 名称：`cleobot-gateway`
 3. 区域：`us-central1`，可用区：`us-central1-a`
 4. 机器类型：`e2-small`
 5. 启动磁盘：Debian 12，20GB
@@ -153,7 +153,7 @@ gcloud compute instances create openclaw-gateway \
 **CLI：**
 
 ```bash
-gcloud compute ssh openclaw-gateway --zone=us-central1-a
+gcloud compute ssh cleobot-gateway --zone=us-central1-a
 ```
 
 **Console：**
@@ -182,7 +182,7 @@ exit
 然后重新 SSH 连接：
 
 ```bash
-gcloud compute ssh openclaw-gateway --zone=us-central1-a
+gcloud compute ssh cleobot-gateway --zone=us-central1-a
 ```
 
 验证：
@@ -194,7 +194,7 @@ docker compose version
 
 ---
 
-## 6）克隆 OpenClaw 仓库
+## 6）克隆 CleoBot 仓库
 
 ```bash
 git clone https://github.com/openclaw/openclaw.git
@@ -211,8 +211,8 @@ Docker 容器是临时性的。
 所有长期状态必须存储在宿主机上。
 
 ```bash
-mkdir -p ~/.openclaw
-mkdir -p ~/.openclaw/workspace
+mkdir -p ~/.cleobot
+mkdir -p ~/.cleobot/workspace
 ```
 
 ---
@@ -222,13 +222,13 @@ mkdir -p ~/.openclaw/workspace
 在仓库根目录创建 `.env`。
 
 ```bash
-OPENCLAW_IMAGE=openclaw:latest
-OPENCLAW_GATEWAY_TOKEN=change-me-now
-OPENCLAW_GATEWAY_BIND=lan
-OPENCLAW_GATEWAY_PORT=18789
+CLEOBOT_IMAGE=openclaw:latest
+CLEOBOT_GATEWAY_TOKEN=change-me-now
+CLEOBOT_GATEWAY_BIND=lan
+CLEOBOT_GATEWAY_PORT=18789
 
-OPENCLAW_CONFIG_DIR=/home/$USER/.openclaw
-OPENCLAW_WORKSPACE_DIR=/home/$USER/.openclaw/workspace
+CLEOBOT_CONFIG_DIR=/home/$USER/.openclaw
+CLEOBOT_WORKSPACE_DIR=/home/$USER/.openclaw/workspace
 
 GOG_KEYRING_PASSWORD=change-me-now
 XDG_CONFIG_HOME=/home/node/.openclaw
@@ -250,8 +250,8 @@ openssl rand -hex 32
 
 ```yaml
 services:
-  openclaw-gateway:
-    image: ${OPENCLAW_IMAGE}
+  cleobot-gateway:
+    image: ${CLEOBOT_IMAGE}
     build: .
     restart: unless-stopped
     env_file:
@@ -260,19 +260,19 @@ services:
       - HOME=/home/node
       - NODE_ENV=production
       - TERM=xterm-256color
-      - OPENCLAW_GATEWAY_BIND=${OPENCLAW_GATEWAY_BIND}
-      - OPENCLAW_GATEWAY_PORT=${OPENCLAW_GATEWAY_PORT}
-      - OPENCLAW_GATEWAY_TOKEN=${OPENCLAW_GATEWAY_TOKEN}
+      - CLEOBOT_GATEWAY_BIND=${CLEOBOT_GATEWAY_BIND}
+      - CLEOBOT_GATEWAY_PORT=${CLEOBOT_GATEWAY_PORT}
+      - CLEOBOT_GATEWAY_TOKEN=${CLEOBOT_GATEWAY_TOKEN}
       - GOG_KEYRING_PASSWORD=${GOG_KEYRING_PASSWORD}
       - XDG_CONFIG_HOME=${XDG_CONFIG_HOME}
       - PATH=/home/linuxbrew/.linuxbrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     volumes:
-      - ${OPENCLAW_CONFIG_DIR}:/home/node/.openclaw
-      - ${OPENCLAW_WORKSPACE_DIR}:/home/node/.openclaw/workspace
+      - ${CLEOBOT_CONFIG_DIR}:/home/node/.openclaw
+      - ${CLEOBOT_WORKSPACE_DIR}:/home/node/.openclaw/workspace
     ports:
       # 推荐：在虚拟机上保持 Gateway网关仅监听 local loopback；通过 SSH 隧道访问。
       # 如需公开暴露，移除 `127.0.0.1:` 前缀并相应配置防火墙。
-      - "127.0.0.1:${OPENCLAW_GATEWAY_PORT}:18789"
+      - "127.0.0.1:${CLEOBOT_GATEWAY_PORT}:18789"
 
       # 可选：仅当你对此虚拟机运行 iOS/Android 节点并需要 Canvas 主机时使用。
       # 如果公开暴露此端口，请阅读 /gateway/security 并相应配置防火墙。
@@ -283,9 +283,9 @@ services:
         "dist/index.js",
         "gateway",
         "--bind",
-        "${OPENCLAW_GATEWAY_BIND}",
+        "${CLEOBOT_GATEWAY_BIND}",
         "--port",
-        "${OPENCLAW_GATEWAY_PORT}",
+        "${CLEOBOT_GATEWAY_PORT}",
       ]
 ```
 
@@ -358,15 +358,15 @@ CMD ["node","dist/index.js"]
 
 ```bash
 docker compose build
-docker compose up -d openclaw-gateway
+docker compose up -d cleobot-gateway
 ```
 
 验证二进制文件：
 
 ```bash
-docker compose exec openclaw-gateway which gog
-docker compose exec openclaw-gateway which goplaces
-docker compose exec openclaw-gateway which wacli
+docker compose exec cleobot-gateway which gog
+docker compose exec cleobot-gateway which goplaces
+docker compose exec cleobot-gateway which wacli
 ```
 
 预期输出：
@@ -382,7 +382,7 @@ docker compose exec openclaw-gateway which wacli
 ## 12）验证 Gateway网关
 
 ```bash
-docker compose logs -f openclaw-gateway
+docker compose logs -f cleobot-gateway
 ```
 
 成功标志：
@@ -398,7 +398,7 @@ docker compose logs -f openclaw-gateway
 创建 SSH 隧道以转发 Gateway网关端口：
 
 ```bash
-gcloud compute ssh openclaw-gateway --zone=us-central1-a -- -L 18789:127.0.0.1:18789
+gcloud compute ssh cleobot-gateway --zone=us-central1-a -- -L 18789:127.0.0.1:18789
 ```
 
 在浏览器中打开：
@@ -411,7 +411,7 @@ gcloud compute ssh openclaw-gateway --zone=us-central1-a -- -L 18789:127.0.0.1:1
 
 ## 持久化存储位置（数据来源）
 
-OpenClaw 在 Docker 中运行，但 Docker 并非数据来源。
+CleoBot 在 Docker 中运行，但 Docker 并非数据来源。
 所有长期状态必须在重启、重建和重启动后仍然存在。
 
 | 组件            | 位置                              | 持久化机制      | 备注                        |
@@ -431,7 +431,7 @@ OpenClaw 在 Docker 中运行，但 Docker 并非数据来源。
 
 ## 更新
 
-在虚拟机上更新 OpenClaw：
+在虚拟机上更新 CleoBot：
 
 ```bash
 cd ~/openclaw
@@ -464,15 +464,15 @@ gcloud compute os-login describe-profile
 
 ```bash
 # 先停止虚拟机
-gcloud compute instances stop openclaw-gateway --zone=us-central1-a
+gcloud compute instances stop cleobot-gateway --zone=us-central1-a
 
 # 更改机器类型
-gcloud compute instances set-machine-type openclaw-gateway \
+gcloud compute instances set-machine-type cleobot-gateway \
   --zone=us-central1-a \
   --machine-type=e2-small
 
 # 启动虚拟机
-gcloud compute instances start openclaw-gateway --zone=us-central1-a
+gcloud compute instances start cleobot-gateway --zone=us-central1-a
 ```
 
 ---
@@ -486,14 +486,14 @@ gcloud compute instances start openclaw-gateway --zone=us-central1-a
 1. 创建服务账户：
 
    ```bash
-   gcloud iam service-accounts create openclaw-deploy \
-     --display-name="OpenClaw Deployment"
+   gcloud iam service-accounts create cleobot-deploy \
+     --display-name="CleoBot Deployment"
    ```
 
 2. 授予 Compute Instance Admin 角色（或更精细的自定义角色）：
    ```bash
-   gcloud projects add-iam-policy-binding my-openclaw-project \
-     --member="serviceAccount:openclaw-deploy@my-openclaw-project.iam.gserviceaccount.com" \
+   gcloud projects add-iam-policy-binding my-cleobot-project \
+     --member="serviceAccount:cleobot-deploy@my-cleobot-project.iam.gserviceaccount.com" \
      --role="roles/compute.instanceAdmin.v1"
    ```
 

@@ -1,7 +1,7 @@
 ---
 read_when:
   - 设置 macOS 开发环境
-summary: 面向 OpenClaw macOS 应用开发者的设置指南
+summary: 面向 CleoBot macOS 应用开发者的设置指南
 title: macOS 开发环境设置
 x-i18n:
   generated_at: "2026-02-01T21:32:41Z"
@@ -14,7 +14,7 @@ x-i18n:
 
 # macOS 开发者设置
 
-本指南介绍从源代码构建和运行 OpenClaw macOS 应用的必要步骤。
+本指南介绍从源代码构建和运行 CleoBot macOS 应用的必要步骤。
 
 ## 前提条件
 
@@ -33,7 +33,7 @@ pnpm install
 
 ## 2. 构建和打包应用
 
-要构建 macOS 应用并将其打包为 `dist/OpenClaw.app`，请运行：
+要构建 macOS 应用并将其打包为 `dist/CleoBot.app`，请运行：
 
 ```bash
 ./scripts/package-mac-app.sh
@@ -52,7 +52,7 @@ macOS 应用需要全局安装 `openclaw` CLI 来管理后台任务。
 
 **安装方式（推荐）：**
 
-1.  打开 OpenClaw 应用。
+1.  打开 CleoBot 应用。
 2.  进入 **General** 设置选项卡。
 3.  点击 **"Install CLI"**。
 

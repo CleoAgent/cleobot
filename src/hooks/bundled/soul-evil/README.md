@@ -1,6 +1,6 @@
 # SOUL Evil Hook
 
-Small persona swap hook for OpenClaw.
+Small persona swap hook for CleoBot.
 
 Docs: https://docs.openclaw.ai/hooks/soul-evil
 

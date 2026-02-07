@@ -1,9 +1,9 @@
 ---
 read_when:
-  - 在 Raspberry Pi 上设置 OpenClaw
-  - 在 ARM 设备上运行 OpenClaw
+  - 在 Raspberry Pi 上设置 CleoBot
+  - 在 ARM 设备上运行 CleoBot
   - 搭建低成本的全天候个人 AI
-summary: 在 Raspberry Pi 上运行 OpenClaw（低成本自托管方案）
+summary: 在 Raspberry Pi 上运行 CleoBot（低成本自托管方案）
 title: Raspberry Pi
 x-i18n:
   generated_at: "2026-02-01T21:34:34Z"
@@ -14,11 +14,11 @@ x-i18n:
   workflow: 15
 ---
 
-# 在 Raspberry Pi 上运行 OpenClaw
+# 在 Raspberry Pi 上运行 CleoBot
 
 ## 目标
 
-在 Raspberry Pi 上运行一个持久的、全天候在线的 OpenClaw Gateway网关，**一次性费用约 $35-80**（无月费）。
+在 Raspberry Pi 上运行一个持久的、全天候在线的 CleoBot Gateway网关，**一次性费用约 $35-80**（无月费）。
 
 适用场景：
 
@@ -114,7 +114,7 @@ echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ```
 
-## 6) 安装 OpenClaw
+## 6) 安装 CleoBot
 
 ### 方案 A：标准安装（推荐）
 
@@ -157,7 +157,7 @@ openclaw status
 sudo systemctl status openclaw
 
 # 查看日志
-journalctl -u openclaw -f
+journalctl -u cleobot -f
 ```
 
 ## 9) 访问仪表盘
@@ -228,7 +228,7 @@ htop
 
 ### 二进制兼容性
 
-大多数 OpenClaw 功能在 ARM64 上正常工作，但部分外部二进制文件可能需要 ARM 构建版本：
+大多数 CleoBot 功能在 ARM64 上正常工作，但部分外部二进制文件可能需要 ARM 构建版本：
 
 | 工具               | ARM64 状态 | 备注                                |
 | ------------------ | ---------- | ----------------------------------- |
@@ -311,7 +311,7 @@ free -h
 
 ```bash
 # 检查日志
-journalctl -u openclaw --no-pager -n 100
+journalctl -u cleobot --no-pager -n 100
 
 # 常见修复方法：重新构建
 cd ~/openclaw  # 如果使用可修改安装

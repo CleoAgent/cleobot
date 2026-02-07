@@ -15,7 +15,7 @@ x-i18n:
 
 # 相机捕获（智能体）
 
-OpenClaw 支持智能体工作流中的**相机捕获**：
+CleoBot 支持智能体工作流中的**相机捕获**：
 
 - **iOS 节点**（通过 Gateway网关配对）：通过 `node.invoke` 捕获**照片**（`jpg`）或**短视频片段**（`mp4`，可选音频）。
 - **Android 节点**（通过 Gateway网关配对）：通过 `node.invoke` 捕获**照片**（`jpg`）或**短视频片段**（`mp4`，可选音频）。
@@ -140,7 +140,7 @@ openclaw nodes camera clip --node <id> --no-audio
 
 注意事项：
 
-- `openclaw nodes camera snap` 默认 `maxWidth=1600`，除非被覆盖。
+- `cleobot nodes camera snap` 默认 `maxWidth=1600`，除非被覆盖。
 - 在 macOS 上，`camera.snap` 在预热/曝光稳定后等待 `delayMs`（默认 2000ms）再进行捕获。
 - 照片载荷会被重新压缩，以将 base64 控制在 5 MB 以内。
 

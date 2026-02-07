@@ -1,4 +1,4 @@
-import OpenClawProtocol
+import CleoBotProtocol
 import Observation
 import SwiftUI
 
@@ -231,15 +231,15 @@ private struct SkillRow: View {
 
     private var sourceLabel: String {
         switch self.skill.source {
-        case "openclaw-bundled":
+        case "cleobot-bundled":
             "Bundled"
-        case "openclaw-managed":
+        case "cleobot-managed":
             "Managed"
-        case "openclaw-workspace":
+        case "cleobot-workspace":
             "Workspace"
-        case "openclaw-extra":
+        case "cleobot-extra":
             "Extra"
-        case "openclaw-plugin":
+        case "cleobot-plugin":
             "Plugin"
         default:
             self.skill.source
@@ -580,7 +580,7 @@ extension SkillsSettings {
         let skill = SkillStatus(
             name: "Test Skill",
             description: "Test description",
-            source: "openclaw-bundled",
+            source: "cleobot-bundled",
             filePath: "/tmp/skills/test",
             baseDir: "/tmp/skills",
             skillKey: "test",

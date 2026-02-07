@@ -9,7 +9,7 @@ import {
 
 const ROOT_DIR = path.parse(process.cwd()).root;
 const CONFIG_DIR = path.join(ROOT_DIR, "config");
-const ETC_CLEOBOT_DIR = path.join(ROOT_DIR, "etc", "openclaw");
+const ETC_CLEOBOT_DIR = path.join(ROOT_DIR, "etc", "cleobot");
 const SHARED_DIR = path.join(ROOT_DIR, "shared");
 
 const DEFAULT_BASE_PATH = path.join(CONFIG_DIR, "cleobot.json");

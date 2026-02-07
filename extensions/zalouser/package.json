@@ -1,7 +1,7 @@
 {
   "name": "@openclaw/zalouser",
   "version": "2026.2.1",
-  "description": "OpenClaw Zalo Personal Account plugin via zca-cli",
+  "description": "CleoBot Zalo Personal Account plugin via zca-cli",
   "type": "module",
   "dependencies": {
     "@sinclair/typebox": "0.34.48",
@@ -10,7 +10,7 @@
   "devDependencies": {
     "cleobot": "workspace:*"
   },
-  "openclaw": {
+  "cleobot": {
     "extensions": [
       "./index.ts"
     ],

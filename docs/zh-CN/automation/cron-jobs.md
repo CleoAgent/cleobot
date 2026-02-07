@@ -25,7 +25,7 @@ x-i18n:
 ## 简要概述
 
 - 定时任务运行在 **Gateway网关内部**（而非模型内部）。
-- 任务持久化存储在 `~/.openclaw/cron/` 下，因此重启不会丢失计划。
+- 任务持久化存储在 `~/.cleobot/cron/` 下，因此重启不会丢失计划。
 - 两种执行方式：
   - **主会话**：入队一个系统事件，然后在下一次心跳时运行。
   - **隔离式**：在 `cron:<jobId>` 中运行专用智能体轮次，可选择投递输出。
@@ -69,7 +69,7 @@ openclaw cron add \
 
 ## 定时任务的存储位置
 
-定时任务默认持久化存储在 Gateway网关主机的 `~/.openclaw/cron/jobs.json` 中。Gateway网关将文件加载到内存中，并在更改时写回，因此仅在 Gateway网关停止时手动编辑才是安全的。请优先使用 `openclaw cron add/edit` 或定时任务工具调用 API 进行更改。
+定时任务默认持久化存储在 Gateway网关主机的 `~/.cleobot/cron/jobs.json` 中。Gateway网关将文件加载到内存中，并在更改时写回，因此仅在 Gateway网关停止时手动编辑才是安全的。请优先使用 `cleobot cron add/edit` 或定时任务工具调用 API 进行更改。
 
 ## 新手友好概述
 
@@ -286,8 +286,8 @@ Telegram 通过 `message_thread_id` 支持论坛主题。对于定时任务投�
 
 ## 存储与历史
 
-- 任务存储：`~/.openclaw/cron/jobs.json`（Gateway网关管理的 JSON）。
-- 运行历史：`~/.openclaw/cron/runs/<jobId>.jsonl`（JSONL，自动清理）。
+- 任务存储：`~/.cleobot/cron/jobs.json`（Gateway网关管理的 JSON）。
+- 运行历史：`~/.cleobot/cron/runs/<jobId>.jsonl`（JSONL，自动清理）。
 - 覆盖存储路径：配置中的 `cron.store`。
 
 ## 配置
@@ -296,7 +296,7 @@ Telegram 通过 `message_thread_id` 支持论坛主题。对于定时任务投�
 {
   cron: {
     enabled: true, // 默认 true
-    store: "~/.openclaw/cron/jobs.json",
+    store: "~/.cleobot/cron/jobs.json",
     maxConcurrentRuns: 1, // 默认 1
   },
 }
@@ -305,7 +305,7 @@ Telegram 通过 `message_thread_id` 支持论坛主题。对于定时任务投�
 完全禁用定时任务：
 
 - `cron.enabled: false`（配置）
-- `OPENCLAW_SKIP_CRON=1`（环境变量）
+- `CLEOBOT_SKIP_CRON=1`（环境变量）
 
 ## CLI 快速开始
 
@@ -418,13 +418,13 @@ openclaw system event --mode now --text "Next heartbeat: check battery."
 
 - `cron.list`、`cron.status`、`cron.add`、`cron.update`、`cron.remove`
 - `cron.run`（强制或到期）、`cron.runs`
-  如需不创建任务直接发送系统事件，请使用 [`openclaw system event`](/cli/system)。
+  如需不创建任务直接发送系统事件，请使用 [`cleobot system event`](/cli/system)。
 
 ## 故障排除
 
 ### "没有任何任务运行"
 
-- 检查定时任务是否已启用：`cron.enabled` 和 `OPENCLAW_SKIP_CRON`。
+- 检查定时任务是否已启用：`cron.enabled` 和 `CLEOBOT_SKIP_CRON`。
 - 检查 Gateway网关是否持续运行（定时任务运行在 Gateway网关进程内部）。
 - 对于 `cron` 调度：确认时区（`--tz`）与主机时区的关系。
 

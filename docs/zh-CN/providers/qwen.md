@@ -1,8 +1,8 @@
 ---
 read_when:
-  - 你想在 OpenClaw 中使用 Qwen
+  - 你想在 CleoBot 中使用 Qwen
   - 你想通过免费版 OAuth 访问 Qwen Coder
-summary: 在 OpenClaw 中使用 Qwen OAuth（免费版）
+summary: 在 CleoBot 中使用 Qwen OAuth（免费版）
 title: Qwen
 x-i18n:
   generated_at: "2026-02-01T21:35:24Z"
@@ -46,7 +46,7 @@ openclaw models set qwen-portal/coder-model
 
 ## 复用 Qwen Code CLI 登录
 
-如果你已经通过 Qwen Code CLI 登录，OpenClaw 在加载认证存储时会从 `~/.qwen/oauth_creds.json` 同步凭据。你仍然需要一个 `models.providers.qwen-portal` 条目（使用上面的登录命令创建）。
+如果你已经通过 Qwen Code CLI 登录，CleoBot 在加载认证存储时会从 `~/.qwen/oauth_creds.json` 同步凭据。你仍然需要一个 `models.providers.qwen-portal` 条目（使用上面的登录命令创建）。
 
 ## 注意事项
 

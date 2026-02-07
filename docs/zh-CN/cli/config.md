@@ -1,7 +1,7 @@
 ---
 read_when:
   - 你想以非交互方式读取或编辑配置
-summary: "`openclaw config` 的 CLI 参考（获取/设置/删除配置值）"
+summary: "`cleobot config` 的 CLI 参考（获取/设置/删除配置值）"
 title: config
 x-i18n:
   generated_at: "2026-02-01T19:58:45Z"
@@ -12,9 +12,9 @@ x-i18n:
   workflow: 14
 ---
 
-# `openclaw config`
+# `cleobot config`
 
-配置辅助工具：通过路径获取/设置/删除值。不带子命令运行时将打开配置向导（与 `openclaw configure` 相同）。
+配置辅助工具：通过路径获取/设置/删除值。不带子命令运行时将打开配置向导（与 `cleobot configure` 相同）。
 
 ## 示例
 

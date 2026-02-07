@@ -8,12 +8,12 @@ enum LaunchdManager {
         try? process.run()
     }
 
-    static func startOpenClaw() {
+    static func startCleoBot() {
         let userTarget = "gui/\(getuid())/\(launchdLabel)"
         self.runLaunchctl(["kickstart", "-k", userTarget])
     }
 
-    static func stopOpenClaw() {
+    static func stopCleoBot() {
         let userTarget = "gui/\(getuid())/\(launchdLabel)"
         self.runLaunchctl(["stop", userTarget])
     }

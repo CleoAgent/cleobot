@@ -8,7 +8,7 @@ describe("multi-agent agentDir validation", () => {
   it("rejects shared agents.list agentDir", async () => {
     vi.resetModules();
     const { validateConfigObject } = await import("./config.js");
-    const shared = path.join(tmpdir(), "openclaw-shared-agentdir");
+    const shared = path.join(tmpdir(), "cleobot-shared-agentdir");
     const res = validateConfigObject({
       agents: {
         list: [

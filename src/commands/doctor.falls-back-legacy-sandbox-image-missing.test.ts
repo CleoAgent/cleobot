@@ -79,7 +79,7 @@ beforeEach(() => {
   originalStateDir = process.env.CLEOBOT_STATE_DIR;
   originalUpdateInProgress = process.env.CLEOBOT_UPDATE_IN_PROGRESS;
   process.env.CLEOBOT_UPDATE_IN_PROGRESS = "1";
-  tempStateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-doctor-state-"));
+  tempStateDir = fs.mkdtemp(path.join(os.tmpdir(), "cleobot-doctor-state-"));
   process.env.CLEOBOT_STATE_DIR = tempStateDir;
   fs.mkdirSync(path.join(tempStateDir, "agents", "main", "sessions"), {
     recursive: true,
@@ -216,7 +216,7 @@ vi.mock("../process/exec.js", () => ({
   runCommandWithTimeout,
 }));
 
-vi.mock("../infra/openclaw-root.js", () => ({
+vi.mock("../infra/cleobot-root.js", () => ({
   resolveCleoBotPackageRoot,
 }));
 

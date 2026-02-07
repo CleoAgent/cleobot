@@ -15,7 +15,7 @@ import {
   type ChannelDock,
   type ChannelMessageActionAdapter,
   type ChannelPlugin,
-  type OpenClawConfig,
+  type CleoBotConfig,
 } from "openclaw/plugin-sdk";
 import { GoogleChatConfigSchema } from "openclaw/plugin-sdk";
 import {
@@ -347,7 +347,7 @@ export const googlechatPlugin: ChannelPlugin<ResolvedGoogleChatAccount> = {
               ...configPatch,
             },
           },
-        } as OpenClawConfig;
+        } as CleoBotConfig;
       }
       return {
         ...next,
@@ -366,7 +366,7 @@ export const googlechatPlugin: ChannelPlugin<ResolvedGoogleChatAccount> = {
             },
           },
         },
-      } as OpenClawConfig;
+      } as CleoBotConfig;
     },
   },
   outbound: {

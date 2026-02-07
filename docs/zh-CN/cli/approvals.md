@@ -2,7 +2,7 @@
 read_when:
   - 你想通过 CLI 编辑执行审批
   - 你需要管理 Gateway网关或节点主机上的允许列表
-summary: "`openclaw approvals` 的 CLI 参考（用于 Gateway网关或节点主机的执行审批）"
+summary: "`cleobot approvals` 的 CLI 参考（用于 Gateway网关或节点主机的执行审批）"
 title: approvals
 x-i18n:
   generated_at: "2026-02-01T19:58:39Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 14
 ---
 
-# `openclaw approvals`
+# `cleobot approvals`
 
 管理**本地主机**、**Gateway网关主机**或**节点主机**的执行审批。
 默认情况下，命令针对磁盘上的本地审批文件。使用 `--gateway` 针对 Gateway网关，或使用 `--node` 针对特定节点。
@@ -51,7 +51,7 @@ openclaw approvals allowlist remove "~/Projects/**/bin/rg"
 
 ## 注意事项
 
-- `--node` 使用与 `openclaw nodes` 相同的解析器（id、名称、ip 或 id 前缀）。
+- `--node` 使用与 `cleobot nodes` 相同的解析器（id、名称、ip 或 id 前缀）。
 - `--agent` 默认为 `"*"`，即适用于所有智能体。
 - 节点主机必须公布 `system.execApprovals.get/set`（macOS 应用或无头节点主机）。
-- 审批文件按主机存储在 `~/.openclaw/exec-approvals.json`。
+- 审批文件按主机存储在 `~/.cleobot/exec-approvals.json`。

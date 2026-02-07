@@ -1,4 +1,4 @@
-import OpenClawDiscovery
+import CleoBotDiscovery
 import Testing
 
 @Suite
@@ -35,7 +35,7 @@ struct GatewayDiscoveryModelTests {
         #expect(GatewayDiscoveryModel.isLocalGateway(
             lanHost: nil,
             tailnetDns: nil,
-            displayName: "Peter's Mac Studio (OpenClaw)",
+            displayName: "Peter's Mac Studio (CleoBot)",
             serviceName: nil,
             local: local))
     }
@@ -72,13 +72,13 @@ struct GatewayDiscoveryModelTests {
             lanHost: nil,
             tailnetDns: nil,
             displayName: nil,
-            serviceName: "steipetacstudio (OpenClaw)",
+            serviceName: "steipetacstudio (CleoBot)",
             local: local))
         #expect(GatewayDiscoveryModel.isLocalGateway(
             lanHost: nil,
             tailnetDns: nil,
             displayName: nil,
-            serviceName: "steipete (OpenClaw)",
+            serviceName: "steipete (CleoBot)",
             local: local))
     }
 
@@ -88,13 +88,13 @@ struct GatewayDiscoveryModelTests {
             "tailnetDns": "  peters-mac-studio-1.ts.net  ",
             "sshPort": " 2222 ",
             "gatewayPort": " 18799 ",
-            "cliPath": " /opt/openclaw ",
+            "cliPath": " /opt/cleobot ",
         ])
         #expect(parsed.lanHost == "studio.local")
         #expect(parsed.tailnetDns == "peters-mac-studio-1.ts.net")
         #expect(parsed.sshPort == 2222)
         #expect(parsed.gatewayPort == 18799)
-        #expect(parsed.cliPath == "/opt/openclaw")
+        #expect(parsed.cliPath == "/opt/cleobot")
     }
 
     @Test func parsesGatewayTXTDefaults() {

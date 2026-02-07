@@ -2,7 +2,7 @@
 read_when:
   - 你想管理智能体钩子
   - 你想安装或更新钩子
-summary: "`openclaw hooks` 的 CLI 参考（智能体钩子）"
+summary: "`cleobot hooks` 的 CLI 参考（智能体钩子）"
 title: hooks
 x-i18n:
   generated_at: "2026-02-01T19:59:18Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 14
 ---
 
-# `openclaw hooks`
+# `cleobot hooks`
 
 管理智能体钩子（用于 `/new`、`/reset` 等命令以及 Gateway网关启动的事件驱动自动化）。
 
@@ -94,7 +94,7 @@ openclaw hooks info session-memory
 Save session context to memory when /new command is issued
 
 Details:
-  Source: openclaw-bundled
+  Source: cleobot-bundled
   Path: /path/to/openclaw/hooks/bundled/session-memory/HOOK.md
   Handler: /path/to/openclaw/hooks/bundled/session-memory/handler.ts
   Homepage: https://docs.openclaw.ai/hooks#session-memory
@@ -132,9 +132,9 @@ Not ready: 0
 openclaw hooks enable <name>
 ```
 
-通过将特定钩子添加到配置文件（`~/.openclaw/config.json`）来启用它。
+通过将特定钩子添加到配置文件（`~/.cleobot/config.json`）来启用它。
 
-**注意：** 由插件管理的钩子在 `openclaw hooks list` 中显示为 `plugin:<id>`，无法在此处启用/禁用。请改为启用/禁用对应的插件。
+**注意：** 由插件管理的钩子在 `cleobot hooks list` 中显示为 `plugin:<id>`，无法在此处启用/禁用。请改为启用/禁用对应的插件。
 
 **参数：**
 
@@ -200,7 +200,7 @@ openclaw hooks install <path-or-spec>
 
 **执行操作：**
 
-- 将钩子包复制到 `~/.openclaw/hooks/<id>`
+- 将钩子包复制到 `~/.cleobot/hooks/<id>`
 - 在 `hooks.internal.entries.*` 中启用已安装的钩子
 - 在 `hooks.internal.installs` 下记录安装信息
 
@@ -252,7 +252,7 @@ openclaw hooks update --all
 openclaw hooks enable session-memory
 ```
 
-**输出：** `~/.openclaw/workspace/memory/YYYY-MM-DD-slug.md`
+**输出：** `~/.cleobot/workspace/memory/YYYY-MM-DD-slug.md`
 
 **参见：** [session-memory 文档](/hooks#session-memory)
 
@@ -266,19 +266,19 @@ openclaw hooks enable session-memory
 openclaw hooks enable command-logger
 ```
 
-**输出：** `~/.openclaw/logs/commands.log`
+**输出：** `~/.cleobot/logs/commands.log`
 
 **查看日志：**
 
 ```bash
 # 最近的命令
-tail -n 20 ~/.openclaw/logs/commands.log
+tail -n 20 ~/.cleobot/logs/commands.log
 
 # 格式化输出
-cat ~/.openclaw/logs/commands.log | jq .
+cat ~/.cleobot/logs/commands.log | jq .
 
 # 按操作过滤
-grep '"action":"new"' ~/.openclaw/logs/commands.log | jq .
+grep '"action":"new"' ~/.cleobot/logs/commands.log | jq .
 ```
 
 **参见：** [command-logger 文档](/hooks#command-logger)

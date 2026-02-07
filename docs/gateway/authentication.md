@@ -8,7 +8,7 @@ title: "Authentication"
 
 # Authentication
 
-OpenClaw supports OAuth and API keys for model providers. For Anthropic
+CleoBot supports OAuth and API keys for model providers. For Anthropic
 accounts, we recommend using an **API key**. For Claude subscription access,
 use the long‑lived token created by `claude setup-token`.
 
@@ -20,7 +20,7 @@ layout.
 If you’re using Anthropic directly, use an API key.
 
 1. Create an API key in the Anthropic Console.
-2. Put it on the **gateway host** (the machine running `openclaw gateway`).
+2. Put it on the **gateway host** (the machine running `cleobot gateway`).
 
 ```bash
 export ANTHROPIC_API_KEY="..."
@@ -44,7 +44,7 @@ openclaw doctor
 ```
 
 If you’d rather not manage env vars yourself, the onboarding wizard can store
-API keys for daemon use: `openclaw onboard`.
+API keys for daemon use: `cleobot onboard`.
 
 See [Help](/help) for details on env inheritance (`env.shellEnv`,
 `~/.openclaw/.env`, systemd/launchd).
@@ -58,7 +58,7 @@ subscription, the setup-token flow is also supported. Run it on the **gateway ho
 claude setup-token
 ```
 
-Then paste it into OpenClaw:
+Then paste it into CleoBot:
 
 ```bash
 openclaw models auth setup-token --provider anthropic
@@ -136,7 +136,7 @@ openclaw models status
 
 ### Token expiring/expired
 
-Run `openclaw models status` to confirm which profile is expiring. If the profile
+Run `cleobot models status` to confirm which profile is expiring. If the profile
 is missing, rerun `claude setup-token` and paste the token again.
 
 ## Requirements

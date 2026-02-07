@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { RuntimeEnv } from "../runtime.js";
 import type { DoctorPrompter } from "./doctor-prompter.js";
-import { resolveCleoBotPackageRoot } from "../infra/openclaw-root.js";
+import { resolveCleoBotPackageRoot } from "../infra/cleobot-root.js";
 import { runCommandWithTimeout } from "../process/exec.js";
 import { note } from "../terminal/note.js";
 

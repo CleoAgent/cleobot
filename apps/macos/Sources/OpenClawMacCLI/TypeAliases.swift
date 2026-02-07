@@ -1,5 +1,5 @@
-import OpenClawKit
-import OpenClawProtocol
+import CleoBotKit
+import CleoBotProtocol
 
-typealias ProtoAnyCodable = OpenClawProtocol.AnyCodable
-typealias KitAnyCodable = OpenClawKit.AnyCodable
+typealias ProtoAnyCodable = CleoBotProtocol.AnyCodable
+typealias KitAnyCodable = CleoBotKit.AnyCodable

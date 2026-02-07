@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `openclaw channels` (accounts, status, login/logout, logs)"
+summary: "CLI reference for `cleobot channels` (accounts, status, login/logout, logs)"
 read_when:
   - You want to add/remove channel accounts (WhatsApp/Telegram/Discord/Google Chat/Slack/Mattermost (plugin)/Signal/iMessage)
   - You want to check channel status or tail channel logs
 title: "channels"
 ---
 
-# `openclaw channels`
+# `cleobot channels`
 
 Manage chat channel accounts and their runtime status on the Gateway.
 
@@ -33,7 +33,7 @@ openclaw channels add --channel telegram --token <bot-token>
 openclaw channels remove --channel telegram --delete
 ```
 
-Tip: `openclaw channels add --help` shows per-channel flags (token, app token, signal-cli paths, etc).
+Tip: `cleobot channels add --help` shows per-channel flags (token, app token, signal-cli paths, etc).
 
 ## Login / logout (interactive)
 
@@ -44,9 +44,9 @@ openclaw channels logout --channel whatsapp
 
 ## Troubleshooting
 
-- Run `openclaw status --deep` for a broad probe.
-- Use `openclaw doctor` for guided fixes.
-- `openclaw channels list` prints `Claude: HTTP 403 ... user:profile` → usage snapshot needs the `user:profile` scope. Use `--no-usage`, or provide a claude.ai session key (`CLAUDE_WEB_SESSION_KEY` / `CLAUDE_WEB_COOKIE`), or re-auth via Claude Code CLI.
+- Run `cleobot status --deep` for a broad probe.
+- Use `cleobot doctor` for guided fixes.
+- `cleobot channels list` prints `Claude: HTTP 403 ... user:profile` → usage snapshot needs the `user:profile` scope. Use `--no-usage`, or provide a claude.ai session key (`CLAUDE_WEB_SESSION_KEY` / `CLAUDE_WEB_COOKIE`), or re-auth via Claude Code CLI.
 
 ## Capabilities probe
 

@@ -110,7 +110,7 @@ enum TestIsolation {
 
     nonisolated static func tempConfigPath() -> String {
         FileManager().temporaryDirectory
-            .appendingPathComponent("openclaw-test-config-\(UUID().uuidString).json")
+            .appendingPathComponent("cleobot-test-config-\(UUID().uuidString).json")
             .path
     }
 }

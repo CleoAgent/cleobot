@@ -1,7 +1,7 @@
-import OpenClawDiscovery
+import CleoBotDiscovery
 import SwiftUI
 import Testing
-@testable import OpenClaw
+@testable import CleoBot
 
 @Suite(.serialized)
 @MainActor

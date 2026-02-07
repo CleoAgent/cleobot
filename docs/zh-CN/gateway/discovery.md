@@ -16,12 +16,12 @@ x-i18n:
 
 # 发现与传输
 
-OpenClaw 有两个表面上看起来相似但实际上不同的问题：
+CleoBot 有两个表面上看起来相似但实际上不同的问题：
 
 1. **操作者远程控制**：macOS 菜单栏应用控制运行在其他位置的 Gateway网关。
 2. **节点配对**：iOS/Android（以及未来的节点）找到 Gateway网关并安全配对。
 
-设计目标是将所有网络发现/广播保留在 **Node Gateway网关**（`openclaw gateway`）中，让客户端（Mac 应用、iOS）作为消费者。
+设计目标是将所有网络发现/广播保留在 **Node Gateway网关**（`cleobot gateway`）中，让客户端（Mac 应用、iOS）作为消费者。
 
 ## 术语
 
@@ -63,7 +63,7 @@ Bonjour 是尽力而为的机制，无法跨网络。它仅用于"同一局域�
 #### 服务信标详情
 
 - 服务类型：
-  - `_openclaw-gw._tcp`（Gateway网关传输信标）
+  - `_cleobot-gw._tcp`（Gateway网关传输信标）
 - TXT 键（非机密）：
   - `role=gateway`
   - `lanHost=<主机名>.local`
@@ -77,11 +77,11 @@ Bonjour 是尽力而为的机制，无法跨网络。它仅用于"同一局域�
 
 禁用/覆盖：
 
-- `OPENCLAW_DISABLE_BONJOUR=1` 禁用广播。
-- `~/.openclaw/openclaw.json` 中的 `gateway.bind` 控制 Gateway网关绑定模式。
-- `OPENCLAW_SSH_PORT` 覆盖 TXT 中广播的 SSH 端口（默认为 22）。
-- `OPENCLAW_TAILNET_DNS` 发布 `tailnetDns` 提示（MagicDNS）。
-- `OPENCLAW_CLI_PATH` 覆盖广播的 CLI 路径。
+- `CLEOBOT_DISABLE_BONJOUR=1` 禁用广播。
+- `~/.cleobot/openclaw.json` 中的 `gateway.bind` 控制 Gateway网关绑定模式。
+- `CLEOBOT_SSH_PORT` 覆盖 TXT 中广播的 SSH 端口（默认为 22）。
+- `CLEOBOT_TAILNET_DNS` 发布 `tailnetDns` 提示（MagicDNS）。
+- `CLEOBOT_CLI_PATH` 覆盖广播的 CLI 路径。
 
 ### 2) Tailnet（跨网络）
 

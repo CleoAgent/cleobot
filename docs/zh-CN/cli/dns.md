@@ -2,7 +2,7 @@
 read_when:
   - 你需要通过 Tailscale + CoreDNS 实现广域发现（DNS-SD）
   - 你正在为自定义发现域名设置分离 DNS（例如：openclaw.internal）
-summary: "`openclaw dns` 的 CLI 参考（广域发现辅助工具）"
+summary: "`cleobot dns` 的 CLI 参考（广域发现辅助工具）"
 title: dns
 x-i18n:
   generated_at: "2026-02-01T19:58:53Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 14
 ---
 
-# `openclaw dns`
+# `cleobot dns`
 
 用于广域发现的 DNS 辅助工具（Tailscale + CoreDNS）。目前专注于 macOS + Homebrew CoreDNS。
 

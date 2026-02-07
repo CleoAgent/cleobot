@@ -19556,7 +19556,7 @@ const openclawTheme = {
     Image: { borderRadius: "12px" },
   },
 };
-var OpenClawA2UIHost = class extends i$6 {
+var CleoBotA2UIHost = class extends i$6 {
   static properties = {
     surfaces: { state: true },
     pendingAction: { state: true },
@@ -19901,5 +19901,5 @@ var OpenClawA2UIHost = class extends i$6 {
   }
 };
 if (!customElements.get("openclaw-a2ui-host")) {
-  customElements.define("openclaw-a2ui-host", OpenClawA2UIHost);
+  customElements.define("openclaw-a2ui-host", CleoBotA2UIHost);
 }

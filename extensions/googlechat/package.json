@@ -1,7 +1,7 @@
 {
   "name": "@openclaw/googlechat",
   "version": "2026.2.1",
-  "description": "OpenClaw Google Chat channel plugin",
+  "description": "CleoBot Google Chat channel plugin",
   "type": "module",
   "dependencies": {
     "google-auth-library": "^10.5.0"
@@ -10,9 +10,9 @@
     "cleobot": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.1.26"
+    "cleobot": ">=2026.1.26"
   },
-  "openclaw": {
+  "cleobot": {
     "extensions": [
       "./index.ts"
     ],

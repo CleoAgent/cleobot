@@ -1,28 +1,28 @@
 import Foundation
 
-public enum OpenClawLocationCommand: String, Codable, Sendable {
+public enum CleoBotLocationCommand: String, Codable, Sendable {
     case get = "location.get"
 }
 
-public enum OpenClawLocationAccuracy: String, Codable, Sendable {
+public enum CleoBotLocationAccuracy: String, Codable, Sendable {
     case coarse
     case balanced
     case precise
 }
 
-public struct OpenClawLocationGetParams: Codable, Sendable, Equatable {
+public struct CleoBotLocationGetParams: Codable, Sendable, Equatable {
     public var timeoutMs: Int?
     public var maxAgeMs: Int?
-    public var desiredAccuracy: OpenClawLocationAccuracy?
+    public var desiredAccuracy: CleoBotLocationAccuracy?
 
-    public init(timeoutMs: Int? = nil, maxAgeMs: Int? = nil, desiredAccuracy: OpenClawLocationAccuracy? = nil) {
+    public init(timeoutMs: Int? = nil, maxAgeMs: Int? = nil, desiredAccuracy: CleoBotLocationAccuracy? = nil) {
         self.timeoutMs = timeoutMs
         self.maxAgeMs = maxAgeMs
         self.desiredAccuracy = desiredAccuracy
     }
 }
 
-public struct OpenClawLocationPayload: Codable, Sendable, Equatable {
+public struct CleoBotLocationPayload: Codable, Sendable, Equatable {
     public var lat: Double
     public var lon: Double
     public var accuracyMeters: Double

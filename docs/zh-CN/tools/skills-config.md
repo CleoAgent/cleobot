@@ -15,7 +15,7 @@ x-i18n:
 
 # Skills配置
 
-所有 Skills 相关配置位于 `~/.openclaw/openclaw.json` 的 `skills` 下。
+所有 Skills 相关配置位于 `~/.cleobot/openclaw.json` 的 `skills` 下。
 
 ```json5
 {

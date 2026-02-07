@@ -10,7 +10,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="MIT License"></a>
 </p>
 
-**CleoBot** is an AI agent framework that gives Claude (and other LLMs) persistent memory, task management, and multi-channel communication. Built on [OpenClaw](https://github.com/openclaw/openclaw), enhanced with [CLEO](https://codluv.mintlify.app) cognitive scaffolding.
+**CleoBot** is an AI agent framework that gives Claude (and other LLMs) persistent memory, task management, and multi-channel communication. Built on [CleoBot](https://github.com/openclaw/openclaw), enhanced with [CLEO](https://codluv.mintlify.app) cognitive scaffolding.
 
 ## Features
 
@@ -162,9 +162,9 @@ node dist/index.js gateway --bind loopback
 
 ## Credits
 
-CleoBot is a fork of [OpenClaw](https://github.com/openclaw/openclaw), enhanced with CLEO cognitive scaffolding.
+CleoBot is a fork of [CleoBot](https://github.com/openclaw/openclaw), enhanced with CLEO cognitive scaffolding.
 
-- **OpenClaw** — The original personal AI assistant framework
+- **CleoBot** — The original personal AI assistant framework
 - **CLEO** — Task management system for AI agents
 
 ## License

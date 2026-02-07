@@ -3,7 +3,7 @@ import {
   createTypingCallbacks,
   logTypingFailure,
   resolveChannelMediaMaxBytes,
-  type OpenClawConfig,
+  type CleoBotConfig,
   type MSTeamsReplyStyle,
   type RuntimeEnv,
 } from "openclaw/plugin-sdk";
@@ -24,7 +24,7 @@ import {
 import { getMSTeamsRuntime } from "./runtime.js";
 
 export function createMSTeamsReplyDispatcher(params: {
-  cfg: OpenClawConfig;
+  cfg: CleoBotConfig;
   agentId: string;
   runtime: RuntimeEnv;
   log: MSTeamsMonitorLogger;

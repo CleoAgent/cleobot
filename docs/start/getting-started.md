@@ -10,11 +10,11 @@ title: "Getting Started"
 
 Goal: go from **zero** → **first working chat** (with sane defaults) as quickly as possible.
 
-Fastest chat: open the Control UI (no channel setup needed). Run `openclaw dashboard`
+Fastest chat: open the Control UI (no channel setup needed). Run `cleobot dashboard`
 and chat in the browser, or open `http://127.0.0.1:18789/` on the gateway host.
 Docs: [Dashboard](/web/dashboard) and [Control UI](/web/control-ui).
 
-Recommended path: use the **CLI onboarding wizard** (`openclaw onboard`). It sets up:
+Recommended path: use the **CLI onboarding wizard** (`cleobot onboard`). It sets up:
 
 - model/auth (OAuth recommended)
 - gateway settings
@@ -34,7 +34,7 @@ run on host, set an explicit per-agent override:
   "routing": {
     "agents": {
       "main": {
-        "workspace": "~/.openclaw/workspace",
+        "workspace": "~/.cleobot/workspace",
         "sandbox": { "mode": "off" }
       }
     }
@@ -47,7 +47,7 @@ run on host, set an explicit per-agent override:
 - Node `>=22`
 - `pnpm` (optional; recommended if you build from source)
 - **Recommended:** Brave Search API key for web search. Easiest path:
-  `openclaw configure --section web` (stores `tools.web.search.apiKey`).
+  `cleobot configure --section web` (stores `tools.web.search.apiKey`).
   See [Web tools](/tools/web).
 
 macOS: if you plan to build the apps, install Xcode / CLT. For the CLI + gateway only, Node is enough.
@@ -98,8 +98,8 @@ Wizard doc: [Wizard](/start/wizard)
 
 - **Recommended Anthropic path:** set an API key (wizard can store it for service use). `claude setup-token` is also supported if you want to reuse Claude Code credentials.
 
-- OAuth credentials (legacy import): `~/.openclaw/credentials/oauth.json`
-- Auth profiles (OAuth + API keys): `~/.openclaw/agents/<agentId>/agent/auth-profiles.json`
+- OAuth credentials (legacy import): `~/.cleobot/credentials/oauth.json`
+- Auth profiles (OAuth + API keys): `~/.cleobot/agents/<agentId>/agent/auth-profiles.json`
 
 Headless/server tip: do OAuth on a normal machine first, then copy `oauth.json` to the gateway host.
 
@@ -167,7 +167,7 @@ Pairing doc: [Pairing](/start/pairing)
 
 ## From source (development)
 
-If you’re hacking on OpenClaw itself, run from source:
+If you’re hacking on CleoBot itself, run from source:
 
 ```bash
 git clone https://github.com/openclaw/openclaw.git
@@ -178,7 +178,7 @@ pnpm build
 openclaw onboard --install-daemon
 ```
 
-If you don’t have a global install yet, run the onboarding step via `pnpm openclaw ...` from the repo.
+If you don’t have a global install yet, run the onboarding step via `pnpm cleobot ...` from the repo.
 `pnpm build` also bundles A2UI assets; if you need to run just that step, use `pnpm canvas:a2ui:bundle`.
 
 Gateway (from this repo):
@@ -192,13 +192,13 @@ node openclaw.mjs gateway --port 18789 --verbose
 In a new terminal, send a test message:
 
 ```bash
-openclaw message send --target +15555550123 --message "Hello from OpenClaw"
+openclaw message send --target +15555550123 --message "Hello from CleoBot"
 ```
 
-If `openclaw health` shows “no auth configured”, go back to the wizard and set OAuth/key auth — the agent won’t be able to respond without it.
+If `cleobot health` shows “no auth configured”, go back to the wizard and set OAuth/key auth — the agent won’t be able to respond without it.
 
-Tip: `openclaw status --all` is the best pasteable, read-only debug report.
-Health probes: `openclaw health` (or `openclaw status --deep`) asks the running gateway for a health snapshot.
+Tip: `cleobot status --all` is the best pasteable, read-only debug report.
+Health probes: `cleobot health` (or `cleobot status --deep`) asks the running gateway for a health snapshot.
 
 ## Next steps (optional, but great)
 

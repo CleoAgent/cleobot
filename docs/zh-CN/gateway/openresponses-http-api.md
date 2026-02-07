@@ -15,14 +15,14 @@ x-i18n:
 
 # OpenResponses API (HTTP)
 
-OpenClaw 的 Gateway网关可以提供一个兼容 OpenResponses 的 `POST /v1/responses` 端点。
+CleoBot 的 Gateway网关可以提供一个兼容 OpenResponses 的 `POST /v1/responses` 端点。
 
 此端点**默认禁用**。请先在配置中启用。
 
 - `POST /v1/responses`
 - 与 Gateway网关使用相同端口（WS + HTTP 多路复用）：`http://<gateway-host>:<port>/v1/responses`
 
-底层实现中，请求作为普通的 Gateway网关智能体运行来执行（与 `openclaw agent` 相同的代码路径），因此路由/权限/配置与你的 Gateway网关一致。
+底层实现中，请求作为普通的 Gateway网关智能体运行来执行（与 `cleobot agent` 相同的代码路径），因此路由/权限/配置与你的 Gateway网关一致。
 
 ## 认证
 
@@ -32,8 +32,8 @@ OpenClaw 的 Gateway网关可以提供一个兼容 OpenResponses 的 `POST /v1/r
 
 说明：
 
-- 当 `gateway.auth.mode="token"` 时，使用 `gateway.auth.token`（或 `OPENCLAW_GATEWAY_TOKEN`）。
-- 当 `gateway.auth.mode="password"` 时，使用 `gateway.auth.password`（或 `OPENCLAW_GATEWAY_PASSWORD`）。
+- 当 `gateway.auth.mode="token"` 时，使用 `gateway.auth.token`（或 `CLEOBOT_GATEWAY_TOKEN`）。
+- 当 `gateway.auth.mode="password"` 时，使用 `gateway.auth.password`（或 `CLEOBOT_GATEWAY_PASSWORD`）。
 
 ## 选择智能体
 
@@ -42,13 +42,13 @@ OpenClaw 的 Gateway网关可以提供一个兼容 OpenResponses 的 `POST /v1/r
 - `model: "openclaw:<agentId>"`（示例：`"openclaw:main"`、`"openclaw:beta"`）
 - `model: "agent:<agentId>"`（别名）
 
-或通过头指定特定的 OpenClaw 智能体：
+或通过头指定特定的 CleoBot 智能体：
 
-- `x-openclaw-agent-id: <agentId>`（默认：`main`）
+- `x-cleobot-agent-id: <agentId>`（默认：`main`）
 
 高级用法：
 
-- `x-openclaw-session-key: <sessionKey>` 完全控制会话路由。
+- `x-cleobot-session-key: <sessionKey>` 完全控制会话路由。
 
 ## 启用端点
 
@@ -297,7 +297,7 @@ URL 获取默认值：
 curl -sS http://127.0.0.1:18789/v1/responses \
   -H 'Authorization: Bearer YOUR_TOKEN' \
   -H 'Content-Type: application/json' \
-  -H 'x-openclaw-agent-id: main' \
+  -H 'x-cleobot-agent-id: main' \
   -d '{
     "model": "openclaw",
     "input": "hi"
@@ -310,7 +310,7 @@ curl -sS http://127.0.0.1:18789/v1/responses \
 curl -N http://127.0.0.1:18789/v1/responses \
   -H 'Authorization: Bearer YOUR_TOKEN' \
   -H 'Content-Type: application/json' \
-  -H 'x-openclaw-agent-id: main' \
+  -H 'x-cleobot-agent-id: main' \
   -d '{
     "model": "openclaw",
     "stream": true,

@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { resolveCleoBotPackageRoot } from "../infra/openclaw-root.js";
+import { resolveCleoBotPackageRoot } from "../infra/cleobot-root.js";
 
 export async function resolveCleoBotDocsPath(params: {
   workspaceDir?: string;

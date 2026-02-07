@@ -32,7 +32,7 @@ const RESPONSE_PAGE = `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>OpenClaw Antigravity OAuth</title>
+    <title>CleoBot Antigravity OAuth</title>
   </head>
   <body>
     <main>

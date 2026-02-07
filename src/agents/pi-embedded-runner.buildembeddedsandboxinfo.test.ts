@@ -107,13 +107,13 @@ describe("buildEmbeddedSandboxInfo", () => {
     const sandbox = {
       enabled: true,
       sessionKey: "session:test",
-      workspaceDir: "/tmp/openclaw-sandbox",
-      agentWorkspaceDir: "/tmp/openclaw-workspace",
+      workspaceDir: "/tmp/cleobot-sandbox",
+      agentWorkspaceDir: "/tmp/cleobot-workspace",
       workspaceAccess: "none",
       containerName: "cleobot-sbx-test",
       containerWorkdir: "/workspace",
       docker: {
-        image: "openclaw-sandbox:bookworm-slim",
+        image: "cleobot-sandbox:bookworm-slim",
         containerPrefix: "cleobot-sbx-",
         workdir: "/workspace",
         readOnlyRoot: true,
@@ -137,7 +137,7 @@ describe("buildEmbeddedSandboxInfo", () => {
 
     expect(buildEmbeddedSandboxInfo(sandbox)).toEqual({
       enabled: true,
-      workspaceDir: "/tmp/openclaw-sandbox",
+      workspaceDir: "/tmp/cleobot-sandbox",
       workspaceAccess: "none",
       agentWorkspaceMount: undefined,
       browserBridgeUrl: "http://localhost:9222",
@@ -149,13 +149,13 @@ describe("buildEmbeddedSandboxInfo", () => {
     const sandbox = {
       enabled: true,
       sessionKey: "session:test",
-      workspaceDir: "/tmp/openclaw-sandbox",
-      agentWorkspaceDir: "/tmp/openclaw-workspace",
+      workspaceDir: "/tmp/cleobot-sandbox",
+      agentWorkspaceDir: "/tmp/cleobot-workspace",
       workspaceAccess: "none",
       containerName: "cleobot-sbx-test",
       containerWorkdir: "/workspace",
       docker: {
-        image: "openclaw-sandbox:bookworm-slim",
+        image: "cleobot-sandbox:bookworm-slim",
         containerPrefix: "cleobot-sbx-",
         workdir: "/workspace",
         readOnlyRoot: true,
@@ -180,7 +180,7 @@ describe("buildEmbeddedSandboxInfo", () => {
       }),
     ).toEqual({
       enabled: true,
-      workspaceDir: "/tmp/openclaw-sandbox",
+      workspaceDir: "/tmp/cleobot-sandbox",
       workspaceAccess: "none",
       agentWorkspaceMount: undefined,
       hostBrowserAllowed: false,

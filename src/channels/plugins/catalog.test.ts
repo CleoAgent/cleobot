@@ -17,7 +17,7 @@ describe("channel plugin catalog", () => {
   });
 
   it("includes external catalog entries", () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-catalog-"));
+    const dir = fs.mkdtemp(path.join(os.tmpdir(), "cleobot-catalog-"));
     const catalogPath = path.join(dir, "catalog.json");
     fs.writeFileSync(
       catalogPath,

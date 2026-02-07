@@ -1,4 +1,4 @@
-# Qwen OAuth (OpenClaw plugin)
+# Qwen OAuth (CleoBot plugin)
 
 OAuth provider plugin for **Qwen** (free-tier OAuth).
 

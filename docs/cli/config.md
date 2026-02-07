@@ -1,14 +1,14 @@
 ---
-summary: "CLI reference for `openclaw config` (get/set/unset config values)"
+summary: "CLI reference for `cleobot config` (get/set/unset config values)"
 read_when:
   - You want to read or edit config non-interactively
 title: "config"
 ---
 
-# `openclaw config`
+# `cleobot config`
 
 Config helpers: get/set/unset values by path. Run without a subcommand to open
-the configure wizard (same as `openclaw configure`).
+the configure wizard (same as `cleobot configure`).
 
 ## Examples
 

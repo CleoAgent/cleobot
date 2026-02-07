@@ -1,11 +1,11 @@
 ---
-summary: "CLI reference for `openclaw agents` (list/add/delete/set identity)"
+summary: "CLI reference for `cleobot agents` (list/add/delete/set identity)"
 read_when:
   - You want multiple isolated agents (workspaces + routing + auth)
 title: "agents"
 ---
 
-# `openclaw agents`
+# `cleobot agents`
 
 Manage isolated agents (workspaces + auth + routing).
 
@@ -51,7 +51,7 @@ openclaw agents set-identity --workspace ~/.openclaw/workspace --from-identity
 Override fields explicitly:
 
 ```bash
-openclaw agents set-identity --agent main --name "OpenClaw" --emoji "🦞" --avatar avatars/openclaw.png
+openclaw agents set-identity --agent main --name "CleoBot" --emoji "🦞" --avatar avatars/openclaw.png
 ```
 
 Config sample:
@@ -63,7 +63,7 @@ Config sample:
       {
         id: "main",
         identity: {
-          name: "OpenClaw",
+          name: "CleoBot",
           theme: "space lobster",
           emoji: "🦞",
           avatar: "avatars/openclaw.png",

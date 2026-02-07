@@ -1,4 +1,4 @@
-import OpenClawDiscovery
+import CleoBotDiscovery
 import Foundation
 
 enum GatewayDiscoveryHelpers {

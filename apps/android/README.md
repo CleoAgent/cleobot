@@ -1,4 +1,4 @@
-## OpenClaw Node (Android) (internal)
+## CleoBot Node (Android) (internal)
 
 Modern Android node app: connects to the **Gateway WebSocket** (`_openclaw-gw._tcp`) and exposes **Canvas + Chat + Camera**.
 

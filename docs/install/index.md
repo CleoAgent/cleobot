@@ -1,7 +1,7 @@
 ---
-summary: "Install OpenClaw (recommended installer, global install, or from source)"
+summary: "Install CleoBot (recommended installer, global install, or from source)"
 read_when:
-  - Installing OpenClaw
+  - Installing CleoBot
   - You want to install from GitHub
 title: "Install"
 ---
@@ -101,7 +101,7 @@ pnpm build
 openclaw onboard --install-daemon
 ```
 
-Tip: if you don’t have a global install yet, run repo commands via `pnpm openclaw ...`.
+Tip: if you don’t have a global install yet, run repo commands via `pnpm cleobot ...`.
 
 ### 4) Other install options
 
@@ -112,10 +112,10 @@ Tip: if you don’t have a global install yet, run repo commands via `pnpm openc
 
 ## After install
 
-- Run onboarding: `openclaw onboard --install-daemon`
-- Quick check: `openclaw doctor`
-- Check gateway health: `openclaw status` + `openclaw health`
-- Open the dashboard: `openclaw dashboard`
+- Run onboarding: `cleobot onboard --install-daemon`
+- Quick check: `cleobot doctor`
+- Check gateway health: `cleobot status` + `cleobot health`
+- Open the dashboard: `cleobot dashboard`
 
 ## Install method: npm vs git (installer)
 
@@ -147,12 +147,12 @@ Common flags:
 
 Equivalent env vars (useful for automation):
 
-- `OPENCLAW_INSTALL_METHOD=git|npm`
-- `OPENCLAW_GIT_DIR=...`
-- `OPENCLAW_GIT_UPDATE=0|1`
-- `OPENCLAW_NO_PROMPT=1`
-- `OPENCLAW_DRY_RUN=1`
-- `OPENCLAW_NO_ONBOARD=1`
+- `CLEOBOT_INSTALL_METHOD=git|npm`
+- `CLEOBOT_GIT_DIR=...`
+- `CLEOBOT_GIT_UPDATE=0|1`
+- `CLEOBOT_NO_PROMPT=1`
+- `CLEOBOT_DRY_RUN=1`
+- `CLEOBOT_NO_ONBOARD=1`
 - `SHARP_IGNORE_GLOBAL_LIBVIPS=0|1` (default: `1`; avoids `sharp` building against system libvips)
 
 ## Troubleshooting: `openclaw` not found (PATH)

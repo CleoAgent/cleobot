@@ -9,7 +9,7 @@ title: "Installer Internals"
 
 # Installer internals
 
-OpenClaw ships two installer scripts (served from `openclaw.ai`):
+CleoBot ships two installer scripts (served from `openclaw.ai`):
 
 - `https://openclaw.ai/install.sh` — “recommended” installer (global npm install by default; can also install from a GitHub checkout)
 - `https://openclaw.ai/install-cli.sh` — non-root-friendly CLI installer (installs into a prefix with its own Node)
@@ -39,8 +39,8 @@ What it does (high level):
   - `npm` (default): `npm install -g openclaw@latest`
   - `git`: clone/build a source checkout and install a wrapper script
 - On Linux: avoid global npm permission errors by switching npm's prefix to `~/.npm-global` when needed.
-- If upgrading an existing install: runs `openclaw doctor --non-interactive` (best effort).
-- For git installs: runs `openclaw doctor --non-interactive` after install/update (best effort).
+- If upgrading an existing install: runs `cleobot doctor --non-interactive` (best effort).
+- For git installs: runs `cleobot doctor --non-interactive` after install/update (best effort).
 - Mitigates `sharp` native install gotchas by defaulting `SHARP_IGNORE_GLOBAL_LIBVIPS=1` (avoids building against system libvips).
 
 If you _want_ `sharp` to link against a globally-installed libvips (or you’re debugging), set:
@@ -51,12 +51,12 @@ SHARP_IGNORE_GLOBAL_LIBVIPS=0 curl -fsSL https://openclaw.ai/install.sh | bash
 
 ### Discoverability / “git install” prompt
 
-If you run the installer while **already inside a OpenClaw source checkout** (detected via `package.json` + `pnpm-workspace.yaml`), it prompts:
+If you run the installer while **already inside a CleoBot source checkout** (detected via `package.json` + `pnpm-workspace.yaml`), it prompts:
 
 - update and use this checkout (`git`)
 - or migrate to the global npm install (`npm`)
 
-In non-interactive contexts (no TTY / `--no-prompt`), you must pass `--install-method git|npm` (or set `OPENCLAW_INSTALL_METHOD`), otherwise the script exits with code `2`.
+In non-interactive contexts (no TTY / `--no-prompt`), you must pass `--install-method git|npm` (or set `CLEOBOT_INSTALL_METHOD`), otherwise the script exits with code `2`.
 
 ### Why Git is needed
 
@@ -74,7 +74,7 @@ On some Linux setups (especially after installing Node via the system package ma
 
 ## install-cli.sh (non-root CLI installer)
 
-This script installs `openclaw` into a prefix (default: `~/.openclaw`) and also installs a dedicated Node runtime under that prefix, so it can work on machines where you don’t want to touch the system Node/npm.
+This script installs `openclaw` into a prefix (default: `~/.cleobot`) and also installs a dedicated Node runtime under that prefix, so it can work on machines where you don’t want to touch the system Node/npm.
 
 Help:
 
@@ -90,7 +90,7 @@ What it does (high level):
 - Choose install method:
   - `npm` (default): `npm install -g openclaw@latest`
   - `git`: clone/build a source checkout and install a wrapper script
-- Runs `openclaw doctor --non-interactive` on upgrades and git installs (best effort).
+- Runs `cleobot doctor --non-interactive` on upgrades and git installs (best effort).
 
 Examples:
 
@@ -108,8 +108,8 @@ iwr -useb https://openclaw.ai/install.ps1 | iex -InstallMethod git -GitDir "C:\\
 
 Environment variables:
 
-- `OPENCLAW_INSTALL_METHOD=git|npm`
-- `OPENCLAW_GIT_DIR=...`
+- `CLEOBOT_INSTALL_METHOD=git|npm`
+- `CLEOBOT_GIT_DIR=...`
 
 Git requirement:
 

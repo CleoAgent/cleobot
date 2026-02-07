@@ -1,5 +1,5 @@
 ---
-summary: "Setup guide: keep your OpenClaw setup tailored while staying up-to-date"
+summary: "Setup guide: keep your CleoBot setup tailored while staying up-to-date"
 read_when:
   - Setting up a new machine
   - You want “latest + greatest” without breaking your personal setup
@@ -12,7 +12,7 @@ Last updated: 2026-01-01
 
 ## TL;DR
 
-- **Tailoring lives outside the repo:** `~/.openclaw/workspace` (workspace) + `~/.openclaw/openclaw.json` (config).
+- **Tailoring lives outside the repo:** `~/.cleobot/workspace` (workspace) + `~/.cleobot/openclaw.json` (config).
 - **Stable workflow:** install the macOS app; let it run the bundled Gateway.
 - **Bleeding edge workflow:** run the Gateway yourself via `pnpm gateway:watch`, then let the macOS app attach in Local mode.
 
@@ -26,8 +26,8 @@ Last updated: 2026-01-01
 
 If you want “100% tailored to me” _and_ easy updates, keep your customization in:
 
-- **Config:** `~/.openclaw/openclaw.json` (JSON/JSON5-ish)
-- **Workspace:** `~/.openclaw/workspace` (skills, prompts, memories; make it a private git repo)
+- **Config:** `~/.cleobot/openclaw.json` (JSON/JSON5-ish)
+- **Workspace:** `~/.cleobot/workspace` (skills, prompts, memories; make it a private git repo)
 
 Bootstrap once:
 
@@ -41,11 +41,11 @@ From inside this repo, use the local CLI entry:
 openclaw setup
 ```
 
-If you don’t have a global install yet, run it via `pnpm openclaw setup`.
+If you don’t have a global install yet, run it via `pnpm cleobot setup`.
 
 ## Stable workflow (macOS app first)
 
-1. Install + launch **OpenClaw.app** (menu bar).
+1. Install + launch **CleoBot.app** (menu bar).
 2. Complete the onboarding/permissions checklist (TCC prompts).
 3. Ensure Gateway is **Local** and running (the app manages it).
 4. Link surfaces (example: WhatsApp):
@@ -62,7 +62,7 @@ openclaw health
 
 If onboarding is not available in your build:
 
-- Run `openclaw setup`, then `openclaw channels login`, then start the Gateway manually (`openclaw gateway`).
+- Run `cleobot setup`, then `cleobot channels login`, then start the Gateway manually (`cleobot gateway`).
 
 ## Bleeding edge workflow (Gateway in a terminal)
 
@@ -87,7 +87,7 @@ pnpm gateway:watch
 
 ### 2) Point the macOS app at your running Gateway
 
-In **OpenClaw.app**:
+In **CleoBot.app**:
 
 - Connection Mode: **Local**
   The app will attach to the running gateway on the configured port.
@@ -105,26 +105,26 @@ openclaw health
 
 - **Wrong port:** Gateway WS defaults to `ws://127.0.0.1:18789`; keep app + CLI on the same port.
 - **Where state lives:**
-  - Credentials: `~/.openclaw/credentials/`
-  - Sessions: `~/.openclaw/agents/<agentId>/sessions/`
+  - Credentials: `~/.cleobot/credentials/`
+  - Sessions: `~/.cleobot/agents/<agentId>/sessions/`
   - Logs: `/tmp/openclaw/`
 
 ## Credential storage map
 
 Use this when debugging auth or deciding what to back up:
 
-- **WhatsApp**: `~/.openclaw/credentials/whatsapp/<accountId>/creds.json`
+- **WhatsApp**: `~/.cleobot/credentials/whatsapp/<accountId>/creds.json`
 - **Telegram bot token**: config/env or `channels.telegram.tokenFile`
 - **Discord bot token**: config/env (token file not yet supported)
 - **Slack tokens**: config/env (`channels.slack.*`)
-- **Pairing allowlists**: `~/.openclaw/credentials/<channel>-allowFrom.json`
-- **Model auth profiles**: `~/.openclaw/agents/<agentId>/agent/auth-profiles.json`
-- **Legacy OAuth import**: `~/.openclaw/credentials/oauth.json`
+- **Pairing allowlists**: `~/.cleobot/credentials/<channel>-allowFrom.json`
+- **Model auth profiles**: `~/.cleobot/agents/<agentId>/agent/auth-profiles.json`
+- **Legacy OAuth import**: `~/.cleobot/credentials/oauth.json`
   More detail: [Security](/gateway/security#credential-storage-map).
 
 ## Updating (without wrecking your setup)
 
-- Keep `~/.openclaw/workspace` and `~/.openclaw/` as “your stuff”; don’t put personal prompts/config into the `openclaw` repo.
+- Keep `~/.cleobot/workspace` and `~/.cleobot/` as “your stuff”; don’t put personal prompts/config into the `openclaw` repo.
 - Updating source: `git pull` + `pnpm install` (when lockfile changed) + keep using `pnpm gateway:watch`.
 
 ## Linux (systemd user service)
@@ -145,5 +145,5 @@ user service (no lingering needed). See [Gateway runbook](/gateway) for the syst
 - [Gateway runbook](/gateway) (flags, supervision, ports)
 - [Gateway configuration](/gateway/configuration) (config schema + examples)
 - [Discord](/channels/discord) and [Telegram](/channels/telegram) (reply tags + replyToMode settings)
-- [OpenClaw assistant setup](/start/openclaw)
+- [CleoBot assistant setup](/start/openclaw)
 - [macOS app](/platforms/macos) (gateway lifecycle)

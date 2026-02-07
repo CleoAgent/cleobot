@@ -1,12 +1,12 @@
 {
   "name": "@openclaw/bluebubbles",
   "version": "2026.2.1",
-  "description": "OpenClaw BlueBubbles channel plugin",
+  "description": "CleoBot BlueBubbles channel plugin",
   "type": "module",
   "devDependencies": {
     "cleobot": "workspace:*"
   },
-  "openclaw": {
+  "cleobot": {
     "extensions": [
       "./index.ts"
     ],

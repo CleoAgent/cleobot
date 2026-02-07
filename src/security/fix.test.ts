@@ -16,7 +16,7 @@ const expectPerms = (actual: number, expected: number) => {
 
 describe("security fix", () => {
   it("tightens groupPolicy + filesystem perms", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-security-fix-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-security-fix-"));
     const stateDir = path.join(tmp, "state");
     await fs.mkdir(stateDir, { recursive: true });
     await fs.chmod(stateDir, 0o755);
@@ -88,7 +88,7 @@ describe("security fix", () => {
   });
 
   it("applies allowlist per-account and seeds WhatsApp groupAllowFrom from store", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-security-fix-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-security-fix-"));
     const stateDir = path.join(tmp, "state");
     await fs.mkdir(stateDir, { recursive: true });
 
@@ -138,7 +138,7 @@ describe("security fix", () => {
   });
 
   it("does not seed WhatsApp groupAllowFrom if allowFrom is set", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-security-fix-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-security-fix-"));
     const stateDir = path.join(tmp, "state");
     await fs.mkdir(stateDir, { recursive: true });
 
@@ -181,7 +181,7 @@ describe("security fix", () => {
   });
 
   it("returns ok=false for invalid config but still tightens perms", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-security-fix-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-security-fix-"));
     const stateDir = path.join(tmp, "state");
     await fs.mkdir(stateDir, { recursive: true });
     await fs.chmod(stateDir, 0o755);
@@ -207,7 +207,7 @@ describe("security fix", () => {
   });
 
   it("tightens perms for credentials + agent auth/sessions + include files", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-security-fix-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-security-fix-"));
     const stateDir = path.join(tmp, "state");
     await fs.mkdir(stateDir, { recursive: true });
 

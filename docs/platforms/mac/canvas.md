@@ -17,17 +17,17 @@ UI surfaces.
 
 Canvas state is stored under Application Support:
 
-- `~/Library/Application Support/OpenClaw/canvas/<session>/...`
+- `~/Library/Application Support/CleoBot/canvas/<session>/...`
 
 The Canvas panel serves those files via a **custom URL scheme**:
 
-- `openclaw-canvas://<session>/<path>`
+- `cleobot-canvas://<session>/<path>`
 
 Examples:
 
-- `openclaw-canvas://main/` → `<canvasRoot>/main/index.html`
-- `openclaw-canvas://main/assets/app.css` → `<canvasRoot>/main/assets/app.css`
-- `openclaw-canvas://main/widgets/todo/` → `<canvasRoot>/main/widgets/todo/index.html`
+- `cleobot-canvas://main/` → `<canvasRoot>/main/index.html`
+- `cleobot-canvas://main/assets/app.css` → `<canvasRoot>/main/assets/app.css`
+- `cleobot-canvas://main/widgets/todo/` → `<canvasRoot>/main/widgets/todo/index.html`
 
 If no `index.html` exists at the root, the app shows a **built‑in scaffold page**.
 

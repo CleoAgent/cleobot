@@ -14,7 +14,7 @@ describe("loadDotEnv", () => {
     const prevEnv = { ...process.env };
     const prevCwd = process.cwd();
 
-    const base = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-dotenv-test-"));
+    const base = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-dotenv-test-"));
     const cwdDir = path.join(base, "cwd");
     const stateDir = path.join(base, "state");
 
@@ -51,7 +51,7 @@ describe("loadDotEnv", () => {
     const prevEnv = { ...process.env };
     const prevCwd = process.cwd();
 
-    const base = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-dotenv-test-"));
+    const base = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-dotenv-test-"));
     const cwdDir = path.join(base, "cwd");
     const stateDir = path.join(base, "state");
 

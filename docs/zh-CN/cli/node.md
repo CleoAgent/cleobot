@@ -2,7 +2,7 @@
 read_when:
   - 运行无头节点主机
   - 为 system.run 配对非 macOS 节点
-summary: "`openclaw node`（无头节点主机）的 CLI 参考"
+summary: "`cleobot node`（无头节点主机）的 CLI 参考"
 title: node
 x-i18n:
   generated_at: "2026-02-01T20:21:18Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 14
 ---
 
-# `openclaw node`
+# `cleobot node`
 
 运行一个**无头节点主机**，连接到 Gateway网关 WebSocket 并在本机上暴露
 `system.run` / `system.which`。
@@ -89,7 +89,7 @@ openclaw node restart
 openclaw node uninstall
 ```
 
-使用 `openclaw node run` 进行前台节点主机运行（无服务）。
+使用 `cleobot node run` 进行前台节点主机运行（无服务）。
 
 服务命令支持 `--json` 以获取机器可读输出。
 
@@ -104,12 +104,12 @@ openclaw nodes approve <requestId>
 ```
 
 节点主机将其节点 ID、令牌、显示名称和 Gateway网关连接信息存储在
-`~/.openclaw/node.json` 中。
+`~/.cleobot/node.json` 中。
 
 ## 执行审批
 
 `system.run` 受本地执行审批控制：
 
-- `~/.openclaw/exec-approvals.json`
+- `~/.cleobot/exec-approvals.json`
 - [执行审批](/tools/exec-approvals)
-- `openclaw approvals --node <id|name|ip>`（从 Gateway网关编辑）
+- `cleobot approvals --node <id|name|ip>`（从 Gateway网关编辑）

@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `openclaw security` (audit and fix common security footguns)"
+summary: "CLI reference for `cleobot security` (audit and fix common security footguns)"
 read_when:
   - You want to run a quick security audit on config/state
   - You want to apply safe “fix” suggestions (chmod, tighten defaults)
 title: "security"
 ---
 
-# `openclaw security`
+# `cleobot security`
 
 Security tools (audit + optional fixes).
 

@@ -4,7 +4,7 @@ import { buildSandboxCreateArgs, type SandboxDockerConfig } from "./sandbox.js";
 describe("buildSandboxCreateArgs", () => {
   it("includes hardening and resource flags", () => {
     const cfg: SandboxDockerConfig = {
-      image: "openclaw-sandbox:bookworm-slim",
+      image: "cleobot-sandbox:bookworm-slim",
       containerPrefix: "cleobot-sbx-",
       workdir: "/workspace",
       readOnlyRoot: true,
@@ -23,7 +23,7 @@ describe("buildSandboxCreateArgs", () => {
         core: "0",
       },
       seccompProfile: "/tmp/seccomp.json",
-      apparmorProfile: "openclaw-sandbox",
+      apparmorProfile: "cleobot-sandbox",
       dns: ["1.1.1.1"],
       extraHosts: ["internal.service:10.0.0.5"],
     };
@@ -63,7 +63,7 @@ describe("buildSandboxCreateArgs", () => {
         "--security-opt",
         "seccomp=/tmp/seccomp.json",
         "--security-opt",
-        "apparmor=openclaw-sandbox",
+        "apparmor=cleobot-sandbox",
         "--dns",
         "1.1.1.1",
         "--add-host",
@@ -95,7 +95,7 @@ describe("buildSandboxCreateArgs", () => {
 
   it("emits -v flags for custom binds", () => {
     const cfg: SandboxDockerConfig = {
-      image: "openclaw-sandbox:bookworm-slim",
+      image: "cleobot-sandbox:bookworm-slim",
       containerPrefix: "cleobot-sbx-",
       workdir: "/workspace",
       readOnlyRoot: false,
@@ -128,7 +128,7 @@ describe("buildSandboxCreateArgs", () => {
 
   it("omits -v flags when binds is empty or undefined", () => {
     const cfg: SandboxDockerConfig = {
-      image: "openclaw-sandbox:bookworm-slim",
+      image: "cleobot-sandbox:bookworm-slim",
       containerPrefix: "cleobot-sbx-",
       workdir: "/workspace",
       readOnlyRoot: false,

@@ -1,15 +1,15 @@
 ---
-summary: "CLI reference for `openclaw browser` (profiles, tabs, actions, extension relay)"
+summary: "CLI reference for `cleobot browser` (profiles, tabs, actions, extension relay)"
 read_when:
-  - You use `openclaw browser` and want examples for common tasks
+  - You use `cleobot browser` and want examples for common tasks
   - You want to control a browser running on another machine via a node host
   - You want to use the Chrome extension relay (attach/detach via toolbar button)
 title: "browser"
 ---
 
-# `openclaw browser`
+# `cleobot browser`
 
-Manage OpenClaw’s browser control server and run browser actions (tabs, snapshots, screenshots, navigation, clicks, typing).
+Manage CleoBot’s browser control server and run browser actions (tabs, snapshots, screenshots, navigation, clicks, typing).
 
 Related:
 
@@ -28,16 +28,16 @@ Related:
 
 ```bash
 openclaw browser --browser-profile chrome tabs
-openclaw browser --browser-profile openclaw start
-openclaw browser --browser-profile openclaw open https://example.com
-openclaw browser --browser-profile openclaw snapshot
+openclaw browser --browser-profile cleobot start
+openclaw browser --browser-profile cleobot open https://example.com
+openclaw browser --browser-profile cleobot snapshot
 ```
 
 ## Profiles
 
 Profiles are named browser routing configs. In practice:
 
-- `openclaw`: launches/attaches to a dedicated OpenClaw-managed Chrome instance (isolated user data dir).
+- `openclaw`: launches/attaches to a dedicated CleoBot-managed Chrome instance (isolated user data dir).
 - `chrome`: controls your existing Chrome tab(s) via the Chrome extension relay.
 
 ```bash

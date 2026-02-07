@@ -1,12 +1,12 @@
 /**
- * OpenClaw Memory (LanceDB) Plugin
+ * CleoBot Memory (LanceDB) Plugin
  *
  * Long-term memory with vector search for AI conversations.
  * Uses LanceDB for storage and OpenAI for embeddings.
  * Provides seamless auto-recall and auto-capture via lifecycle hooks.
  */
 
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk";
+import type { CleoBotPluginApi } from "openclaw/plugin-sdk";
 import * as lancedb from "@lancedb/lancedb";
 import { Type } from "@sinclair/typebox";
 import { randomUUID } from "node:crypto";
@@ -233,7 +233,7 @@ const memoryPlugin = {
   kind: "memory" as const,
   configSchema: memoryConfigSchema,
 
-  register(api: OpenClawPluginApi) {
+  register(api: CleoBotPluginApi) {
     const cfg = memoryConfigSchema.parse(api.pluginConfig);
     const resolvedDbPath = api.resolvePath(cfg.dbPath!);
     const vectorDim = vectorDimsForModel(cfg.embedding.model ?? "text-embedding-3-small");

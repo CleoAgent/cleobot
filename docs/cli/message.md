@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `openclaw message` (send + channel actions)"
+summary: "CLI reference for `cleobot message` (send + channel actions)"
 read_when:
   - Adding or modifying message CLI actions
   - Changing outbound channel behavior
 title: "message"
 ---
 
-# `openclaw message`
+# `cleobot message`
 
 Single outbound command for sending messages and channel actions
 (Discord/Google Chat/Slack/Mattermost (plugin)/Telegram/WhatsApp/Signal/iMessage/MS Teams).
@@ -38,7 +38,7 @@ Target formats (`--target`):
 Name lookup:
 
 - For supported providers (Discord/Slack/etc), channel names like `Help` or `#help` are resolved via the directory cache.
-- On cache miss, OpenClaw will attempt a live directory lookup when the provider supports it.
+- On cache miss, CleoBot will attempt a live directory lookup when the provider supports it.
 
 ## Common flags
 

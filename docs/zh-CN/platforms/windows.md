@@ -1,6 +1,6 @@
 ---
 read_when:
-  - 在 Windows 上安装 OpenClaw
+  - 在 Windows 上安装 CleoBot
   - 了解 Windows 伴侣应用的状态
 summary: Windows (WSL2) 支持 + 伴侣应用状态
 title: Windows (WSL2)
@@ -15,7 +15,7 @@ x-i18n:
 
 # Windows (WSL2)
 
-推荐**通过 WSL2** 在 Windows 上使用 OpenClaw（建议使用 Ubuntu）。CLI + Gateway网关在 Linux 内运行，这样可以保持运行时一致性，并使工具链兼容性更好（Node/Bun/pnpm、Linux 二进制文件、Skills）。原生 Windows 可能会更麻烦。WSL2 为你提供完整的 Linux 体验——一条命令即可安装：`wsl --install`。
+推荐**通过 WSL2** 在 Windows 上使用 CleoBot（建议使用 Ubuntu）。CLI + Gateway网关在 Linux 内运行，这样可以保持运行时一致性，并使工具链兼容性更好（Node/Bun/pnpm、Linux 二进制文件、Skills）。原生 Windows 可能会更麻烦。WSL2 为你提供完整的 Linux 体验——一条命令即可安装：`wsl --install`。
 
 原生 Windows 伴侣应用已在计划中。
 
@@ -94,7 +94,7 @@ netsh interface portproxy add v4tov4 listenport=$ListenPort listenaddress=0.0.0.
 注意事项：
 
 - 从另一台机器通过 SSH 连接时，目标是 **Windows 主机 IP**（例如：`ssh user@windows-host -p 2222`）。
-- 远程节点必须指向一个**可达的** Gateway网关 URL（而非 `127.0.0.1`）；使用 `openclaw status --all` 来确认。
+- 远程节点必须指向一个**可达的** Gateway网关 URL（而非 `127.0.0.1`）；使用 `cleobot status --all` 来确认。
 - 使用 `listenaddress=0.0.0.0` 进行局域网访问；`127.0.0.1` 仅限本地访问。
 - 如果你希望自动执行，可以注册一个计划任务，在登录时运行刷新步骤。
 
@@ -136,7 +136,7 @@ wsl --shutdown
 systemctl --user status
 ```
 
-### 3) 安装 OpenClaw（在 WSL 内）
+### 3) 安装 CleoBot（在 WSL 内）
 
 在 WSL 内按照 Linux 快速开始流程操作：
 

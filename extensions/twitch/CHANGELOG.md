@@ -4,25 +4,25 @@
 
 ### Changes
 
-- Version alignment with core OpenClaw release numbers.
+- Version alignment with core CleoBot release numbers.
 
 ## 2026.1.31
 
 ### Changes
 
-- Version alignment with core OpenClaw release numbers.
+- Version alignment with core CleoBot release numbers.
 
 ## 2026.1.30
 
 ### Changes
 
-- Version alignment with core OpenClaw release numbers.
+- Version alignment with core CleoBot release numbers.
 
 ## 2026.1.29
 
 ### Changes
 
-- Version alignment with core OpenClaw release numbers.
+- Version alignment with core CleoBot release numbers.
 
 ## 2026.1.23
 

@@ -1,6 +1,6 @@
 # @openclaw/voice-call
 
-Official Voice Call plugin for **OpenClaw**.
+Official Voice Call plugin for **CleoBot**.
 
 Providers:
 
@@ -14,7 +14,7 @@ Plugin system: `https://docs.openclaw.ai/plugin`
 
 ## Install (local dev)
 
-### Option A: install via OpenClaw (recommended)
+### Option A: install via CleoBot (recommended)
 
 ```bash
 openclaw plugins install @openclaw/voice-call
@@ -103,7 +103,7 @@ Notes:
 ## CLI
 
 ```bash
-openclaw voicecall call --to "+15555550123" --message "Hello from OpenClaw"
+openclaw voicecall call --to "+15555550123" --message "Hello from CleoBot"
 openclaw voicecall continue --call-id <id> --message "Any questions?"
 openclaw voicecall speak --call-id <id> --message "One moment"
 openclaw voicecall end --call-id <id>

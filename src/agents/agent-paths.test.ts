@@ -33,7 +33,7 @@ describe("resolveCleoBotAgentDir", () => {
   });
 
   it("defaults to the multi-agent path when no overrides are set", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-agent-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-agent-"));
     process.env.CLEOBOT_STATE_DIR = tempStateDir;
     delete process.env.CLEOBOT_AGENT_DIR;
     delete process.env.PI_CODING_AGENT_DIR;
@@ -44,7 +44,7 @@ describe("resolveCleoBotAgentDir", () => {
   });
 
   it("honors CLEOBOT_AGENT_DIR overrides", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-agent-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-agent-"));
     const override = path.join(tempStateDir, "agent");
     process.env.CLEOBOT_AGENT_DIR = override;
     delete process.env.PI_CODING_AGENT_DIR;

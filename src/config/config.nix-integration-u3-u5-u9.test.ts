@@ -35,10 +35,10 @@ describe("Nix integration (U3, U5, U9)", () => {
   });
 
   describe("U5: CONFIG_PATH and STATE_DIR env var overrides", () => {
-    it("STATE_DIR defaults to ~/.openclaw when env not set", async () => {
+    it("STATE_DIR defaults to ~/.cleobot when env not set", async () => {
       await withEnvOverride({ CLEOBOT_STATE_DIR: undefined }, async () => {
         const { STATE_DIR } = await import("./config.js");
-        expect(STATE_DIR).toMatch(/\.openclaw$/);
+        expect(STATE_DIR).toMatch(/\.cleobot$/);
       });
     });
 
@@ -54,7 +54,7 @@ describe("Nix integration (U3, U5, U9)", () => {
         { CLEOBOT_CONFIG_PATH: undefined, CLEOBOT_STATE_DIR: undefined },
         async () => {
           const { CONFIG_PATH } = await import("./config.js");
-          expect(CONFIG_PATH).toMatch(/\.openclaw[\\/]openclaw\.json$/);
+          expect(CONFIG_PATH).toMatch(/\.cleobot[\\/]openclaw\.json$/);
         },
       );
     });

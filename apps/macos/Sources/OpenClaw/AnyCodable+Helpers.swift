@@ -1,10 +1,10 @@
-import OpenClawKit
-import OpenClawProtocol
+import CleoBotKit
+import CleoBotProtocol
 import Foundation
 
-// Prefer the OpenClawKit wrapper to keep gateway request payloads consistent.
-typealias AnyCodable = OpenClawKit.AnyCodable
-typealias InstanceIdentity = OpenClawKit.InstanceIdentity
+// Prefer the CleoBotKit wrapper to keep gateway request payloads consistent.
+typealias AnyCodable = CleoBotKit.AnyCodable
+typealias InstanceIdentity = CleoBotKit.InstanceIdentity
 
 extension AnyCodable {
     var stringValue: String? { self.value as? String }
@@ -26,19 +26,19 @@ extension AnyCodable {
     }
 }
 
-extension OpenClawProtocol.AnyCodable {
+extension CleoBotProtocol.AnyCodable {
     var stringValue: String? { self.value as? String }
     var boolValue: Bool? { self.value as? Bool }
     var intValue: Int? { self.value as? Int }
     var doubleValue: Double? { self.value as? Double }
-    var dictionaryValue: [String: OpenClawProtocol.AnyCodable]? { self.value as? [String: OpenClawProtocol.AnyCodable] }
-    var arrayValue: [OpenClawProtocol.AnyCodable]? { self.value as? [OpenClawProtocol.AnyCodable] }
+    var dictionaryValue: [String: CleoBotProtocol.AnyCodable]? { self.value as? [String: CleoBotProtocol.AnyCodable] }
+    var arrayValue: [CleoBotProtocol.AnyCodable]? { self.value as? [CleoBotProtocol.AnyCodable] }
 
     var foundationValue: Any {
         switch self.value {
-        case let dict as [String: OpenClawProtocol.AnyCodable]:
+        case let dict as [String: CleoBotProtocol.AnyCodable]:
             dict.mapValues { $0.foundationValue }
-        case let array as [OpenClawProtocol.AnyCodable]:
+        case let array as [CleoBotProtocol.AnyCodable]:
             array.map(\.foundationValue)
         default:
             self.value

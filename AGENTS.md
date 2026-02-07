@@ -33,11 +33,11 @@
 - Access: stable path is `ssh exe.dev` then `ssh vm-name` (assume SSH key already set).
 - SSH flaky: use exe.dev web terminal or Shelley (web agent); keep a tmux session for long ops.
 - Update: `sudo npm i -g openclaw@latest` (global install needs root on `/usr/lib/node_modules`).
-- Config: use `openclaw config set ...`; ensure `gateway.mode=local` is set.
+- Config: use `cleobot config set ...`; ensure `gateway.mode=local` is set.
 - Discord: store raw token only (no `DISCORD_BOT_TOKEN=` prefix).
 - Restart: stop old gateway and run:
-  `pkill -9 -f openclaw-gateway || true; nohup openclaw gateway run --bind loopback --port 18789 --force > /tmp/openclaw-gateway.log 2>&1 &`
-- Verify: `openclaw channels status --probe`, `ss -ltnp | rg 18789`, `tail -n 120 /tmp/openclaw-gateway.log`.
+  `pkill -9 -f openclaw-gateway || true; nohup cleobot gateway run --bind loopback --port 18789 --force > /tmp/openclaw-gateway.log 2>&1 &`
+- Verify: `cleobot channels status --probe`, `ss -ltnp | rg 18789`, `tail -n 120 /tmp/openclaw-gateway.log`.
 
 ## Build, Test, and Development Commands
 
@@ -46,7 +46,7 @@
 - Pre-commit hooks: `prek install` (runs same checks as CI)
 - Also supported: `bun install` (keep `pnpm-lock.yaml` + Bun patching in sync when touching deps/patches).
 - Prefer Bun for TypeScript execution (scripts, dev, tests): `bun <file.ts>` / `bunx <tool>`.
-- Run CLI in dev: `pnpm openclaw ...` (bun) or `pnpm dev`.
+- Run CLI in dev: `pnpm cleobot ...` (bun) or `pnpm dev`.
 - Node remains supported for running built output (`dist/*`) and production installs.
 - Mac packaging (dev): `scripts/package-mac-app.sh` defaults to current arch. Release checklist: `docs/platforms/mac/release.md`.
 - Type-check/build: `pnpm build`
@@ -60,7 +60,7 @@
 - Add brief code comments for tricky or non-obvious logic.
 - Keep files concise; extract helpers instead of “V2” copies. Use existing patterns for CLI options and dependency injection via `createDefaultDeps`.
 - Aim to keep files under ~700 LOC; guideline only (not a hard guardrail). Split/refactor when it improves clarity or testability.
-- Naming: use **OpenClaw** for product/app/docs headings; use `openclaw` for CLI command, package/binary, paths, and config keys.
+- Naming: use **CleoBot** for product/app/docs headings; use `openclaw` for CLI command, package/binary, paths, and config keys.
 
 ## Release Channels (Naming)
 
@@ -74,7 +74,7 @@
 - Naming: match source names with `*.test.ts`; e2e in `*.e2e.test.ts`.
 - Run `pnpm test` (or `pnpm test:coverage`) before pushing when you touch logic.
 - Do not set test workers above 16; tried already.
-- Live tests (real keys): `CLAWDBOT_LIVE_TEST=1 pnpm test:live` (OpenClaw-only) or `LIVE=1 pnpm test:live` (includes provider live tests). Docker: `pnpm test:docker:live-models`, `pnpm test:docker:live-gateway`. Onboarding Docker E2E: `pnpm test:docker:onboard`.
+- Live tests (real keys): `CLAWDBOT_LIVE_TEST=1 pnpm test:live` (CleoBot-only) or `LIVE=1 pnpm test:live` (includes provider live tests). Docker: `pnpm test:docker:live-models`, `pnpm test:docker:live-gateway`. Onboarding Docker E2E: `pnpm test:docker:onboard`.
 - Full kit + what’s covered: `docs/testing.md`.
 - Pure test additions/fixes generally do **not** need a changelog entry unless they alter user-facing behavior or the user asks for one.
 - Mobile: before using a simulator, check for connected real devices (iOS + Android) and prefer them when available.
@@ -109,7 +109,7 @@
 
 ## Security & Configuration Tips
 
-- Web provider stores creds at `~/.openclaw/credentials/`; rerun `openclaw login` if logged out.
+- Web provider stores creds at `~/.openclaw/credentials/`; rerun `cleobot login` if logged out.
 - Pi sessions live under `~/.openclaw/sessions/` by default; the base directory is not configurable.
 - Environment variables: see `~/.profile`.
 - Never commit or publish real phone numbers, videos, or live configuration values. Use obviously fake placeholders in docs, tests, and examples.
@@ -117,13 +117,13 @@
 
 ## Troubleshooting
 
-- Rebrand/migration issues or legacy config/service warnings: run `openclaw doctor` (see `docs/gateway/doctor.md`).
+- Rebrand/migration issues or legacy config/service warnings: run `cleobot doctor` (see `docs/gateway/doctor.md`).
 
 ## Agent-Specific Notes
 
 - Vocabulary: "makeup" = "mac app".
 - Never edit `node_modules` (global/Homebrew/npm/git installs too). Updates overwrite. Skill notes go in `tools.md` or `AGENTS.md`.
-- Signal: "update fly" => `fly ssh console -a flawd-bot -C "bash -lc 'cd /data/clawd/openclaw && git pull --rebase origin main'"` then `fly machines restart e825232f34d058 -a flawd-bot`.
+- Signal: "update fly" => `fly ssh console -a flawd-bot -C "bash -lc 'cd /data/clawd/cleobot && git pull --rebase origin main'"` then `fly machines restart e825232f34d058 -a flawd-bot`.
 - When working on a GitHub Issue or PR, print the full URL at the end of the task.
 - When answering questions, respond with high-confidence answers only: verify in code; do not guess.
 - Never update the Carbon dependency.
@@ -131,12 +131,12 @@
 - Patching dependencies (pnpm patches, overrides, or vendored changes) requires explicit approval; do not do this by default.
 - CLI progress: use `src/cli/progress.ts` (`osc-progress` + `@clack/prompts` spinner); don’t hand-roll spinners/bars.
 - Status output: keep tables + ANSI-safe wrapping (`src/terminal/table.ts`); `status --all` = read-only/pasteable, `status --deep` = probes.
-- Gateway currently runs only as the menubar app; there is no separate LaunchAgent/helper label installed. Restart via the OpenClaw Mac app or `scripts/restart-mac.sh`; to verify/kill use `launchctl print gui/$UID | grep openclaw` rather than assuming a fixed label. **When debugging on macOS, start/stop the gateway via the app, not ad-hoc tmux sessions; kill any temporary tunnels before handoff.**
-- macOS logs: use `./scripts/clawlog.sh` to query unified logs for the OpenClaw subsystem; it supports follow/tail/category filters and expects passwordless sudo for `/usr/bin/log`.
+- Gateway currently runs only as the menubar app; there is no separate LaunchAgent/helper label installed. Restart via the CleoBot Mac app or `scripts/restart-mac.sh`; to verify/kill use `launchctl print gui/$UID | grep openclaw` rather than assuming a fixed label. **When debugging on macOS, start/stop the gateway via the app, not ad-hoc tmux sessions; kill any temporary tunnels before handoff.**
+- macOS logs: use `./scripts/clawlog.sh` to query unified logs for the CleoBot subsystem; it supports follow/tail/category filters and expects passwordless sudo for `/usr/bin/log`.
 - If shared guardrails are available locally, review them; otherwise follow this repo's guidance.
 - SwiftUI state management (iOS/macOS): prefer the `Observation` framework (`@Observable`, `@Bindable`) over `ObservableObject`/`@StateObject`; don’t introduce new `ObservableObject` unless required for compatibility, and migrate existing usages when touching related code.
 - Connection providers: when adding a new connection, update every UI surface and docs (macOS app, web UI, mobile if applicable, onboarding/overview docs) and add matching status + configuration forms so provider lists and settings stay in sync.
-- Version locations: `package.json` (CLI), `apps/android/app/build.gradle.kts` (versionName/versionCode), `apps/ios/Sources/Info.plist` + `apps/ios/Tests/Info.plist` (CFBundleShortVersionString/CFBundleVersion), `apps/macos/Sources/OpenClaw/Resources/Info.plist` (CFBundleShortVersionString/CFBundleVersion), `docs/install/updating.md` (pinned npm version), `docs/platforms/mac/release.md` (APP_VERSION/APP_BUILD examples), Peekaboo Xcode projects/Info.plists (MARKETING_VERSION/CURRENT_PROJECT_VERSION).
+- Version locations: `package.json` (CLI), `apps/android/app/build.gradle.kts` (versionName/versionCode), `apps/ios/Sources/Info.plist` + `apps/ios/Tests/Info.plist` (CFBundleShortVersionString/CFBundleVersion), `apps/macos/Sources/CleoBot/Resources/Info.plist` (CFBundleShortVersionString/CFBundleVersion), `docs/install/updating.md` (pinned npm version), `docs/platforms/mac/release.md` (APP_VERSION/APP_BUILD examples), Peekaboo Xcode projects/Info.plists (MARKETING_VERSION/CURRENT_PROJECT_VERSION).
 - **Restart apps:** “restart iOS/Android apps” means rebuild (recompile/install) and relaunch, not just kill/launch.
 - **Device checks:** before testing, verify connected real devices (iOS/Android) before reaching for simulators/emulators.
 - iOS Team ID lookup: `security find-identity -p codesigning -v` → use Apple Development (…) TEAMID. Fallback: `defaults read com.apple.dt.Xcode IDEProvisioningTeamIdentifiers`.
@@ -165,7 +165,7 @@
 - Voice wake forwarding tips:
   - Command template should stay `openclaw-mac agent --message "${text}" --thinking low`; `VoiceWakeForwarder` already shell-escapes `${text}`. Don’t add extra quotes.
   - launchd PATH is minimal; ensure the app’s launch agent PATH includes standard system paths plus your pnpm bin (typically `$HOME/Library/pnpm`) so `pnpm`/`openclaw` binaries resolve when invoked via `openclaw-mac`.
-- For manual `openclaw message send` messages that include `!`, use the heredoc pattern noted below to avoid the Bash tool’s escaping.
+- For manual `cleobot message send` messages that include `!`, use the heredoc pattern noted below to avoid the Bash tool’s escaping.
 - Release guardrails: do not change version numbers without operator’s explicit consent; always ask permission before running any npm publish/release step.
 
 ## NPM + 1Password (publish/verify)

@@ -29,7 +29,7 @@ describe("update-startup", () => {
   beforeEach(async () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date("2026-01-17T10:00:00Z"));
-    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-update-check-"));
+    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-update-check-"));
     process.env.CLEOBOT_STATE_DIR = tempDir;
     delete process.env.VITEST;
     process.env.NODE_ENV = "test";

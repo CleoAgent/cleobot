@@ -1,7 +1,7 @@
 {
   "name": "@openclaw/zalo",
   "version": "2026.2.1",
-  "description": "OpenClaw Zalo channel plugin",
+  "description": "CleoBot Zalo channel plugin",
   "type": "module",
   "dependencies": {
     "cleobot": "workspace:*",
@@ -10,7 +10,7 @@
   "devDependencies": {
     "cleobot": "workspace:*"
   },
-  "openclaw": {
+  "cleobot": {
     "extensions": [
       "./index.ts"
     ],

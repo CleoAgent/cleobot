@@ -1,5 +1,5 @@
 ---
-summary: "Quick troubleshooting guide for common OpenClaw failures"
+summary: "Quick troubleshooting guide for common CleoBot failures"
 read_when:
   - Investigating runtime issues or failures
 title: "Troubleshooting"
@@ -7,7 +7,7 @@ title: "Troubleshooting"
 
 # Troubleshooting 🔧
 
-When OpenClaw misbehaves, here's how to fix it.
+When CleoBot misbehaves, here's how to fix it.
 
 Start with the FAQ’s [First 60 seconds](/help/faq#first-60-seconds-if-somethings-broken) if you just want a quick triage recipe. This page goes deeper on runtime failures and diagnostics.
 
@@ -19,15 +19,15 @@ Quick triage commands (in order):
 
 | Command                            | What it tells you                                                                                      | When to use it                                    |
 | ---------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------- |
-| `openclaw status`                  | Local summary: OS + update, gateway reachability/mode, service, agents/sessions, provider config state | First check, quick overview                       |
-| `openclaw status --all`            | Full local diagnosis (read-only, pasteable, safe-ish) incl. log tail                                   | When you need to share a debug report             |
-| `openclaw status --deep`           | Runs gateway health checks (incl. provider probes; requires reachable gateway)                         | When “configured” doesn’t mean “working”          |
-| `openclaw gateway probe`           | Gateway discovery + reachability (local + remote targets)                                              | When you suspect you’re probing the wrong gateway |
-| `openclaw channels status --probe` | Asks the running gateway for channel status (and optionally probes)                                    | When gateway is reachable but channels misbehave  |
-| `openclaw gateway status`          | Supervisor state (launchd/systemd/schtasks), runtime PID/exit, last gateway error                      | When the service “looks loaded” but nothing runs  |
-| `openclaw logs --follow`           | Live logs (best signal for runtime issues)                                                             | When you need the actual failure reason           |
+| `cleobot status`                  | Local summary: OS + update, gateway reachability/mode, service, agents/sessions, provider config state | First check, quick overview                       |
+| `cleobot status --all`            | Full local diagnosis (read-only, pasteable, safe-ish) incl. log tail                                   | When you need to share a debug report             |
+| `cleobot status --deep`           | Runs gateway health checks (incl. provider probes; requires reachable gateway)                         | When “configured” doesn’t mean “working”          |
+| `cleobot gateway probe`           | Gateway discovery + reachability (local + remote targets)                                              | When you suspect you’re probing the wrong gateway |
+| `cleobot channels status --probe` | Asks the running gateway for channel status (and optionally probes)                                    | When gateway is reachable but channels misbehave  |
+| `cleobot gateway status`          | Supervisor state (launchd/systemd/schtasks), runtime PID/exit, last gateway error                      | When the service “looks loaded” but nothing runs  |
+| `cleobot logs --follow`           | Live logs (best signal for runtime issues)                                                             | When you need the actual failure reason           |
 
-**Sharing output:** prefer `openclaw status --all` (it redacts tokens). If you paste `openclaw status`, consider setting `OPENCLAW_SHOW_SECRETS=0` first (token previews).
+**Sharing output:** prefer `cleobot status --all` (it redacts tokens). If you paste `cleobot status`, consider setting `CLEOBOT_SHOW_SECRETS=0` first (token previews).
 
 See also: [Health checks](/gateway/health) and [Logging](/logging).
 
@@ -43,7 +43,7 @@ Fix options:
 - Re-run onboarding and choose **Anthropic** for that agent.
 - Or paste a setup-token on the **gateway host**:
   ```bash
-  openclaw models auth setup-token --provider anthropic
+  cleobot models auth setup-token --provider anthropic
   ```
 - Or copy `auth-profiles.json` from the main agent dir to the new agent dir.
 
@@ -111,11 +111,11 @@ Doctor/service will show runtime state (PID/last exit) and log hints.
 
 **Logs:**
 
-- Preferred: `openclaw logs --follow`
-- File logs (always): `/tmp/openclaw/openclaw-YYYY-MM-DD.log` (or your configured `logging.file`)
-- macOS LaunchAgent (if installed): `$OPENCLAW_STATE_DIR/logs/gateway.log` and `gateway.err.log`
-- Linux systemd (if installed): `journalctl --user -u openclaw-gateway[-<profile>].service -n 200 --no-pager`
-- Windows: `schtasks /Query /TN "OpenClaw Gateway (<profile>)" /V /FO LIST`
+- Preferred: `cleobot logs --follow`
+- File logs (always): `/tmp/openclaw/cleobot-YYYY-MM-DD.log` (or your configured `logging.file`)
+- macOS LaunchAgent (if installed): `$CLEOBOT_STATE_DIR/logs/gateway.log` and `gateway.err.log`
+- Linux systemd (if installed): `journalctl --user -u cleobot-gateway[-<profile>].service -n 200 --no-pager`
+- Windows: `schtasks /Query /TN "CleoBot Gateway (<profile>)" /V /FO LIST`
 
 **Enable more logging:**
 
@@ -140,25 +140,25 @@ Gateway refuses to start.
 
 - Run the wizard and set the Gateway run mode to **Local**:
   ```bash
-  openclaw configure
+  cleobot configure
   ```
 - Or set it directly:
   ```bash
-  openclaw config set gateway.mode local
+  cleobot config set gateway.mode local
   ```
 
 **If you meant to run a remote Gateway instead:**
 
 - Set a remote URL and keep `gateway.mode=remote`:
   ```bash
-  openclaw config set gateway.mode remote
-  openclaw config set gateway.remote.url "wss://gateway.example.com"
+  cleobot config set gateway.mode remote
+  cleobot config set gateway.remote.url "wss://gateway.example.com"
   ```
 
 **Ad-hoc/dev only:** pass `--allow-unconfigured` to start the gateway without
 `gateway.mode=local`.
 
-**No config file yet?** Run `openclaw setup` to create a starter config, then rerun
+**No config file yet?** Run `cleobot setup` to create a starter config, then rerun
 the gateway.
 
 ### Service Environment (PATH + runtime)
@@ -177,7 +177,7 @@ so missing tools usually mean your shell init isn’t exporting them (or set
 `tools.exec.pathPrepend`). See [/tools/exec](/tools/exec).
 
 WhatsApp + Telegram channels require **Node**; Bun is unsupported. If your
-service was installed with Bun or a version-managed Node path, run `openclaw doctor`
+service was installed with Bun or a version-managed Node path, run `cleobot doctor`
 to migrate to a system Node install.
 
 ### Skill missing API key in sandbox
@@ -190,7 +190,7 @@ to migrate to a system Node install.
 
 - set `agents.defaults.sandbox.docker.env` (or per-agent `agents.list[].sandbox.docker.env`)
 - or bake the key into your custom sandbox image
-- then run `openclaw sandbox recreate --agent <id>` (or `--all`)
+- then run `cleobot sandbox recreate --agent <id>` (or `--all`)
 
 ### Service Running but Port Not Listening
 
@@ -205,31 +205,31 @@ the Gateway likely refused to bind.
 
 **Check:**
 
-- `gateway.mode` must be `local` for `openclaw gateway` and the service.
-- If you set `gateway.mode=remote`, the **CLI defaults** to a remote URL. The service can still be running locally, but your CLI may be probing the wrong place. Use `openclaw gateway status` to see the service’s resolved port + probe target (or pass `--url`).
-- `openclaw gateway status` and `openclaw doctor` surface the **last gateway error** from logs when the service looks running but the port is closed.
+- `gateway.mode` must be `local` for `cleobot gateway` and the service.
+- If you set `gateway.mode=remote`, the **CLI defaults** to a remote URL. The service can still be running locally, but your CLI may be probing the wrong place. Use `cleobot gateway status` to see the service’s resolved port + probe target (or pass `--url`).
+- `cleobot gateway status` and `cleobot doctor` surface the **last gateway error** from logs when the service looks running but the port is closed.
 - Non-loopback binds (`lan`/`tailnet`/`custom`, or `auto` when loopback is unavailable) require auth:
-  `gateway.auth.token` (or `OPENCLAW_GATEWAY_TOKEN`).
+  `gateway.auth.token` (or `CLEOBOT_GATEWAY_TOKEN`).
 - `gateway.remote.token` is for remote CLI calls only; it does **not** enable local auth.
 - `gateway.token` is ignored; use `gateway.auth.token`.
 
-**If `openclaw gateway status` shows a config mismatch**
+**If `cleobot gateway status` shows a config mismatch**
 
 - `Config (cli): ...` and `Config (service): ...` should normally match.
 - If they don’t, you’re almost certainly editing one config while the service is running another.
-- Fix: rerun `openclaw gateway install --force` from the same `--profile` / `OPENCLAW_STATE_DIR` you want the service to use.
+- Fix: rerun `cleobot gateway install --force` from the same `--profile` / `CLEOBOT_STATE_DIR` you want the service to use.
 
-**If `openclaw gateway status` reports service config issues**
+**If `cleobot gateway status` reports service config issues**
 
 - The supervisor config (launchd/systemd/schtasks) is missing current defaults.
-- Fix: run `openclaw doctor` to update it (or `openclaw gateway install --force` for a full rewrite).
+- Fix: run `cleobot doctor` to update it (or `cleobot gateway install --force` for a full rewrite).
 
 **If `Last gateway error:` mentions “refusing to bind … without auth”**
 
 - You set `gateway.bind` to a non-loopback mode (`lan`/`tailnet`/`custom`, or `auto` when loopback is unavailable) but didn’t configure auth.
-- Fix: set `gateway.auth.mode` + `gateway.auth.token` (or export `OPENCLAW_GATEWAY_TOKEN`) and restart the service.
+- Fix: set `gateway.auth.mode` + `gateway.auth.token` (or export `CLEOBOT_GATEWAY_TOKEN`) and restart the service.
 
-**If `openclaw gateway status` says `bind=tailnet` but no tailnet interface was found**
+**If `cleobot gateway status` says `bind=tailnet` but no tailnet interface was found**
 
 - The gateway tried to bind to a Tailscale IP (100.64.0.0/10) but none were detected on the host.
 - Fix: bring up Tailscale on that machine (or change `gateway.bind` to `loopback`/`lan`).
@@ -289,15 +289,15 @@ The agent was interrupted mid-response.
 
 ### "Agent failed before reply: Unknown model: anthropic/claude-haiku-3-5"
 
-OpenClaw intentionally rejects **older/insecure models** (especially those more
+CleoBot intentionally rejects **older/insecure models** (especially those more
 vulnerable to prompt injection). If you see this error, the model name is no
 longer supported.
 
 **Fix:**
 
 - Pick a **latest** model for the provider and update your config or model alias.
-- If you’re unsure which models are available, run `openclaw models list` or
-  `openclaw models scan` and choose a supported one.
+- If you’re unsure which models are available, run `cleobot models list` or
+  `cleobot models scan` and choose a supported one.
 - Check gateway logs for the detailed failure reason.
 
 See also: [Models CLI](/cli/models) and [Model providers](/concepts/model-providers).
@@ -318,7 +318,7 @@ Look for `AllowFrom: ...` in the output.
 # The message must match mentionPatterns or explicit mentions; defaults live in channel groups/guilds.
 # Multi-agent: `agents.list[].groupChat.mentionPatterns` overrides global patterns.
 grep -n "agents\\|groupChat\\|mentionPatterns\\|channels\\.whatsapp\\.groups\\|channels\\.telegram\\.groups\\|channels\\.imessage\\.groups\\|channels\\.discord\\.guilds" \
-  "${OPENCLAW_CONFIG_PATH:-$HOME/.openclaw/openclaw.json}"
+  "${CLEOBOT_CONFIG_PATH:-$HOME/.openclaw/openclaw.json}"
 ```
 
 **Check 3:** Check the logs
@@ -326,7 +326,7 @@ grep -n "agents\\|groupChat\\|mentionPatterns\\|channels\\.whatsapp\\.groups\\|c
 ```bash
 openclaw logs --follow
 # or if you want quick filters:
-tail -f "$(ls -t /tmp/openclaw/openclaw-*.log | head -1)" | grep "blocked\\|skip\\|unauthorized"
+tail -f "$(ls -t /tmp/openclaw/cleobot-*.log | head -1)" | grep "blocked\\|skip\\|unauthorized"
 ```
 
 ### Pairing Code Not Arriving
@@ -418,7 +418,7 @@ If you’re logged out / unlinked:
 
 ```bash
 openclaw channels logout
-trash "${OPENCLAW_STATE_DIR:-$HOME/.openclaw}/credentials" # if logout can't cleanly remove everything
+trash "${CLEOBOT_STATE_DIR:-$HOME/.openclaw}/credentials" # if logout can't cleanly remove everything
 openclaw channels login --verbose       # re-scan QR
 ```
 
@@ -439,12 +439,12 @@ ls -la /path/to/your/image.jpg
 **Check 3:** Check media logs
 
 ```bash
-grep "media\\|fetch\\|download" "$(ls -t /tmp/openclaw/openclaw-*.log | head -1)" | tail -20
+grep "media\\|fetch\\|download" "$(ls -t /tmp/openclaw/cleobot-*.log | head -1)" | tail -20
 ```
 
 ### High Memory Usage
 
-OpenClaw keeps conversation history in memory.
+CleoBot keeps conversation history in memory.
 
 **Fix:** Restart periodically or set session limits:
 
@@ -460,7 +460,7 @@ OpenClaw keeps conversation history in memory.
 
 ### “Gateway won’t start — configuration invalid”
 
-OpenClaw now refuses to start when the config contains unknown keys, malformed values, or invalid types.
+CleoBot now refuses to start when the config contains unknown keys, malformed values, or invalid types.
 This is intentional for safety.
 
 Fix it with Doctor:
@@ -472,16 +472,16 @@ openclaw doctor --fix
 
 Notes:
 
-- `openclaw doctor` reports every invalid entry.
-- `openclaw doctor --fix` applies migrations/repairs and rewrites the config.
-- Diagnostic commands like `openclaw logs`, `openclaw health`, `openclaw status`, `openclaw gateway status`, and `openclaw gateway probe` still run even if the config is invalid.
+- `cleobot doctor` reports every invalid entry.
+- `cleobot doctor --fix` applies migrations/repairs and rewrites the config.
+- Diagnostic commands like `cleobot logs`, `cleobot health`, `cleobot status`, `cleobot gateway status`, and `cleobot gateway probe` still run even if the config is invalid.
 
 ### “All models failed” — what should I check first?
 
 - **Credentials** present for the provider(s) being tried (auth profiles + env vars).
 - **Model routing**: confirm `agents.defaults.model.primary` and fallbacks are models you can access.
 - **Gateway logs** in `/tmp/openclaw/…` for the exact provider error.
-- **Model status**: use `/model status` (chat) or `openclaw models status` (CLI).
+- **Model status**: use `/model status` (chat) or `cleobot models status` (CLI).
 
 ### I’m running on my personal WhatsApp number — why is self-chat weird?
 
@@ -512,7 +512,7 @@ openclaw channels login
 ### Build errors on `main` — what’s the standard fix path?
 
 1. `git pull origin main && pnpm install`
-2. `openclaw doctor`
+2. `cleobot doctor`
 3. Check GitHub issues or Discord
 4. Temporary workaround: check out an older commit
 
@@ -555,8 +555,8 @@ Notes:
 - The git flow only rebases if the repo is clean. Commit or stash changes first.
 - After switching, run:
   ```bash
-  openclaw doctor
-  openclaw gateway restart
+  cleobot doctor
+  cleobot gateway restart
   ```
 
 ### Telegram block streaming isn’t splitting text between tool calls. Why?
@@ -591,20 +591,20 @@ Fix checklist:
 3. Put `requireMention: false` **under** `channels.discord.guilds` (global or per‑channel).
    Top‑level `channels.discord.requireMention` is not a supported key.
 4. Ensure the bot has **Message Content Intent** and channel permissions.
-5. Run `openclaw channels status --probe` for audit hints.
+5. Run `cleobot channels status --probe` for audit hints.
 
 Docs: [Discord](/channels/discord), [Channels troubleshooting](/channels/troubleshooting).
 
 ### Cloud Code Assist API error: invalid tool schema (400). What now?
 
 This is almost always a **tool schema compatibility** issue. The Cloud Code Assist
-endpoint accepts a strict subset of JSON Schema. OpenClaw scrubs/normalizes tool
+endpoint accepts a strict subset of JSON Schema. CleoBot scrubs/normalizes tool
 schemas in current `main`, but the fix is not in the last release yet (as of
 January 13, 2026).
 
 Fix checklist:
 
-1. **Update OpenClaw**:
+1. **Update CleoBot**:
    - If you can run from source, pull `main` and restart the gateway.
    - Otherwise, wait for the next release that includes the schema scrubber.
 2. Avoid unsupported keywords like `anyOf/oneOf/allOf`, `patternProperties`,
@@ -670,7 +670,7 @@ Get verbose logging:
 
 ```bash
 # Turn on trace logging in config:
-#   ${OPENCLAW_CONFIG_PATH:-$HOME/.openclaw/openclaw.json} -> { logging: { level: "trace" } }
+#   ${CLEOBOT_CONFIG_PATH:-$HOME/.openclaw/openclaw.json} -> { logging: { level: "trace" } }
 #
 # Then run verbose commands to mirror debug output to stdout:
 openclaw gateway --verbose
@@ -681,11 +681,11 @@ openclaw channels login --verbose
 
 | Log                               | Location                                                                                                                                                                                                                                                                                                                    |
 | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Gateway file logs (structured)    | `/tmp/openclaw/openclaw-YYYY-MM-DD.log` (or `logging.file`)                                                                                                                                                                                                                                                                 |
-| Gateway service logs (supervisor) | macOS: `$OPENCLAW_STATE_DIR/logs/gateway.log` + `gateway.err.log` (default: `~/.openclaw/logs/...`; profiles use `~/.openclaw-<profile>/logs/...`)<br />Linux: `journalctl --user -u openclaw-gateway[-<profile>].service -n 200 --no-pager`<br />Windows: `schtasks /Query /TN "OpenClaw Gateway (<profile>)" /V /FO LIST` |
-| Session files                     | `$OPENCLAW_STATE_DIR/agents/<agentId>/sessions/`                                                                                                                                                                                                                                                                            |
-| Media cache                       | `$OPENCLAW_STATE_DIR/media/`                                                                                                                                                                                                                                                                                                |
-| Credentials                       | `$OPENCLAW_STATE_DIR/credentials/`                                                                                                                                                                                                                                                                                          |
+| Gateway file logs (structured)    | `/tmp/openclaw/cleobot-YYYY-MM-DD.log` (or `logging.file`)                                                                                                                                                                                                                                                                 |
+| Gateway service logs (supervisor) | macOS: `$CLEOBOT_STATE_DIR/logs/gateway.log` + `gateway.err.log` (default: `~/.openclaw/logs/...`; profiles use `~/.cleobot-<profile>/logs/...`)<br />Linux: `journalctl --user -u cleobot-gateway[-<profile>].service -n 200 --no-pager`<br />Windows: `schtasks /Query /TN "CleoBot Gateway (<profile>)" /V /FO LIST` |
+| Session files                     | `$CLEOBOT_STATE_DIR/agents/<agentId>/sessions/`                                                                                                                                                                                                                                                                            |
+| Media cache                       | `$CLEOBOT_STATE_DIR/media/`                                                                                                                                                                                                                                                                                                |
+| Credentials                       | `$CLEOBOT_STATE_DIR/credentials/`                                                                                                                                                                                                                                                                                          |
 
 ## Health Check
 
@@ -706,7 +706,7 @@ lsof -nP -iTCP:18789 -sTCP:LISTEN
 # Recent activity (RPC log tail)
 openclaw logs --follow
 # Fallback if RPC is down
-tail -20 /tmp/openclaw/openclaw-*.log
+tail -20 /tmp/openclaw/cleobot-*.log
 ```
 
 ## Reset Everything
@@ -716,21 +716,21 @@ Nuclear option:
 ```bash
 openclaw gateway stop
 # If you installed a service and want a clean install:
-# openclaw gateway uninstall
+# cleobot gateway uninstall
 
-trash "${OPENCLAW_STATE_DIR:-$HOME/.openclaw}"
+trash "${CLEOBOT_STATE_DIR:-$HOME/.openclaw}"
 openclaw channels login         # re-pair WhatsApp
-openclaw gateway restart           # or: openclaw gateway
+openclaw gateway restart           # or: cleobot gateway
 ```
 
 ⚠️ This loses all sessions and requires re-pairing WhatsApp.
 
 ## Getting Help
 
-1. Check logs first: `/tmp/openclaw/` (default: `openclaw-YYYY-MM-DD.log`, or your configured `logging.file`)
+1. Check logs first: `/tmp/openclaw/` (default: `cleobot-YYYY-MM-DD.log`, or your configured `logging.file`)
 2. Search existing issues on GitHub
 3. Open a new issue with:
-   - OpenClaw version
+   - CleoBot version
    - Relevant log snippets
    - Steps to reproduce
    - Your config (redact secrets!)

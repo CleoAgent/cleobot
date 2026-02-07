@@ -1,8 +1,8 @@
-import OpenClawKit
+import CleoBotKit
 import Foundation
 import os
 import Testing
-@testable import OpenClaw
+@testable import CleoBot
 
 @Suite struct GatewayConnectionTests {
     private final class FakeWebSocketTask: WebSocketTasking, @unchecked Sendable {

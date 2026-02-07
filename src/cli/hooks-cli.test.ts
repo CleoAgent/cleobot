@@ -9,7 +9,7 @@ const report: HookStatusReport = {
     {
       name: "session-memory",
       description: "Save session context to memory",
-      source: "openclaw-bundled",
+      source: "cleobot-bundled",
       pluginId: undefined,
       filePath: "/tmp/hooks/session-memory/HOOK.md",
       baseDir: "/tmp/hooks/session-memory",

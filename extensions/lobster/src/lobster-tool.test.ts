@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { OpenClawPluginApi, OpenClawPluginToolContext } from "../../../src/plugins/types.js";
+import type { CleoBotPluginApi, CleoBotPluginToolContext } from "../../../src/plugins/types.js";
 import { createLobsterTool } from "./lobster-tool.js";
 
 async function writeFakeLobsterScript(scriptBody: string, prefix = "openclaw-lobster-plugin-") {
@@ -31,7 +31,7 @@ async function writeFakeLobster(params: { payload: unknown }) {
   return await writeFakeLobsterScript(scriptBody);
 }
 
-function fakeApi(overrides: Partial<OpenClawPluginApi> = {}): OpenClawPluginApi {
+function fakeApi(overrides: Partial<CleoBotPluginApi> = {}): CleoBotPluginApi {
   return {
     id: "lobster",
     name: "lobster",
@@ -57,7 +57,7 @@ function fakeApi(overrides: Partial<OpenClawPluginApi> = {}): OpenClawPluginApi 
   };
 }
 
-function fakeCtx(overrides: Partial<OpenClawPluginToolContext> = {}): OpenClawPluginToolContext {
+function fakeCtx(overrides: Partial<CleoBotPluginToolContext> = {}): CleoBotPluginToolContext {
   return {
     config: {},
     workspaceDir: "/tmp",
@@ -234,7 +234,7 @@ describe("lobster plugin tool", () => {
 
   it("can be gated off in sandboxed contexts", async () => {
     const api = fakeApi();
-    const factoryTool = (ctx: OpenClawPluginToolContext) => {
+    const factoryTool = (ctx: CleoBotPluginToolContext) => {
       if (ctx.sandboxed) {
         return null;
       }

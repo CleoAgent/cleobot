@@ -1,12 +1,12 @@
 {
   "name": "@openclaw/line",
   "version": "2026.2.1",
-  "description": "OpenClaw LINE channel plugin",
+  "description": "CleoBot LINE channel plugin",
   "type": "module",
   "devDependencies": {
     "cleobot": "workspace:*"
   },
-  "openclaw": {
+  "cleobot": {
     "extensions": [
       "./index.ts"
     ],

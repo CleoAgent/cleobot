@@ -1,18 +1,18 @@
 // swift-tools-version: 6.2
-// Package manifest for the OpenClaw macOS companion (menu bar app + IPC library).
+// Package manifest for the CleoBot macOS companion (menu bar app + IPC library).
 
 import PackageDescription
 
 let package = Package(
-    name: "OpenClaw",
+    name: "CleoBot",
     platforms: [
         .macOS(.v15),
     ],
     products: [
-        .library(name: "OpenClawIPC", targets: ["OpenClawIPC"]),
-        .library(name: "OpenClawDiscovery", targets: ["OpenClawDiscovery"]),
-        .executable(name: "OpenClaw", targets: ["OpenClaw"]),
-        .executable(name: "openclaw-mac", targets: ["OpenClawMacCLI"]),
+        .library(name: "CleoBotIPC", targets: ["CleoBotIPC"]),
+        .library(name: "CleoBotDiscovery", targets: ["CleoBotDiscovery"]),
+        .executable(name: "CleoBot", targets: ["CleoBot"]),
+        .executable(name: "cleobot-mac", targets: ["CleoBotMacCLI"]),
     ],
     dependencies: [
         .package(url: "https://github.com/orchetect/MenuBarExtraAccess", exact: "1.2.2"),
@@ -20,33 +20,33 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-log.git", from: "1.8.0"),
         .package(url: "https://github.com/sparkle-project/Sparkle", from: "2.8.1"),
         .package(url: "https://github.com/steipete/Peekaboo.git", branch: "main"),
-        .package(path: "../shared/OpenClawKit"),
+        .package(path: "../shared/CleoBotKit"),
         .package(path: "../../Swabble"),
     ],
     targets: [
         .target(
-            name: "OpenClawIPC",
+            name: "CleoBotIPC",
             dependencies: [],
             swiftSettings: [
                 .enableUpcomingFeature("StrictConcurrency"),
             ]),
         .target(
-            name: "OpenClawDiscovery",
+            name: "CleoBotDiscovery",
             dependencies: [
-                .product(name: "OpenClawKit", package: "OpenClawKit"),
+                .product(name: "CleoBotKit", package: "CleoBotKit"),
             ],
-            path: "Sources/OpenClawDiscovery",
+            path: "Sources/CleoBotDiscovery",
             swiftSettings: [
                 .enableUpcomingFeature("StrictConcurrency"),
             ]),
         .executableTarget(
-            name: "OpenClaw",
+            name: "CleoBot",
             dependencies: [
-                "OpenClawIPC",
-                "OpenClawDiscovery",
-                .product(name: "OpenClawKit", package: "OpenClawKit"),
-                .product(name: "OpenClawChatUI", package: "OpenClawKit"),
-                .product(name: "OpenClawProtocol", package: "OpenClawKit"),
+                "CleoBotIPC",
+                "CleoBotDiscovery",
+                .product(name: "CleoBotKit", package: "CleoBotKit"),
+                .product(name: "CleoBotChatUI", package: "CleoBotKit"),
+                .product(name: "CleoBotProtocol", package: "CleoBotKit"),
                 .product(name: "SwabbleKit", package: "swabble"),
                 .product(name: "MenuBarExtraAccess", package: "MenuBarExtraAccess"),
                 .product(name: "Subprocess", package: "swift-subprocess"),
@@ -59,30 +59,30 @@ let package = Package(
                 "Resources/Info.plist",
             ],
             resources: [
-                .copy("Resources/OpenClaw.icns"),
+                .copy("Resources/CleoBot.icns"),
                 .copy("Resources/DeviceModels"),
             ],
             swiftSettings: [
                 .enableUpcomingFeature("StrictConcurrency"),
             ]),
         .executableTarget(
-            name: "OpenClawMacCLI",
+            name: "CleoBotMacCLI",
             dependencies: [
-                "OpenClawDiscovery",
-                .product(name: "OpenClawKit", package: "OpenClawKit"),
-                .product(name: "OpenClawProtocol", package: "OpenClawKit"),
+                "CleoBotDiscovery",
+                .product(name: "CleoBotKit", package: "CleoBotKit"),
+                .product(name: "CleoBotProtocol", package: "CleoBotKit"),
             ],
-            path: "Sources/OpenClawMacCLI",
+            path: "Sources/CleoBotMacCLI",
             swiftSettings: [
                 .enableUpcomingFeature("StrictConcurrency"),
             ]),
         .testTarget(
-            name: "OpenClawIPCTests",
+            name: "CleoBotIPCTests",
             dependencies: [
-                "OpenClawIPC",
-                "OpenClaw",
-                "OpenClawDiscovery",
-                .product(name: "OpenClawProtocol", package: "OpenClawKit"),
+                "CleoBotIPC",
+                "CleoBot",
+                "CleoBotDiscovery",
+                .product(name: "CleoBotProtocol", package: "CleoBotKit"),
                 .product(name: "SwabbleKit", package: "swabble"),
             ],
             swiftSettings: [

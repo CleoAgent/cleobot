@@ -7,7 +7,7 @@ title: "Security"
 
 # Security 🔒
 
-## Quick check: `openclaw security audit`
+## Quick check: `cleobot security audit`
 
 See also: [Formal Verification (Security Models)](/security/formal-verification/)
 
@@ -29,7 +29,7 @@ It flags common footguns (Gateway auth exposure, browser control exposure, eleva
 
 Running an AI agent with shell access on your machine is... _spicy_. Here’s how to not get pwned.
 
-OpenClaw is both a product and an experiment: you’re wiring frontier-model behavior into real messaging surfaces and real tools. **There is no “perfectly secure” setup.** The goal is to be deliberate about:
+CleoBot is both a product and an experiment: you’re wiring frontier-model behavior into real messaging surfaces and real tools. **There is no “perfectly secure” setup.** The goal is to be deliberate about:
 
 - who can talk to your bot
 - where the bot is allowed to act
@@ -47,7 +47,7 @@ Start with the smallest access that still works, then widen it as you gain confi
 - **Plugins** (extensions exist without an explicit allowlist).
 - **Model hygiene** (warn when configured models look legacy; not a hard block).
 
-If you run `--deep`, OpenClaw also attempts a best-effort live Gateway probe.
+If you run `--deep`, CleoBot also attempts a best-effort live Gateway probe.
 
 ## Credential storage map
 
@@ -83,7 +83,7 @@ For break-glass scenarios only, `gateway.controlUi.dangerouslyDisableDeviceAuth`
 disables device identity checks entirely. This is a severe security downgrade;
 keep it off unless you are actively debugging and can revert quickly.
 
-`openclaw security audit` warns when this setting is enabled.
+`cleobot security audit` warns when this setting is enabled.
 
 ## Reverse Proxy Configuration
 
@@ -97,14 +97,14 @@ gateway:
     - "127.0.0.1" # if your proxy runs on localhost
   auth:
     mode: password
-    password: ${OPENCLAW_GATEWAY_PASSWORD}
+    password: ${CLEOBOT_GATEWAY_PASSWORD}
 ```
 
 When `trustedProxies` is configured, the Gateway will use `X-Forwarded-For` headers to determine the real client IP for local client detection. Make sure your proxy overwrites (not appends to) incoming `X-Forwarded-For` headers to prevent spoofing.
 
 ## Local session logs live on disk
 
-OpenClaw stores session transcripts on disk under `~/.openclaw/agents/<agentId>/sessions/*.jsonl`.
+CleoBot stores session transcripts on disk under `~/.openclaw/agents/<agentId>/sessions/*.jsonl`.
 This is required for session continuity and (optionally) session memory indexing, but it also means
 **any process/user with filesystem access can read those logs**. Treat disk access as the trust
 boundary and lock down permissions on `~/.openclaw` (see the audit section below). If you need
@@ -120,7 +120,7 @@ If a macOS node is paired, the Gateway can invoke `system.run` on that node. Thi
 
 ## Dynamic skills (watcher / remote nodes)
 
-OpenClaw can refresh the skills list mid-session:
+CleoBot can refresh the skills list mid-session:
 
 - **Skills watcher**: changes to `SKILL.md` can update the skills snapshot on the next agent turn.
 - **Remote nodes**: connecting a macOS node can make macOS-only skills eligible (based on bin probing).
@@ -146,7 +146,7 @@ People who message you can:
 
 Most failures here are not fancy exploits — they’re “someone messaged the bot and the bot did what they asked.”
 
-OpenClaw’s stance:
+CleoBot’s stance:
 
 - **Identity first:** decide who can talk to the bot (DM pairing / allowlists / explicit “open”).
 - **Scope next:** decide where the bot is allowed to act (group allowlists + mention gating, tools, sandboxing, device permissions).
@@ -170,9 +170,9 @@ Plugins run **in-process** with the Gateway. Treat them as trusted code:
 - Prefer explicit `plugins.allow` allowlists.
 - Review plugin config before enabling.
 - Restart the Gateway after plugin changes.
-- If you install plugins from npm (`openclaw plugins install <npm-spec>`), treat it like running untrusted code:
-  - The install path is `~/.openclaw/extensions/<pluginId>/` (or `$OPENCLAW_STATE_DIR/extensions/<pluginId>/`).
-  - OpenClaw uses `npm pack` and then runs `npm install --omit=dev` in that directory (npm lifecycle scripts can execute code during install).
+- If you install plugins from npm (`cleobot plugins install <npm-spec>`), treat it like running untrusted code:
+  - The install path is `~/.openclaw/extensions/<pluginId>/` (or `$CLEOBOT_STATE_DIR/extensions/<pluginId>/`).
+  - CleoBot uses `npm pack` and then runs `npm install --omit=dev` in that directory (npm lifecycle scripts can execute code during install).
   - Prefer pinned, exact versions (`@scope/pkg@1.2.3`), and inspect the unpacked code on disk before enabling.
 
 Details: [Plugins](/plugin)
@@ -197,7 +197,7 @@ Details + files on disk: [Pairing](/start/pairing)
 
 ## DM session isolation (multi-user mode)
 
-By default, OpenClaw routes **all DMs into the main session** so your assistant has continuity across devices and channels. If **multiple people** can DM the bot (open DMs or a multi-person allowlist), consider isolating DM sessions:
+By default, CleoBot routes **all DMs into the main session** so your assistant has continuity across devices and channels. If **multiple people** can DM the bot (open DMs or a multi-person allowlist), consider isolating DM sessions:
 
 ```json5
 {
@@ -209,7 +209,7 @@ This prevents cross-user context leakage while keeping group chats isolated. If 
 
 ## Allowlists (DM + groups) — terminology
 
-OpenClaw has two separate “who can trigger me?” layers:
+CleoBot has two separate “who can trigger me?” layers:
 
 - **DM allowlist** (`allowFrom` / `channels.discord.dm.allowFrom` / `channels.slack.dm.allowFrom`): who is allowed to talk to the bot in direct messages.
   - When `dmPolicy="pairing"`, approvals are written to `~/.openclaw/credentials/<channel>-allowFrom.json` (merged with config allowlists).
@@ -298,7 +298,7 @@ Assume “compromised” means: someone got into a room that can trigger the bot
    - Check Gateway logs and recent sessions/transcripts for unexpected tool calls.
    - Review `extensions/` and remove anything you don’t fully trust.
 4. **Re-run audit**
-   - `openclaw security audit --deep` and confirm the report is clean.
+   - `cleobot security audit --deep` and confirm the report is clean.
 
 ## Lessons Learned (The Hard Way)
 
@@ -325,14 +325,14 @@ Keep config + state private on the gateway host:
 - `~/.openclaw/openclaw.json`: `600` (user read/write only)
 - `~/.openclaw`: `700` (user only)
 
-`openclaw doctor` can warn and offer to tighten these permissions.
+`cleobot doctor` can warn and offer to tighten these permissions.
 
 ### 0.4) Network exposure (bind + port + firewall)
 
 The Gateway multiplexes **WebSocket + HTTP** on a single port:
 
 - Default: `18789`
-- Config/flags/env: `gateway.port`, `--port`, `OPENCLAW_GATEWAY_PORT`
+- Config/flags/env: `gateway.port`, `--port`, `CLEOBOT_GATEWAY_PORT`
 
 Bind mode controls where the Gateway listens:
 
@@ -347,7 +347,7 @@ Rules of thumb:
 
 ### 0.4.1) mDNS/Bonjour discovery (information disclosure)
 
-The Gateway broadcasts its presence via mDNS (`_openclaw-gw._tcp` on port 5353) for local device discovery. In full mode, this includes TXT records that may expose operational details:
+The Gateway broadcasts its presence via mDNS (`_cleobot-gw._tcp` on port 5353) for local device discovery. In full mode, this includes TXT records that may expose operational details:
 
 - `cliPath`: full filesystem path to the CLI binary (reveals username and install location)
 - `sshPort`: advertises SSH availability on the host
@@ -387,7 +387,7 @@ The Gateway broadcasts its presence via mDNS (`_openclaw-gw._tcp` on port 5353) 
    }
    ```
 
-4. **Environment variable** (alternative): set `OPENCLAW_DISABLE_BONJOUR=1` to disable mDNS without config changes.
+4. **Environment variable** (alternative): set `CLEOBOT_DISABLE_BONJOUR=1` to disable mDNS without config changes.
 
 In minimal mode, the Gateway still broadcasts enough for device discovery (`role`, `gatewayPort`, `transport`) but omits `cliPath` and `sshPort`. Apps that need CLI path information can fetch it via the authenticated WebSocket connection instead.
 
@@ -409,7 +409,7 @@ Set a token so **all** WS clients must authenticate:
 }
 ```
 
-Doctor can generate one for you: `openclaw doctor --generate-gateway-token`.
+Doctor can generate one for you: `cleobot doctor --generate-gateway-token`.
 
 Note: `gateway.remote.token` is **only** for remote CLI calls; it does not
 protect local WS access.
@@ -425,20 +425,20 @@ Local device pairing:
 Auth modes:
 
 - `gateway.auth.mode: "token"`: shared bearer token (recommended for most setups).
-- `gateway.auth.mode: "password"`: password auth (prefer setting via env: `OPENCLAW_GATEWAY_PASSWORD`).
+- `gateway.auth.mode: "password"`: password auth (prefer setting via env: `CLEOBOT_GATEWAY_PASSWORD`).
 
 Rotation checklist (token/password):
 
-1. Generate/set a new secret (`gateway.auth.token` or `OPENCLAW_GATEWAY_PASSWORD`).
+1. Generate/set a new secret (`gateway.auth.token` or `CLEOBOT_GATEWAY_PASSWORD`).
 2. Restart the Gateway (or restart the macOS app if it supervises the Gateway).
 3. Update any remote clients (`gateway.remote.token` / `.password` on machines that call into the Gateway).
 4. Verify you can no longer connect with the old credentials.
 
 ### 0.6) Tailscale Serve identity headers
 
-When `gateway.auth.allowTailscale` is `true` (default for Serve), OpenClaw
+When `gateway.auth.allowTailscale` is `true` (default for Serve), CleoBot
 accepts Tailscale Serve identity headers (`tailscale-user-login`) as
-authentication. OpenClaw verifies the identity by resolving the
+authentication. CleoBot verifies the identity by resolving the
 `x-forwarded-for` address through the local Tailscale daemon (`tailscale whois`)
 and matching it to the header. This only triggers for requests that hit loopback
 and include `x-forwarded-for`, `x-forwarded-proto`, and `x-forwarded-host` as
@@ -451,7 +451,7 @@ you terminate TLS or proxy in front of the gateway, disable
 Trusted proxies:
 
 - If you terminate TLS in front of the Gateway, set `gateway.trustedProxies` to your proxy IPs.
-- OpenClaw will trust `x-forwarded-for` (or `x-real-ip`) from those IPs to determine the client IP for local pairing checks and HTTP auth/local checks.
+- CleoBot will trust `x-forwarded-for` (or `x-real-ip`) from those IPs to determine the client IP for local pairing checks and HTTP auth/local checks.
 - Ensure your proxy **overwrites** `x-forwarded-for` and blocks direct access to the Gateway port.
 
 See [Tailscale](/gateway/tailscale) and [Web overview](/web).
@@ -474,7 +474,7 @@ Avoid:
 
 ### 0.7) Secrets on disk (what’s sensitive)
 
-Assume anything under `~/.openclaw/` (or `$OPENCLAW_STATE_DIR/`) may contain secrets or private data:
+Assume anything under `~/.openclaw/` (or `$CLEOBOT_STATE_DIR/`) may contain secrets or private data:
 
 - `openclaw.json`: config may include tokens (gateway, remote gateway), provider settings, and allowlists.
 - `credentials/**`: channel credentials (example: WhatsApp creds), pairing allowlists, legacy OAuth imports.
@@ -500,7 +500,7 @@ Recommendations:
 
 - Keep tool summary redaction on (`logging.redactSensitive: "tools"`; default).
 - Add custom patterns for your environment via `logging.redactPatterns` (tokens, hostnames, internal URLs).
-- When sharing diagnostics, prefer `openclaw status --all` (pasteable, secrets redacted) over raw logs.
+- When sharing diagnostics, prefer `cleobot status --all` (pasteable, secrets redacted) over raw logs.
 - Prune old session transcripts and log files if you don’t need long retention.
 
 Details: [Logging](/gateway/logging)
@@ -610,7 +610,7 @@ access those accounts and data. Treat browser profiles as **sensitive state**:
 - Disable browser sync/password managers in the agent profile if possible (reduces blast radius).
 - For remote gateways, assume “browser control” is equivalent to “operator access” to whatever that profile can reach.
 - Keep the Gateway and node hosts tailnet-only; avoid exposing relay/control ports to LAN or public Internet.
-- The Chrome extension relay’s CDP endpoint is auth-gated; only OpenClaw clients can connect.
+- The Chrome extension relay’s CDP endpoint is auth-gated; only CleoBot clients can connect.
 - Disable browser proxy routing when you don’t need it (`gateway.nodes.browser.mode="off"`).
 - Chrome extension relay mode is **not** “safer”; it can take over your existing Chrome tabs. Assume it can act as you in whatever that tab/profile can reach.
 
@@ -733,25 +733,25 @@ If your AI does something bad:
 
 ### Contain
 
-1. **Stop it:** stop the macOS app (if it supervises the Gateway) or terminate your `openclaw gateway` process.
+1. **Stop it:** stop the macOS app (if it supervises the Gateway) or terminate your `cleobot gateway` process.
 2. **Close exposure:** set `gateway.bind: "loopback"` (or disable Tailscale Funnel/Serve) until you understand what happened.
 3. **Freeze access:** switch risky DMs/groups to `dmPolicy: "disabled"` / require mentions, and remove `"*"` allow-all entries if you had them.
 
 ### Rotate (assume compromise if secrets leaked)
 
-1. Rotate Gateway auth (`gateway.auth.token` / `OPENCLAW_GATEWAY_PASSWORD`) and restart.
+1. Rotate Gateway auth (`gateway.auth.token` / `CLEOBOT_GATEWAY_PASSWORD`) and restart.
 2. Rotate remote client secrets (`gateway.remote.token` / `.password`) on any machine that can call the Gateway.
 3. Rotate provider/API credentials (WhatsApp creds, Slack/Discord tokens, model/API keys in `auth-profiles.json`).
 
 ### Audit
 
-1. Check Gateway logs: `/tmp/openclaw/openclaw-YYYY-MM-DD.log` (or `logging.file`).
+1. Check Gateway logs: `/tmp/openclaw/cleobot-YYYY-MM-DD.log` (or `logging.file`).
 2. Review the relevant transcript(s): `~/.openclaw/agents/<agentId>/sessions/*.jsonl`.
 3. Review recent config changes (anything that could have widened access: `gateway.bind`, `gateway.auth`, dm/group policies, `tools.elevated`, plugin changes).
 
 ### Collect for a report
 
-- Timestamp, gateway host OS + OpenClaw version
+- Timestamp, gateway host OS + CleoBot version
 - The session transcript(s) + a short log tail (after redacting)
 - What the attacker sent + what the agent did
 - Whether the Gateway was exposed beyond loopback (LAN/Tailscale Funnel/Serve)
@@ -803,7 +803,7 @@ Mario asking for find ~
 
 ## Reporting Security Issues
 
-Found a vulnerability in OpenClaw? Please report responsibly:
+Found a vulnerability in CleoBot? Please report responsibly:
 
 1. Email: security@openclaw.ai
 2. Don't post publicly until fixed

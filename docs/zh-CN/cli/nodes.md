@@ -2,7 +2,7 @@
 read_when:
   - 正在管理配对节点（摄像头、屏幕、画布）
   - 需要批准请求或调用节点命令
-summary: 管理配对节点（列表/状态/批准/调用，摄像头/画布/屏幕）的 `openclaw nodes` CLI 参考
+summary: 管理配对节点（列表/状态/批准/调用，摄像头/画布/屏幕）的 `cleobot nodes` CLI 参考
 title: nodes
 x-i18n:
   generated_at: "2026-02-01T20:21:19Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 14
 ---
 
-# `openclaw nodes`
+# `cleobot nodes`
 
 管理配对节点（设备）并调用节点功能。
 

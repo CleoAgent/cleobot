@@ -13,30 +13,30 @@ x-i18n:
   workflow: 15
 ---
 
-# Skills（OpenClaw）
+# Skills（CleoBot）
 
-OpenClaw 使用与 **[AgentSkills](https://agentskills.io) 兼容**的 Skills 文件夹来教智能体如何使用工具。每个 Skills 是一个目录，包含带有 YAML frontmatter 和说明的 `SKILL.md` 文件。OpenClaw 加载**内置 Skills**以及可选的本地覆盖，并在加载时根据环境、配置和二进制文件是否存在进行过滤。
+CleoBot 使用与 **[AgentSkills](https://agentskills.io) 兼容**的 Skills 文件夹来教智能体如何使用工具。每个 Skills 是一个目录，包含带有 YAML frontmatter 和说明的 `SKILL.md` 文件。CleoBot 加载**内置 Skills**以及可选的本地覆盖，并在加载时根据环境、配置和二进制文件是否存在进行过滤。
 
 ## 位置和优先级
 
 Skills 从**三个**位置加载：
 
-1. **内置 Skills**：随安装包一起分发（npm 包或 OpenClaw.app）
-2. **托管/本地 Skills**：`~/.openclaw/skills`
+1. **内置 Skills**：随安装包一起分发（npm 包或 CleoBot.app）
+2. **托管/本地 Skills**：`~/.cleobot/skills`
 3. **工作区 Skills**：`<workspace>/skills`
 
 如果 Skills 名称冲突，优先级为：
 
-`<workspace>/skills`（最高）→ `~/.openclaw/skills` → 内置 Skills（最低）
+`<workspace>/skills`（最高）→ `~/.cleobot/skills` → 内置 Skills（最低）
 
-此外，你可以通过 `~/.openclaw/openclaw.json` 中的 `skills.load.extraDirs` 配置额外的 Skills 文件夹（最低优先级）。
+此外，你可以通过 `~/.cleobot/openclaw.json` 中的 `skills.load.extraDirs` 配置额外的 Skills 文件夹（最低优先级）。
 
 ## 按智能体与共享 Skills
 
 在**多智能体**设置中，每个智能体拥有自己的工作区。这意味着：
 
 - **按智能体 Skills**位于该智能体专属的 `<workspace>/skills` 中。
-- **共享 Skills**位于 `~/.openclaw/skills`（托管/本地），对同一机器上的**所有智能体**可见。
+- **共享 Skills**位于 `~/.cleobot/skills`（托管/本地），对同一机器上的**所有智能体**可见。
 - **共享文件夹**也可以通过 `skills.load.extraDirs`（最低优先级）添加，如果你希望多个智能体使用同一套 Skills 包。
 
 如果同一 Skills 名称存在于多个位置，适用通常的优先级规则：工作区优先，然后是托管/本地，最后是内置。
@@ -47,7 +47,7 @@ Skills 从**三个**位置加载：
 
 ## ClawHub（安装 + 同步）
 
-ClawHub 是 OpenClaw 的公共 Skills 注册中心。浏览地址：[clawhub.com](https://clawhub.com)。使用它来发现、安装、更新和备份 Skills。完整指南：[ClawHub](/tools/clawhub)。
+ClawHub 是 CleoBot 的公共 Skills 注册中心。浏览地址：[clawhub.com](https://clawhub.com)。使用它来发现、安装、更新和备份 Skills。完整指南：[ClawHub](/tools/clawhub)。
 
 常用流程：
 
@@ -58,7 +58,7 @@ ClawHub 是 OpenClaw 的公共 Skills 注册中心。浏览地址：[clawhub.com
 - 同步（扫描 + 发布更新）：
   - `clawhub sync --all`
 
-默认情况下，`clawhub` 安装到当前工作目录下的 `./skills`（或回退到已配置的 OpenClaw 工作区）。OpenClaw 在下次会话时将其作为 `<workspace>/skills` 加载。
+默认情况下，`clawhub` 安装到当前工作目录下的 `./skills`（或回退到已配置的 CleoBot 工作区）。CleoBot 在下次会话时将其作为 `<workspace>/skills` 加载。
 
 ## 安全说明
 
@@ -97,7 +97,7 @@ description: Generate or edit images via Gemini 3 Pro Image
 
 ## 门控（加载时过滤）
 
-OpenClaw 使用 `metadata`（单行 JSON）**在加载时过滤 Skills**：
+CleoBot 使用 `metadata`（单行 JSON）**在加载时过滤 Skills**：
 
 ```markdown
 ---
@@ -166,16 +166,16 @@ metadata:
 说明：
 
 - 如果列出了多个安装器，Gateway网关会选择**单个**首选选项（有 brew 时选 brew，否则选 node）。
-- 如果所有安装器都是 `download`，OpenClaw 会列出每个条目，以便你查看可用的产物。
+- 如果所有安装器都是 `download`，CleoBot 会列出每个条目，以便你查看可用的产物。
 - 安装器规格可包含 `os: ["darwin"|"linux"|"win32"]` 以按平台过滤选项。
 - Node 安装遵循 `openclaw.json` 中的 `skills.install.nodeManager`（默认：npm；选项：npm/pnpm/yarn/bun）。
   这仅影响**Skills 安装**；Gateway网关运行时仍应使用 Node（不建议将 Bun 用于 WhatsApp/Telegram）。
 - Go 安装：如果缺少 `go` 但有 `brew`，Gateway网关会先通过 Homebrew 安装 Go，并尽可能将 `GOBIN` 设置为 Homebrew 的 `bin`。
-- Download 安装：`url`（必需）、`archive`（`tar.gz` | `tar.bz2` | `zip`）、`extract`（默认：检测到归档时自动）、`stripComponents`、`targetDir`（默认：`~/.openclaw/tools/<skillKey>`）。
+- Download 安装：`url`（必需）、`archive`（`tar.gz` | `tar.bz2` | `zip`）、`extract`（默认：检测到归档时自动）、`stripComponents`、`targetDir`（默认：`~/.cleobot/tools/<skillKey>`）。
 
 如果没有 `metadata.openclaw`，Skills 始终可用（除非在配置中禁用，或被 `skills.allowBundled` 对内置 Skills 进行了限制）。
 
-## 配置覆盖（`~/.openclaw/openclaw.json`）
+## 配置覆盖（`~/.cleobot/openclaw.json`）
 
 内置/托管 Skills 可以切换启用状态并提供环境变量值：
 
@@ -215,7 +215,7 @@ metadata:
 
 ## 环境注入（按智能体运行）
 
-当智能体运行开始时，OpenClaw：
+当智能体运行开始时，CleoBot：
 
 1. 读取 Skills 元数据。
 2. 将 `skills.entries.<key>.env` 或 `skills.entries.<key>.apiKey` 应用到 `process.env`。
@@ -226,19 +226,19 @@ metadata:
 
 ## 会话快照（性能）
 
-OpenClaw 在**会话开始时**对符合条件的 Skills 进行快照，并在同一会话的后续轮次中复用该列表。对 Skills 或配置的更改在下一个新会话中生效。
+CleoBot 在**会话开始时**对符合条件的 Skills 进行快照，并在同一会话的后续轮次中复用该列表。对 Skills 或配置的更改在下一个新会话中生效。
 
 Skills 也可以在会话中途刷新，当 Skills 监视器启用时或当新的符合条件的远程节点出现时（见下文）。可以将其理解为**热重载**：刷新后的列表会在下一个智能体轮次中被使用。
 
 ## 远程 macOS 节点（Linux Gateway网关）
 
-如果 Gateway网关运行在 Linux 上，但有一个**macOS 节点**已连接且**允许 `system.run`**（执行审批安全级别未设为 `deny`），OpenClaw 可以在该节点上存在所需二进制文件时，将仅限 macOS 的 Skills 视为可用。智能体应通过 `nodes` 工具（通常是 `nodes.run`）执行这些 Skills。
+如果 Gateway网关运行在 Linux 上，但有一个**macOS 节点**已连接且**允许 `system.run`**（执行审批安全级别未设为 `deny`），CleoBot 可以在该节点上存在所需二进制文件时，将仅限 macOS 的 Skills 视为可用。智能体应通过 `nodes` 工具（通常是 `nodes.run`）执行这些 Skills。
 
 这依赖于节点报告其命令支持情况以及通过 `system.run` 进行的二进制探测。如果 macOS 节点之后离线，Skills 仍然可见；在节点重新连接之前，调用可能会失败。
 
 ## Skills 监视器（自动刷新）
 
-默认情况下，OpenClaw 监视 Skills 文件夹，并在 `SKILL.md` 文件更改时更新 Skills 快照。在 `skills.load` 下配置：
+默认情况下，CleoBot 监视 Skills 文件夹，并在 `SKILL.md` 文件更改时更新 Skills 快照。在 `skills.load` 下配置：
 
 ```json5
 {
@@ -253,7 +253,7 @@ Skills 也可以在会话中途刷新，当 Skills 监视器启用时或当新�
 
 ## Token 影响（Skills 列表）
 
-当有符合条件的 Skills 时，OpenClaw 会将一个紧凑的 XML 可用 Skills 列表注入系统提示词（通过 `pi-coding-agent` 中的 `formatSkillsForPrompt`）。开销是确定性的：
+当有符合条件的 Skills 时，CleoBot 会将一个紧凑的 XML 可用 Skills 列表注入系统提示词（通过 `pi-coding-agent` 中的 `formatSkillsForPrompt`）。开销是确定性的：
 
 - **基础开销（仅在有 ≥1 个 Skills 时）：**195 个字符。
 - **每个 Skills：**97 个字符 + XML 转义后的 `<name>`、`<description>` 和 `<location>` 值的长度。
@@ -271,7 +271,7 @@ total = 195 + Σ (97 + len(name_escaped) + len(description_escaped) + len(locati
 
 ## 托管 Skills 生命周期
 
-OpenClaw 将一组基线 Skills 作为**内置 Skills**随安装包（npm 包或 OpenClaw.app）一起分发。`~/.openclaw/skills` 用于本地覆盖（例如，在不更改内置副本的情况下固定/修补某个 Skills）。工作区 Skills 由用户拥有，在名称冲突时覆盖两者。
+CleoBot 将一组基线 Skills 作为**内置 Skills**随安装包（npm 包或 CleoBot.app）一起分发。`~/.cleobot/skills` 用于本地覆盖（例如，在不更改内置副本的情况下固定/修补某个 Skills）。工作区 Skills 由用户拥有，在名称冲突时覆盖两者。
 
 ## 配置参考
 

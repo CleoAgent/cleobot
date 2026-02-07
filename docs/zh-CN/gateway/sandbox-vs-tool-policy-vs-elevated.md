@@ -14,7 +14,7 @@ x-i18n:
 
 # 沙箱 vs 工具策略 vs 提权模式
 
-OpenClaw 有三个相关（但不同的）控制机制：
+CleoBot 有三个相关（但不同的）控制机制：
 
 1. **沙箱** (`agents.defaults.sandbox.*` / `agents.list[].sandbox.*`) 决定**工具在哪里运行**（Docker 还是宿主机）。
 2. **工具策略** (`tools.*`、`tools.sandbox.tools.*`、`agents.list[].tools.*`) 决定**哪些工具可用/被允许**。
@@ -22,7 +22,7 @@ OpenClaw 有三个相关（但不同的）控制机制：
 
 ## 快速调试
 
-使用检查器查看 OpenClaw *实际*在做什么：
+使用检查器查看 CleoBot *实际*在做什么：
 
 ```bash
 openclaw sandbox explain
@@ -100,7 +100,7 @@ openclaw sandbox explain --json
 - `group:automation`：`cron`、`gateway`
 - `group:messaging`：`message`
 - `group:nodes`：`nodes`
-- `group:openclaw`：所有内置 OpenClaw 工具（不包括提供商插件）
+- `group:openclaw`：所有内置 CleoBot 工具（不包括提供商插件）
 
 ## 提权模式：仅限 exec 的"在宿主机运行"
 

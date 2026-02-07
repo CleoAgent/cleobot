@@ -2,7 +2,7 @@ import type {
   ChannelAccountSnapshot,
   ChannelDock,
   ChannelPlugin,
-  OpenClawConfig,
+  CleoBotConfig,
 } from "openclaw/plugin-sdk";
 import {
   applyAccountNameToChannelSection,
@@ -236,7 +236,7 @@ export const zaloPlugin: ChannelPlugin<ResolvedZaloAccount> = {
                     : {}),
             },
           },
-        } as OpenClawConfig;
+        } as CleoBotConfig;
       }
       return {
         ...next,
@@ -259,7 +259,7 @@ export const zaloPlugin: ChannelPlugin<ResolvedZaloAccount> = {
             },
           },
         },
-      } as OpenClawConfig;
+      } as CleoBotConfig;
     },
   },
   pairing: {

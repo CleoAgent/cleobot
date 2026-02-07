@@ -61,7 +61,7 @@ describe("writeOAuthCredentials", () => {
   });
 
   it("writes auth-profiles.json under CLEOBOT_AGENT_DIR when set", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-oauth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-oauth-"));
     process.env.CLEOBOT_STATE_DIR = tempStateDir;
     process.env.CLEOBOT_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.CLEOBOT_AGENT_DIR;
@@ -120,7 +120,7 @@ describe("setMinimaxApiKey", () => {
   });
 
   it("writes to CLEOBOT_AGENT_DIR when set", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-minimax-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-minimax-"));
     process.env.CLEOBOT_STATE_DIR = tempStateDir;
     process.env.CLEOBOT_AGENT_DIR = path.join(tempStateDir, "custom-agent");
     process.env.PI_CODING_AGENT_DIR = process.env.CLEOBOT_AGENT_DIR;

@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `openclaw node` (headless node host)"
+summary: "CLI reference for `cleobot node` (headless node host)"
 read_when:
   - Running the headless node host
   - Pairing a non-macOS node for system.run
 title: "node"
 ---
 
-# `openclaw node`
+# `cleobot node`
 
 Run a **headless node host** that connects to the Gateway WebSocket and exposes
 `system.run` / `system.which` on this machine.
@@ -86,7 +86,7 @@ openclaw node restart
 openclaw node uninstall
 ```
 
-Use `openclaw node run` for a foreground node host (no service).
+Use `cleobot node run` for a foreground node host (no service).
 
 Service commands accept `--json` for machine-readable output.
 
@@ -109,4 +109,4 @@ The node host stores its node id, token, display name, and gateway connection in
 
 - `~/.openclaw/exec-approvals.json`
 - [Exec approvals](/tools/exec-approvals)
-- `openclaw approvals --node <id|name|ip>` (edit from the Gateway)
+- `cleobot approvals --node <id|name|ip>` (edit from the Gateway)

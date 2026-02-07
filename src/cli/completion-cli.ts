@@ -327,7 +327,7 @@ function generateFishCompletion(program: Command): string {
     } // Only push if not root, or consistent root handling
 
     // Fish uses 'seen_subcommand_from' to determine context.
-    // For root: complete -c openclaw -n "__fish_use_subcommand" -a "subcmd" -d "desc"
+    // For root: complete -c cleobot -n "__fish_use_subcommand" -a "subcmd" -d "desc"
 
     // Root logic
     if (parents.length === 0) {

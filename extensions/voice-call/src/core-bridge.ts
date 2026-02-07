@@ -86,11 +86,11 @@ function findPackageRoot(startDir: string, name: string): string | null {
   }
 }
 
-function resolveOpenClawRoot(): string {
+function resolveCleoBotRoot(): string {
   if (coreRootCache) {
     return coreRootCache;
   }
-  const override = process.env.OPENCLAW_ROOT?.trim();
+  const override = process.env.CLEOBOT_ROOT?.trim();
   if (override) {
     coreRootCache = override;
     return override;
@@ -118,11 +118,11 @@ function resolveOpenClawRoot(): string {
     }
   }
 
-  throw new Error("Unable to resolve core root. Set OPENCLAW_ROOT to the package root.");
+  throw new Error("Unable to resolve core root. Set CLEOBOT_ROOT to the package root.");
 }
 
 async function importCoreModule<T>(relativePath: string): Promise<T> {
-  const root = resolveOpenClawRoot();
+  const root = resolveCleoBotRoot();
   const distPath = path.join(root, "dist", relativePath);
   if (!fs.existsSync(distPath)) {
     throw new Error(

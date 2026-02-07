@@ -1,7 +1,7 @@
 {
   "name": "@openclaw/tlon",
   "version": "2026.2.1",
-  "description": "OpenClaw Tlon/Urbit channel plugin",
+  "description": "CleoBot Tlon/Urbit channel plugin",
   "type": "module",
   "dependencies": {
     "@urbit/aura": "^3.0.0",
@@ -10,7 +10,7 @@
   "devDependencies": {
     "cleobot": "workspace:*"
   },
-  "openclaw": {
+  "cleobot": {
     "extensions": [
       "./index.ts"
     ],

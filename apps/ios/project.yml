@@ -1,4 +1,4 @@
-name: OpenClaw
+name: CleoBot
 options:
   bundleIdPrefix: ai.openclaw
   deploymentTarget:
@@ -10,33 +10,33 @@ settings:
     SWIFT_VERSION: "6.0"
 
 packages:
-  OpenClawKit:
-    path: ../shared/OpenClawKit
+  CleoBotKit:
+    path: ../shared/CleoBotKit
   Swabble:
     path: ../../Swabble
 
 schemes:
-  OpenClaw:
+  CleoBot:
     shared: true
     build:
       targets:
-        OpenClaw: all
+        CleoBot: all
     test:
       targets:
-        - OpenClawTests
+        - CleoBotTests
 
 targets:
-  OpenClaw:
+  CleoBot:
     type: application
     platform: iOS
     sources:
       - path: Sources
     dependencies:
-      - package: OpenClawKit
-      - package: OpenClawKit
-        product: OpenClawChatUI
-      - package: OpenClawKit
-        product: OpenClawProtocol
+      - package: CleoBotKit
+      - package: CleoBotKit
+        product: CleoBotChatUI
+      - package: CleoBotKit
+        product: CleoBotProtocol
       - package: Swabble
         product: SwabbleKit
       - sdk: AppIntents.framework
@@ -71,15 +71,15 @@ targets:
         CODE_SIGN_IDENTITY: "Apple Development"
         CODE_SIGN_STYLE: Manual
         DEVELOPMENT_TEAM: Y5PE65HELJ
-        PRODUCT_BUNDLE_IDENTIFIER: ai.openclaw.ios
-        PROVISIONING_PROFILE_SPECIFIER: "ai.openclaw.ios Development"
+        PRODUCT_BUNDLE_IDENTIFIER: ai.cleobot.ios
+        PROVISIONING_PROFILE_SPECIFIER: "ai.cleobot.ios Development"
         SWIFT_VERSION: "6.0"
         SWIFT_STRICT_CONCURRENCY: complete
         ENABLE_APPINTENTS_METADATA: NO
     info:
       path: Sources/Info.plist
       properties:
-        CFBundleDisplayName: OpenClaw
+        CFBundleDisplayName: CleoBot
         CFBundleIconName: AppIcon
         CFBundleShortVersionString: "2026.2.1"
         CFBundleVersion: "20260201"
@@ -88,16 +88,16 @@ targets:
           UIApplicationSupportsMultipleScenes: false
         UIBackgroundModes:
           - audio
-        NSLocalNetworkUsageDescription: OpenClaw discovers and connects to your OpenClaw gateway on the local network.
+        NSLocalNetworkUsageDescription: CleoBot discovers and connects to your CleoBot gateway on the local network.
         NSAppTransportSecurity:
           NSAllowsArbitraryLoadsInWebContent: true
         NSBonjourServices:
           - _openclaw-gw._tcp
-        NSCameraUsageDescription: OpenClaw can capture photos or short video clips when requested via the gateway.
-        NSLocationWhenInUseUsageDescription: OpenClaw uses your location when you allow location sharing.
-        NSLocationAlwaysAndWhenInUseUsageDescription: OpenClaw can share your location in the background when you enable Always.
-        NSMicrophoneUsageDescription: OpenClaw needs microphone access for voice wake.
-        NSSpeechRecognitionUsageDescription: OpenClaw uses on-device speech recognition for voice wake.
+        NSCameraUsageDescription: CleoBot can capture photos or short video clips when requested via the gateway.
+        NSLocationWhenInUseUsageDescription: CleoBot uses your location when you allow location sharing.
+        NSLocationAlwaysAndWhenInUseUsageDescription: CleoBot can share your location in the background when you enable Always.
+        NSMicrophoneUsageDescription: CleoBot needs microphone access for voice wake.
+        NSSpeechRecognitionUsageDescription: CleoBot uses on-device speech recognition for voice wake.
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
           - UIInterfaceOrientationPortraitUpsideDown
@@ -109,26 +109,26 @@ targets:
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
 
-  OpenClawTests:
+  CleoBotTests:
     type: bundle.unit-test
     platform: iOS
     sources:
       - path: Tests
     dependencies:
-      - target: OpenClaw
+      - target: CleoBot
       - package: Swabble
         product: SwabbleKit
       - sdk: AppIntents.framework
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: ai.openclaw.ios.tests
+        PRODUCT_BUNDLE_IDENTIFIER: ai.cleobot.ios.tests
         SWIFT_VERSION: "6.0"
         SWIFT_STRICT_CONCURRENCY: complete
-        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/OpenClaw.app/OpenClaw"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/CleoBot.app/CleoBot"
         BUNDLE_LOADER: "$(TEST_HOST)"
     info:
       path: Tests/Info.plist
       properties:
-        CFBundleDisplayName: OpenClawTests
+        CFBundleDisplayName: CleoBotTests
         CFBundleShortVersionString: "2026.2.1"
         CFBundleVersion: "20260201"

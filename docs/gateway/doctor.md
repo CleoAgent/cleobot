@@ -8,7 +8,7 @@ title: "Doctor"
 
 # Doctor
 
-`openclaw doctor` is the repair + migration tool for OpenClaw. It fixes stale
+`cleobot doctor` is the repair + migration tool for CleoBot. It fixes stale
 config/state, checks health, and provides actionable repair steps.
 
 ## Quick start
@@ -98,7 +98,7 @@ schema.
 ### 2) Legacy config key migrations
 
 When the config contains deprecated keys, other commands refuse to run and ask
-you to run `openclaw doctor`.
+you to run `cleobot doctor`.
 
 Doctor will:
 
@@ -149,7 +149,7 @@ These migrations are best-effort and idempotent; doctor will emit warnings when
 it leaves any legacy folders behind as backups. The Gateway/CLI also auto-migrates
 the legacy sessions + agent dir on startup so history/auth/models land in the
 per-agent path without a manual doctor run. WhatsApp auth is intentionally only
-migrated via `openclaw doctor`.
+migrated via `cleobot doctor`.
 
 ### 4) State integrity checks (session persistence, routing, and safety)
 
@@ -169,7 +169,7 @@ Doctor checks:
 - **Main session “1-line JSONL”**: flags when the main transcript has only one
   line (history is not accumulating).
 - **Multiple state dirs**: warns when multiple `~/.openclaw` folders exist across
-  home directories or when `OPENCLAW_STATE_DIR` points elsewhere (history can
+  home directories or when `CLEOBOT_STATE_DIR` points elsewhere (history can
   split between installs).
 - **Remote mode reminder**: if `gateway.mode=remote`, doctor reminds you to run
   it on the remote host (the state lives there).
@@ -202,9 +202,9 @@ switch to legacy names if the current image is missing.
 ### 8) Gateway service migrations and cleanup hints
 
 Doctor detects legacy gateway services (launchd/systemd/schtasks) and
-offers to remove them and install the OpenClaw service using the current gateway
+offers to remove them and install the CleoBot service using the current gateway
 port. It can also scan for extra gateway-like services and print cleanup hints.
-Profile-named OpenClaw gateway services are considered first-class and are not
+Profile-named CleoBot gateway services are considered first-class and are not
 flagged as "extra."
 
 ### 9) Security warnings
@@ -225,7 +225,7 @@ workspace.
 ### 12) Gateway auth checks (local token)
 
 Doctor warns when `gateway.auth` is missing on a local gateway and offers to
-generate a token. Use `openclaw doctor --generate-gateway-token` to force token
+generate a token. Use `cleobot doctor --generate-gateway-token` to force token
 creation in automation.
 
 ### 13) Gateway health check + restart
@@ -247,11 +247,11 @@ rewrite the service file/task to the current defaults.
 
 Notes:
 
-- `openclaw doctor` prompts before rewriting supervisor config.
-- `openclaw doctor --yes` accepts the default repair prompts.
-- `openclaw doctor --repair` applies recommended fixes without prompts.
-- `openclaw doctor --repair --force` overwrites custom supervisor configs.
-- You can always force a full rewrite via `openclaw gateway install --force`.
+- `cleobot doctor` prompts before rewriting supervisor config.
+- `cleobot doctor --yes` accepts the default repair prompts.
+- `cleobot doctor --repair` applies recommended fixes without prompts.
+- `cleobot doctor --repair --force` overwrites custom supervisor configs.
+- You can always force a full rewrite via `cleobot gateway install --force`.
 
 ### 16) Gateway runtime + port diagnostics
 

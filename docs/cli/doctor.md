@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `openclaw doctor` (health checks + guided repairs)"
+summary: "CLI reference for `cleobot doctor` (health checks + guided repairs)"
 read_when:
   - You have connectivity/auth issues and want guided fixes
   - You updated and want a sanity check
 title: "doctor"
 ---
 
-# `openclaw doctor`
+# `cleobot doctor`
 
 Health checks + quick fixes for the gateway and channels.
 
@@ -30,12 +30,12 @@ Notes:
 
 ## macOS: `launchctl` env overrides
 
-If you previously ran `launchctl setenv OPENCLAW_GATEWAY_TOKEN ...` (or `...PASSWORD`), that value overrides your config file and can cause persistent “unauthorized” errors.
+If you previously ran `launchctl setenv CLEOBOT_GATEWAY_TOKEN ...` (or `...PASSWORD`), that value overrides your config file and can cause persistent “unauthorized” errors.
 
 ```bash
-launchctl getenv OPENCLAW_GATEWAY_TOKEN
-launchctl getenv OPENCLAW_GATEWAY_PASSWORD
+launchctl getenv CLEOBOT_GATEWAY_TOKEN
+launchctl getenv CLEOBOT_GATEWAY_PASSWORD
 
-launchctl unsetenv OPENCLAW_GATEWAY_TOKEN
-launchctl unsetenv OPENCLAW_GATEWAY_PASSWORD
+launchctl unsetenv CLEOBOT_GATEWAY_TOKEN
+launchctl unsetenv CLEOBOT_GATEWAY_PASSWORD
 ```

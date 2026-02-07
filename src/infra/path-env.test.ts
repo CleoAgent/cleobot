@@ -6,7 +6,7 @@ import { ensureCleoBotCliOnPath } from "./path-env.js";
 
 describe("ensureCleoBotCliOnPath", () => {
   it("prepends the bundled app bin dir when a sibling openclaw exists", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-path-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-path-"));
     try {
       const appBinDir = path.join(tmp, "AppBin");
       await fs.mkdir(appBinDir, { recursive: true });
@@ -64,7 +64,7 @@ describe("ensureCleoBotCliOnPath", () => {
   });
 
   it("prepends mise shims when available", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-path-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-path-"));
     const originalPath = process.env.PATH;
     const originalFlag = process.env.CLEOBOT_PATH_BOOTSTRAPPED;
     const originalMiseDataDir = process.env.MISE_DATA_DIR;
@@ -120,7 +120,7 @@ describe("ensureCleoBotCliOnPath", () => {
   });
 
   it("prepends Linuxbrew dirs when present", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-path-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-path-"));
     const originalPath = process.env.PATH;
     const originalFlag = process.env.CLEOBOT_PATH_BOOTSTRAPPED;
     const originalHomebrewPrefix = process.env.HOMEBREW_PREFIX;

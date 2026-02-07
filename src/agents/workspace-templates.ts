@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { resolveCleoBotPackageRoot } from "../infra/openclaw-root.js";
+import { resolveCleoBotPackageRoot } from "../infra/cleobot-root.js";
 
 const FALLBACK_TEMPLATE_DIR = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),

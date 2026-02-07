@@ -1,4 +1,4 @@
-import OpenClawIPC
+import CleoBotIPC
 import Foundation
 
 enum ShellExecutor {

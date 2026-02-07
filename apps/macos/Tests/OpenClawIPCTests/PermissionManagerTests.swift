@@ -1,7 +1,7 @@
-import OpenClawIPC
+import CleoBotIPC
 import CoreLocation
 import Testing
-@testable import OpenClaw
+@testable import CleoBot
 
 @Suite(.serialized)
 @MainActor

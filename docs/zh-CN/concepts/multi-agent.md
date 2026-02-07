@@ -22,17 +22,17 @@ x-i18n:
 
 - **工作区**（文件、AGENTS.md/SOUL.md/USER.md、本地笔记、人设规则）。
 - **状态目录**（`agentDir`），用于存储认证配置文件、模型注册表和按智能体配置。
-- **会话存储**（聊天历史 + 路由状态），位于 `~/.openclaw/agents/<agentId>/sessions`。
+- **会话存储**（聊天历史 + 路由状态），位于 `~/.cleobot/agents/<agentId>/sessions`。
 
 认证配置文件是**按智能体隔离的**。每个智能体从自己的目录读取：
 
 ```
-~/.openclaw/agents/<agentId>/agent/auth-profiles.json
+~/.cleobot/agents/<agentId>/agent/auth-profiles.json
 ```
 
 主智能体的凭证**不会**自动共享。切勿在智能体之间复用 `agentDir`（会导致认证/会话冲突）。如果你想共享凭证，请将 `auth-profiles.json` 复制到另一个智能体的 `agentDir` 中。
 
-Skills 通过每个工作区的 `skills/` 文件夹按智能体隔离，共享 Skills 可从 `~/.openclaw/skills` 获取。参阅[Skills：按智能体 vs 共享](/tools/skills#per-agent-vs-shared-skills)。
+Skills 通过每个工作区的 `skills/` 文件夹按智能体隔离，共享 Skills 可从 `~/.cleobot/skills` 获取。参阅[Skills：按智能体 vs 共享](/tools/skills#per-agent-vs-shared-skills)。
 
 Gateway网关可以托管**一个智能体**（默认）或**多个智能体**并行运行。
 
@@ -40,20 +40,20 @@ Gateway网关可以托管**一个智能体**（默认）或**多个智能体**�
 
 ## 路径（速查）
 
-- 配置文件：`~/.openclaw/openclaw.json`（或 `OPENCLAW_CONFIG_PATH`）
-- 状态目录：`~/.openclaw`（或 `OPENCLAW_STATE_DIR`）
-- 工作区：`~/.openclaw/workspace`（或 `~/.openclaw/workspace-<agentId>`）
-- 智能体目录：`~/.openclaw/agents/<agentId>/agent`（或 `agents.list[].agentDir`）
-- 会话：`~/.openclaw/agents/<agentId>/sessions`
+- 配置文件：`~/.cleobot/openclaw.json`（或 `CLEOBOT_CONFIG_PATH`）
+- 状态目录：`~/.cleobot`（或 `CLEOBOT_STATE_DIR`）
+- 工作区：`~/.cleobot/workspace`（或 `~/.cleobot/workspace-<agentId>`）
+- 智能体目录：`~/.cleobot/agents/<agentId>/agent`（或 `agents.list[].agentDir`）
+- 会话：`~/.cleobot/agents/<agentId>/sessions`
 
 ### 单智能体模式（默认）
 
-如果你不做任何配置，OpenClaw 会运行单个智能体：
+如果你不做任何配置，CleoBot 会运行单个智能体：
 
 - `agentId` 默认为 **`main`**。
 - 会话键格式为 `agent:main:<mainKey>`。
-- 工作区默认为 `~/.openclaw/workspace`（设置了 `OPENCLAW_PROFILE` 时为 `~/.openclaw/workspace-<profile>`）。
-- 状态默认为 `~/.openclaw/agents/main/agent`。
+- 工作区默认为 `~/.cleobot/workspace`（设置了 `CLEOBOT_PROFILE` 时为 `~/.cleobot/workspace-<profile>`）。
+- 状态默认为 `~/.cleobot/agents/main/agent`。
 
 ## 智能体助手
 
@@ -93,8 +93,8 @@ openclaw agents list --bindings
 {
   agents: {
     list: [
-      { id: "alex", workspace: "~/.openclaw/workspace-alex" },
-      { id: "mia", workspace: "~/.openclaw/workspace-mia" },
+      { id: "alex", workspace: "~/.cleobot/workspace-alex" },
+      { id: "mia", workspace: "~/.cleobot/workspace-mia" },
     ],
   },
   bindings: [
@@ -139,7 +139,7 @@ openclaw agents list --bindings
 
 ## 示例：两个 WhatsApp → 两个智能体
 
-`~/.openclaw/openclaw.json`（JSON5）：
+`~/.cleobot/openclaw.json`（JSON5）：
 
 ```js
 {
@@ -149,14 +149,14 @@ openclaw agents list --bindings
         id: "home",
         default: true,
         name: "Home",
-        workspace: "~/.openclaw/workspace-home",
-        agentDir: "~/.openclaw/agents/home/agent",
+        workspace: "~/.cleobot/workspace-home",
+        agentDir: "~/.cleobot/agents/home/agent",
       },
       {
         id: "work",
         name: "Work",
-        workspace: "~/.openclaw/workspace-work",
-        agentDir: "~/.openclaw/agents/work/agent",
+        workspace: "~/.cleobot/workspace-work",
+        agentDir: "~/.cleobot/agents/work/agent",
       },
     ],
   },
@@ -189,12 +189,12 @@ openclaw agents list --bindings
     whatsapp: {
       accounts: {
         personal: {
-          // 可选覆盖。默认值：~/.openclaw/credentials/whatsapp/personal
-          // authDir: "~/.openclaw/credentials/whatsapp/personal",
+          // 可选覆盖。默认值：~/.cleobot/credentials/whatsapp/personal
+          // authDir: "~/.cleobot/credentials/whatsapp/personal",
         },
         biz: {
-          // 可选覆盖。默认值：~/.openclaw/credentials/whatsapp/biz
-          // authDir: "~/.openclaw/credentials/whatsapp/biz",
+          // 可选覆盖。默认值：~/.cleobot/credentials/whatsapp/biz
+          // authDir: "~/.cleobot/credentials/whatsapp/biz",
         },
       },
     },
@@ -213,13 +213,13 @@ openclaw agents list --bindings
       {
         id: "chat",
         name: "Everyday",
-        workspace: "~/.openclaw/workspace-chat",
+        workspace: "~/.cleobot/workspace-chat",
         model: "anthropic/claude-sonnet-4-5",
       },
       {
         id: "opus",
         name: "Deep Work",
-        workspace: "~/.openclaw/workspace-opus",
+        workspace: "~/.cleobot/workspace-opus",
         model: "anthropic/claude-opus-4-5",
       },
     ],
@@ -247,13 +247,13 @@ openclaw agents list --bindings
       {
         id: "chat",
         name: "Everyday",
-        workspace: "~/.openclaw/workspace-chat",
+        workspace: "~/.cleobot/workspace-chat",
         model: "anthropic/claude-sonnet-4-5",
       },
       {
         id: "opus",
         name: "Deep Work",
-        workspace: "~/.openclaw/workspace-opus",
+        workspace: "~/.cleobot/workspace-opus",
         model: "anthropic/claude-opus-4-5",
       },
     ],
@@ -278,7 +278,7 @@ openclaw agents list --bindings
       {
         id: "family",
         name: "Family",
-        workspace: "~/.openclaw/workspace-family",
+        workspace: "~/.cleobot/workspace-family",
         identity: { name: "Family Bot" },
         groupChat: {
           mentionPatterns: ["@family", "@familybot", "@Family Bot"],
@@ -329,7 +329,7 @@ openclaw agents list --bindings
     list: [
       {
         id: "personal",
-        workspace: "~/.openclaw/workspace-personal",
+        workspace: "~/.cleobot/workspace-personal",
         sandbox: {
           mode: "off",  // 个人智能体不使用沙箱
         },
@@ -337,7 +337,7 @@ openclaw agents list --bindings
       },
       {
         id: "family",
-        workspace: "~/.openclaw/workspace-family",
+        workspace: "~/.cleobot/workspace-family",
         sandbox: {
           mode: "all",     // 始终沙箱隔离
           scope: "agent",  // 每个智能体一个容器

@@ -24,7 +24,7 @@ describe("onboard (non-interactive): Vercel AI Gateway", () => {
     delete process.env.CLEOBOT_GATEWAY_TOKEN;
     delete process.env.CLEOBOT_GATEWAY_PASSWORD;
 
-    const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-onboard-gateway-"));
+    const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-onboard-gateway-"));
     process.env.HOME = tempHome;
     process.env.CLEOBOT_STATE_DIR = tempHome;
     process.env.CLEOBOT_CONFIG_PATH = path.join(tempHome, "cleobot.json");

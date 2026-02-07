@@ -1,5 +1,5 @@
 ---
-summary: "OpenClaw Gateway CLI (`openclaw gateway`) — run, query, and discover gateways"
+summary: "CleoBot Gateway CLI (`cleobot gateway`) — run, query, and discover gateways"
 read_when:
   - Running the Gateway from the CLI (dev or servers)
   - Debugging Gateway auth, bind modes, and connectivity
@@ -9,9 +9,9 @@ title: "gateway"
 
 # Gateway CLI
 
-The Gateway is OpenClaw’s WebSocket server (channels, nodes, sessions, hooks).
+The Gateway is CleoBot’s WebSocket server (channels, nodes, sessions, hooks).
 
-Subcommands in this page live under `openclaw gateway …`.
+Subcommands in this page live under `cleobot gateway …`.
 
 Related docs:
 
@@ -45,8 +45,8 @@ Notes:
 - `--port <port>`: WebSocket port (default comes from config/env; usually `18789`).
 - `--bind <loopback|lan|tailnet|auto|custom>`: listener bind mode.
 - `--auth <token|password>`: auth mode override.
-- `--token <token>`: token override (also sets `OPENCLAW_GATEWAY_TOKEN` for the process).
-- `--password <password>`: password override (also sets `OPENCLAW_GATEWAY_PASSWORD` for the process).
+- `--token <token>`: token override (also sets `CLEOBOT_GATEWAY_TOKEN` for the process).
+- `--password <password>`: password override (also sets `CLEOBOT_GATEWAY_PASSWORD` for the process).
 - `--tailscale <off|serve|funnel>`: expose the Gateway via Tailscale.
 - `--tailscale-reset-on-exit`: reset Tailscale serve/funnel config on shutdown.
 - `--allow-unconfigured`: allow gateway start without `gateway.mode=local` in config.
@@ -163,7 +163,7 @@ Notes:
 
 ## Discover gateways (Bonjour)
 
-`gateway discover` scans for Gateway beacons (`_openclaw-gw._tcp`).
+`gateway discover` scans for Gateway beacons (`_cleobot-gw._tcp`).
 
 - Multicast DNS-SD: `local.`
 - Unicast DNS-SD (Wide-Area Bonjour): choose a domain (example: `openclaw.internal.`) and set up split DNS + a DNS server; see [/gateway/bonjour](/gateway/bonjour)

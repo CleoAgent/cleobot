@@ -1,5 +1,5 @@
 import type { SeverityNumber } from "@opentelemetry/api-logs";
-import type { DiagnosticEventPayload, OpenClawPluginService } from "openclaw/plugin-sdk";
+import type { DiagnosticEventPayload, CleoBotPluginService } from "openclaw/plugin-sdk";
 import { metrics, trace, SpanStatusCode } from "@opentelemetry/api";
 import { OTLPLogExporter } from "@opentelemetry/exporter-logs-otlp-http";
 import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-http";
@@ -39,7 +39,7 @@ function resolveSampleRate(value: number | undefined): number | undefined {
   return value;
 }
 
-export function createDiagnosticsOtelService(): OpenClawPluginService {
+export function createDiagnosticsOtelService(): CleoBotPluginService {
   let sdk: NodeSDK | null = null;
   let logProvider: LoggerProvider | null = null;
   let stopLogTransport: (() => void) | null = null;
@@ -631,5 +631,5 @@ export function createDiagnosticsOtelService(): OpenClawPluginService {
         sdk = null;
       }
     },
-  } satisfies OpenClawPluginService;
+  } satisfies CleoBotPluginService;
 }

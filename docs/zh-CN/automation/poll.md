@@ -65,11 +65,11 @@ openclaw message poll --channel msteams --target conversation:19:abc@thread.tacv
 
 - WhatsApp：2-12 个选项，`maxSelections` 必须在选项数量范围内，忽略 `durationHours`。
 - Discord：2-10 个选项，`durationHours` 限制在 1-768 小时（默认 24）。`maxSelections > 1` 启用多选；Discord 不支持严格的选择数量限制。
-- Microsoft Teams：Adaptive Card 投票（由 OpenClaw 管理）。没有原生投票 API；`durationHours` 被忽略。
+- Microsoft Teams：Adaptive Card 投票（由 CleoBot 管理）。没有原生投票 API；`durationHours` 被忽略。
 
 ## 智能体工具（Message）
 
 使用 `message` 工具的 `poll` 操作（`to`、`pollQuestion`、`pollOption`，可选 `pollMulti`、`pollDurationHours`、`channel`）。
 
 注意：Discord 没有"精确选择 N 个"模式；`pollMulti` 映射为多选。
-Teams 投票以 Adaptive Cards 形式渲染，需要 Gateway网关保持在线以在 `~/.openclaw/msteams-polls.json` 中记录投票结果。
+Teams 投票以 Adaptive Cards 形式渲染，需要 Gateway网关保持在线以在 `~/.cleobot/msteams-polls.json` 中记录投票结果。

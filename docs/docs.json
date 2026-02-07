@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "name": "OpenClaw",
+  "name": "CleoBot",
   "theme": "mint",
   "logo": {
     "light": "/assets/pixel-lobster.svg",

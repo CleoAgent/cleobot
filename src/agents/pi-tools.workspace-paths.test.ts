@@ -20,8 +20,8 @@ function getTextContent(result?: { content?: Array<{ type: string; text?: string
 
 describe("workspace path resolution", () => {
   it("reads relative paths against workspaceDir even after cwd changes", async () => {
-    await withTempDir("openclaw-ws-", async (workspaceDir) => {
-      await withTempDir("openclaw-cwd-", async (otherDir) => {
+    await withTempDir("cleobot-ws-", async (workspaceDir) => {
+      await withTempDir("cleobot-cwd-", async (otherDir) => {
         const prevCwd = process.cwd();
         const testFile = "read.txt";
         const contents = "workspace read ok";
@@ -43,8 +43,8 @@ describe("workspace path resolution", () => {
   });
 
   it("writes relative paths against workspaceDir even after cwd changes", async () => {
-    await withTempDir("openclaw-ws-", async (workspaceDir) => {
-      await withTempDir("openclaw-cwd-", async (otherDir) => {
+    await withTempDir("cleobot-ws-", async (workspaceDir) => {
+      await withTempDir("cleobot-cwd-", async (otherDir) => {
         const prevCwd = process.cwd();
         const testFile = "write.txt";
         const contents = "workspace write ok";
@@ -70,8 +70,8 @@ describe("workspace path resolution", () => {
   });
 
   it("edits relative paths against workspaceDir even after cwd changes", async () => {
-    await withTempDir("openclaw-ws-", async (workspaceDir) => {
-      await withTempDir("openclaw-cwd-", async (otherDir) => {
+    await withTempDir("cleobot-ws-", async (workspaceDir) => {
+      await withTempDir("cleobot-cwd-", async (otherDir) => {
         const prevCwd = process.cwd();
         const testFile = "edit.txt";
         await fs.writeFile(path.join(workspaceDir, testFile), "hello world", "utf8");
@@ -98,7 +98,7 @@ describe("workspace path resolution", () => {
   });
 
   it("defaults exec cwd to workspaceDir when workdir is omitted", async () => {
-    await withTempDir("openclaw-ws-", async (workspaceDir) => {
+    await withTempDir("cleobot-ws-", async (workspaceDir) => {
       const tools = createCleoBotCodingTools({ workspaceDir });
       const execTool = tools.find((tool) => tool.name === "exec");
       expect(execTool).toBeDefined();
@@ -120,8 +120,8 @@ describe("workspace path resolution", () => {
   });
 
   it("lets exec workdir override the workspace default", async () => {
-    await withTempDir("openclaw-ws-", async (workspaceDir) => {
-      await withTempDir("openclaw-override-", async (overrideDir) => {
+    await withTempDir("cleobot-ws-", async (workspaceDir) => {
+      await withTempDir("cleobot-override-", async (overrideDir) => {
         const tools = createCleoBotCodingTools({ workspaceDir });
         const execTool = tools.find((tool) => tool.name === "exec");
         expect(execTool).toBeDefined();
@@ -147,8 +147,8 @@ describe("workspace path resolution", () => {
 
 describe("sandboxed workspace paths", () => {
   it("uses sandbox workspace for relative read/write/edit", async () => {
-    await withTempDir("openclaw-sandbox-", async (sandboxDir) => {
-      await withTempDir("openclaw-workspace-", async (workspaceDir) => {
+    await withTempDir("cleobot-sandbox-", async (sandboxDir) => {
+      await withTempDir("cleobot-workspace-", async (workspaceDir) => {
         const sandbox = {
           enabled: true,
           sessionKey: "sandbox:test",
@@ -158,7 +158,7 @@ describe("sandboxed workspace paths", () => {
           containerName: "cleobot-sbx-test",
           containerWorkdir: "/workspace",
           docker: {
-            image: "openclaw-sandbox:bookworm-slim",
+            image: "cleobot-sandbox:bookworm-slim",
             containerPrefix: "cleobot-sbx-",
             workdir: "/workspace",
             readOnlyRoot: true,

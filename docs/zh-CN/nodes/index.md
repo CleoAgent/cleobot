@@ -20,7 +20,7 @@ x-i18n:
 
 旧版传输：[Bridge 协议](/gateway/bridge-protocol)（TCP JSONL；当前节点已弃用/移除）。
 
-macOS 也可以在**节点模式**下运行：菜单栏应用连接到 Gateway网关的 WS 服务器，并将其本地 canvas/相机命令作为节点暴露（因此 `openclaw nodes …` 可以对该 Mac 使用）。
+macOS 也可以在**节点模式**下运行：菜单栏应用连接到 Gateway网关的 WS 服务器，并将其本地 canvas/相机命令作为节点暴露（因此 `cleobot nodes …` 可以对该 Mac 使用）。
 
 注意事项：
 
@@ -44,7 +44,7 @@ openclaw nodes describe --node <idOrNameOrIp>
 注意事项：
 
 - `nodes status` 在设备配对角色包含 `node` 时将节点标记为**已配对**。
-- `node.pair.*`（CLI：`openclaw nodes pending/approve/reject`）是一个独立的 Gateway网关拥有的节点配对存储；它**不会**拦截 WS `connect` 握手。
+- `node.pair.*`（CLI：`cleobot nodes pending/approve/reject`）是一个独立的 Gateway网关拥有的节点配对存储；它**不会**拦截 WS `connect` 握手。
 
 ## 远程节点主机（system.run）
 
@@ -54,7 +54,7 @@ openclaw nodes describe --node <idOrNameOrIp>
 
 - **Gateway网关主机**：接收消息，运行模型，路由工具调用。
 - **节点主机**：在节点机器上执行 `system.run`/`system.which`。
-- **审批**：通过节点主机上的 `~/.openclaw/exec-approvals.json` 执行。
+- **审批**：通过节点主机上的 `~/.cleobot/exec-approvals.json` 执行。
 
 ### 启动节点主机（前台）
 
@@ -83,8 +83,8 @@ openclaw nodes list
 
 命名选项：
 
-- 在 `openclaw node run` / `openclaw node install` 上使用 `--display-name`（持久保存在节点的 `~/.openclaw/node.json` 中）。
-- `openclaw nodes rename --node <id|name|ip> --name "Build Node"`（Gateway网关覆盖）。
+- 在 `cleobot node run` / `cleobot node install` 上使用 `--display-name`（持久保存在节点的 `~/.cleobot/node.json` 中）。
+- `cleobot nodes rename --node <id|name|ip> --name "Build Node"`（Gateway网关覆盖）。
 
 ### 将命令加入允许列表
 
@@ -95,7 +95,7 @@ openclaw approvals allowlist add --node <id|name|ip> "/usr/bin/uname"
 openclaw approvals allowlist add --node <id|name|ip> "/usr/bin/sw_vers"
 ```
 
-审批存储在节点主机的 `~/.openclaw/exec-approvals.json` 中。
+审批存储在节点主机的 `~/.cleobot/exec-approvals.json` 中。
 
 ### 将执行指向节点
 
@@ -232,7 +232,7 @@ openclaw nodes location get --node <idOrNameOrIp> --accuracy precise --max-age 1
 低级别调用：
 
 ```bash
-openclaw nodes invoke --node <idOrNameOrIp> --command sms.send --params '{"to":"+15555550123","message":"Hello from OpenClaw"}'
+openclaw nodes invoke --node <idOrNameOrIp> --command sms.send --params '{"to":"+15555550123","message":"Hello from CleoBot"}'
 ```
 
 注意事项：
@@ -261,7 +261,7 @@ openclaw nodes notify --node <idOrNameOrIp> --title "Ping" --body "Gateway网关
 - macOS 节点会丢弃 `PATH` 覆盖；无头节点主机仅在 `PATH` 前置于节点主机 PATH 时才接受。
 - 在 macOS 节点模式下，`system.run` 受 macOS 应用中的执行审批限制（设置 → 执行审批）。
   询问/允许列表/完全访问的行为与无头节点主机相同；拒绝的提示返回 `SYSTEM_RUN_DENIED`。
-- 在无头节点主机上，`system.run` 受执行审批限制（`~/.openclaw/exec-approvals.json`）。
+- 在无头节点主机上，`system.run` 受执行审批限制（`~/.cleobot/exec-approvals.json`）。
 
 ## Exec 节点绑定
 
@@ -294,7 +294,7 @@ openclaw config unset agents.list[0].tools.exec.node
 
 ## 无头节点主机（跨平台）
 
-OpenClaw 可以运行**无头节点主机**（无 UI），它连接到 Gateway网关 WebSocket 并暴露 `system.run` / `system.which`。这适用于 Linux/Windows 或在服务器旁运行一个最小节点。
+CleoBot 可以运行**无头节点主机**（无 UI），它连接到 Gateway网关 WebSocket 并暴露 `system.run` / `system.which`。这适用于 Linux/Windows 或在服务器旁运行一个最小节点。
 
 启动方式：
 
@@ -305,12 +305,12 @@ openclaw node run --host <gateway-host> --port 18789
 注意事项：
 
 - 仍然需要配对（Gateway网关会显示节点审批提示）。
-- 节点主机将其节点 ID、令牌、显示名称和 Gateway网关连接信息存储在 `~/.openclaw/node.json` 中。
-- 执行审批通过 `~/.openclaw/exec-approvals.json` 在本地执行（参见[执行审批](/tools/exec-approvals)）。
-- 在 macOS 上，无头节点主机在伴侣应用执行主机可达时优先使用它，不可用时回退到本地执行。设置 `OPENCLAW_NODE_EXEC_HOST=app` 以要求使用应用，或设置 `OPENCLAW_NODE_EXEC_FALLBACK=0` 以禁用回退。
+- 节点主机将其节点 ID、令牌、显示名称和 Gateway网关连接信息存储在 `~/.cleobot/node.json` 中。
+- 执行审批通过 `~/.cleobot/exec-approvals.json` 在本地执行（参见[执行审批](/tools/exec-approvals)）。
+- 在 macOS 上，无头节点主机在伴侣应用执行主机可达时优先使用它，不可用时回退到本地执行。设置 `CLEOBOT_NODE_EXEC_HOST=app` 以要求使用应用，或设置 `CLEOBOT_NODE_EXEC_FALLBACK=0` 以禁用回退。
 - 当 Gateway网关 WS 使用 TLS 时，添加 `--tls` / `--tls-fingerprint`。
 
 ## Mac 节点模式
 
-- macOS 菜单栏应用作为节点连接到 Gateway网关 WS 服务器（因此 `openclaw nodes …` 可以对该 Mac 使用）。
+- macOS 菜单栏应用作为节点连接到 Gateway网关 WS 服务器（因此 `cleobot nodes …` 可以对该 Mac 使用）。
 - 在远程模式下，应用为 Gateway网关端口打开 SSH 隧道并连接到 `localhost`。

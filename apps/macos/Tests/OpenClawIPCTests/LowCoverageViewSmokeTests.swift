@@ -1,9 +1,9 @@
 import AppKit
-import OpenClawProtocol
+import CleoBotProtocol
 import SwiftUI
 import Testing
 
-@testable import OpenClaw
+@testable import CleoBot
 
 @Suite(.serialized)
 @MainActor

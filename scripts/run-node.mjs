@@ -7,7 +7,7 @@ import process from "node:process";
 const args = process.argv.slice(2);
 const env = { ...process.env };
 const cwd = process.cwd();
-const compilerOverride = env.OPENCLAW_TS_COMPILER ?? env.CLAWDBOT_TS_COMPILER;
+const compilerOverride = env.CLEOBOT_TS_COMPILER ?? env.CLAWDBOT_TS_COMPILER;
 const compiler = compilerOverride === "tsc" ? "tsc" : "tsgo";
 const projectArgs = ["--project", "tsconfig.json"];
 
@@ -76,7 +76,7 @@ const findLatestMtime = (dirPath, shouldSkip) => {
 };
 
 const shouldBuild = () => {
-  if (env.OPENCLAW_FORCE_BUILD === "1") {
+  if (env.CLEOBOT_FORCE_BUILD === "1") {
     return true;
   }
   const stampMtime = statMtime(buildStampPath);
@@ -102,7 +102,7 @@ const shouldBuild = () => {
 };
 
 const logRunner = (message) => {
-  if (env.OPENCLAW_RUNNER_LOG === "0") {
+  if (env.CLEOBOT_RUNNER_LOG === "0") {
     return;
   }
   process.stderr.write(`[openclaw] ${message}\n`);

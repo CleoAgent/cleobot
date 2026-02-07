@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { createCleoBotTools } from "../agents/openclaw-tools.js";
+import { createCleoBotTools } from "../agents/cleobot-tools.js";
 import {
   filterToolsByPolicy,
   resolveEffectiveToolPolicy,

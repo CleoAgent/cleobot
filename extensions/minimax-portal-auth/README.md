@@ -1,4 +1,4 @@
-# MiniMax OAuth (OpenClaw plugin)
+# MiniMax OAuth (CleoBot plugin)
 
 OAuth provider plugin for **MiniMax** (OAuth).
 

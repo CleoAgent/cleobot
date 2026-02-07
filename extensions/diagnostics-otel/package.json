@@ -1,7 +1,7 @@
 {
   "name": "@openclaw/diagnostics-otel",
   "version": "2026.2.1",
-  "description": "OpenClaw diagnostics OpenTelemetry exporter",
+  "description": "CleoBot diagnostics OpenTelemetry exporter",
   "type": "module",
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
@@ -19,7 +19,7 @@
   "devDependencies": {
     "cleobot": "workspace:*"
   },
-  "openclaw": {
+  "cleobot": {
     "extensions": [
       "./index.ts"
     ]

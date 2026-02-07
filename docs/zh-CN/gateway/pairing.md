@@ -80,12 +80,12 @@ macOS 应用可在以下条件满足时选择性地尝试**静默批准**：
 
 ## 存储（本地，私有）
 
-配对状态存储在 Gateway网关状态目录下（默认 `~/.openclaw`）：
+配对状态存储在 Gateway网关状态目录下（默认 `~/.cleobot`）：
 
-- `~/.openclaw/nodes/paired.json`
-- `~/.openclaw/nodes/pending.json`
+- `~/.cleobot/nodes/paired.json`
+- `~/.cleobot/nodes/pending.json`
 
-如果你覆盖了 `OPENCLAW_STATE_DIR`，`nodes/` 文件夹会随之移动。
+如果你覆盖了 `CLEOBOT_STATE_DIR`，`nodes/` 文件夹会随之移动。
 
 安全注意事项：
 

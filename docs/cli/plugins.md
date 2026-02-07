@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `openclaw plugins` (list, install, enable/disable, doctor)"
+summary: "CLI reference for `cleobot plugins` (list, install, enable/disable, doctor)"
 read_when:
   - You want to install or manage in-process Gateway plugins
   - You want to debug plugin load failures
 title: "plugins"
 ---
 
-# `openclaw plugins`
+# `cleobot plugins`
 
 Manage Gateway plugins/extensions (loaded in-process).
 
@@ -28,7 +28,7 @@ openclaw plugins update <id>
 openclaw plugins update --all
 ```
 
-Bundled plugins ship with OpenClaw but start disabled. Use `plugins enable` to
+Bundled plugins ship with CleoBot but start disabled. Use `plugins enable` to
 activate them.
 
 All plugins must ship a `openclaw.plugin.json` file with an inline JSON Schema

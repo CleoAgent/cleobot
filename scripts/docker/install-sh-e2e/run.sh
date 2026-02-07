@@ -1,34 +1,34 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-INSTALL_URL="${OPENCLAW_INSTALL_URL:-${CLAWDBOT_INSTALL_URL:-https://openclaw.bot/install.sh}}"
-MODELS_MODE="${OPENCLAW_E2E_MODELS:-${CLAWDBOT_E2E_MODELS:-both}}" # both|openai|anthropic
-INSTALL_TAG="${OPENCLAW_INSTALL_TAG:-${CLAWDBOT_INSTALL_TAG:-latest}}"
-E2E_PREVIOUS_VERSION="${OPENCLAW_INSTALL_E2E_PREVIOUS:-${CLAWDBOT_INSTALL_E2E_PREVIOUS:-}}"
-SKIP_PREVIOUS="${OPENCLAW_INSTALL_E2E_SKIP_PREVIOUS:-${CLAWDBOT_INSTALL_E2E_SKIP_PREVIOUS:-0}}"
+INSTALL_URL="${CLEOBOT_INSTALL_URL:-${CLAWDBOT_INSTALL_URL:-https://openclaw.bot/install.sh}}"
+MODELS_MODE="${CLEOBOT_E2E_MODELS:-${CLAWDBOT_E2E_MODELS:-both}}" # both|openai|anthropic
+INSTALL_TAG="${CLEOBOT_INSTALL_TAG:-${CLAWDBOT_INSTALL_TAG:-latest}}"
+E2E_PREVIOUS_VERSION="${CLEOBOT_INSTALL_E2E_PREVIOUS:-${CLAWDBOT_INSTALL_E2E_PREVIOUS:-}}"
+SKIP_PREVIOUS="${CLEOBOT_INSTALL_E2E_SKIP_PREVIOUS:-${CLAWDBOT_INSTALL_E2E_SKIP_PREVIOUS:-0}}"
 OPENAI_API_KEY="${OPENAI_API_KEY:-}"
 ANTHROPIC_API_KEY="${ANTHROPIC_API_KEY:-}"
 ANTHROPIC_API_TOKEN="${ANTHROPIC_API_TOKEN:-}"
 
 if [[ "$MODELS_MODE" != "both" && "$MODELS_MODE" != "openai" && "$MODELS_MODE" != "anthropic" ]]; then
-  echo "ERROR: OPENCLAW_E2E_MODELS must be one of: both|openai|anthropic" >&2
+  echo "ERROR: CLEOBOT_E2E_MODELS must be one of: both|openai|anthropic" >&2
   exit 2
 fi
 
 if [[ "$MODELS_MODE" == "both" ]]; then
   if [[ -z "$OPENAI_API_KEY" ]]; then
-    echo "ERROR: OPENCLAW_E2E_MODELS=both requires OPENAI_API_KEY." >&2
+    echo "ERROR: CLEOBOT_E2E_MODELS=both requires OPENAI_API_KEY." >&2
     exit 2
   fi
   if [[ -z "$ANTHROPIC_API_TOKEN" && -z "$ANTHROPIC_API_KEY" ]]; then
-    echo "ERROR: OPENCLAW_E2E_MODELS=both requires ANTHROPIC_API_TOKEN or ANTHROPIC_API_KEY." >&2
+    echo "ERROR: CLEOBOT_E2E_MODELS=both requires ANTHROPIC_API_TOKEN or ANTHROPIC_API_KEY." >&2
     exit 2
   fi
 elif [[ "$MODELS_MODE" == "openai" && -z "$OPENAI_API_KEY" ]]; then
-  echo "ERROR: OPENCLAW_E2E_MODELS=openai requires OPENAI_API_KEY." >&2
+  echo "ERROR: CLEOBOT_E2E_MODELS=openai requires OPENAI_API_KEY." >&2
   exit 2
 elif [[ "$MODELS_MODE" == "anthropic" && -z "$ANTHROPIC_API_TOKEN" && -z "$ANTHROPIC_API_KEY" ]]; then
-  echo "ERROR: OPENCLAW_E2E_MODELS=anthropic requires ANTHROPIC_API_TOKEN or ANTHROPIC_API_KEY." >&2
+  echo "ERROR: CLEOBOT_E2E_MODELS=anthropic requires ANTHROPIC_API_TOKEN or ANTHROPIC_API_KEY." >&2
   exit 2
 fi
 
@@ -52,7 +52,7 @@ fi
 echo "expected=$EXPECTED_VERSION previous=$PREVIOUS_VERSION"
 
 if [[ "$SKIP_PREVIOUS" == "1" ]]; then
-  echo "==> Skip preinstall previous (OPENCLAW_INSTALL_E2E_SKIP_PREVIOUS=1)"
+  echo "==> Skip preinstall previous (CLEOBOT_INSTALL_E2E_SKIP_PREVIOUS=1)"
 else
   echo "==> Preinstall previous (forces installer upgrade path; avoids read() prompt)"
   npm install -g "openclaw@${PREVIOUS_VERSION}"
@@ -60,9 +60,9 @@ fi
 
 echo "==> Run official installer one-liner"
 if [[ "$INSTALL_TAG" == "beta" ]]; then
-  OPENCLAW_BETA=1 CLAWDBOT_BETA=1 curl -fsSL "$INSTALL_URL" | bash
+  CLEOBOT_BETA=1 CLAWDBOT_BETA=1 curl -fsSL "$INSTALL_URL" | bash
 elif [[ "$INSTALL_TAG" != "latest" ]]; then
-  OPENCLAW_VERSION="$INSTALL_TAG" CLAWDBOT_VERSION="$INSTALL_TAG" curl -fsSL "$INSTALL_URL" | bash
+  CLEOBOT_VERSION="$INSTALL_TAG" CLAWDBOT_VERSION="$INSTALL_TAG" curl -fsSL "$INSTALL_URL" | bash
 else
   curl -fsSL "$INSTALL_URL" | bash
 fi
@@ -416,7 +416,7 @@ run_profile() {
   IMAGE_PNG="$workspace/proof.png"
   IMAGE_TXT="$workspace/image.txt"
   SESSION_ID="e2e-tools-${profile}"
-  SESSION_JSONL="/root/.openclaw-${profile}/agents/main/sessions/${SESSION_ID}.jsonl"
+  SESSION_JSONL="/root/.cleobot-${profile}/agents/main/sessions/${SESSION_ID}.jsonl"
 
   PROOF_VALUE="$(node -e 'console.log(require("node:crypto").randomBytes(16).toString("hex"))')"
   echo -n "$PROOF_VALUE" >"$PROOF_TXT"
@@ -511,7 +511,7 @@ run_profile() {
   sleep 1
   if [[ ! -f "$SESSION_JSONL" ]]; then
     echo "ERROR: missing session transcript ($profile): $SESSION_JSONL" >&2
-    ls -la "/root/.openclaw-${profile}/agents/main/sessions" >&2 || true
+    ls -la "/root/.cleobot-${profile}/agents/main/sessions" >&2 || true
     exit 1
   fi
   assert_session_used_tools "$SESSION_JSONL" read write exec image
@@ -521,11 +521,11 @@ run_profile() {
 }
 
 if [[ "$MODELS_MODE" == "openai" || "$MODELS_MODE" == "both" ]]; then
-  run_profile "e2e-openai" "18789" "/tmp/openclaw-e2e-openai" "openai"
+  run_profile "e2e-openai" "18789" "/tmp/cleobot-e2e-openai" "openai"
 fi
 
 if [[ "$MODELS_MODE" == "anthropic" || "$MODELS_MODE" == "both" ]]; then
-  run_profile "e2e-anthropic" "18799" "/tmp/openclaw-e2e-anthropic" "anthropic"
+  run_profile "e2e-anthropic" "18799" "/tmp/cleobot-e2e-anthropic" "anthropic"
 fi
 
 echo "OK"

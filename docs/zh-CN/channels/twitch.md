@@ -1,6 +1,6 @@
 ---
 read_when:
-  - 为 OpenClaw 设置 Twitch 聊天集成
+  - 为 CleoBot 设置 Twitch 聊天集成
 summary: Twitch 聊天机器人配置与设置
 title: Twitch
 x-i18n:
@@ -14,7 +14,7 @@ x-i18n:
 
 # Twitch（插件）
 
-通过 IRC 连接支持 Twitch 聊天。OpenClaw 以 Twitch 用户（机器人账号）身份连接，在频道中接收和发送消息。
+通过 IRC 连接支持 Twitch 聊天。CleoBot 以 Twitch 用户（机器人账号）身份连接，在频道中接收和发送消息。
 
 ## 需要插件
 
@@ -43,7 +43,7 @@ openclaw plugins install ./extensions/twitch
    - 复制 **Client ID** 和 **Access Token**
 3. 查找你的 Twitch 用户 ID：https://www.streamweasels.com/tools/convert-twitch-username-to-user-id/
 4. 配置令牌：
-   - 环境变量：`OPENCLAW_TWITCH_ACCESS_TOKEN=...`（仅限默认账号）
+   - 环境变量：`CLEOBOT_TWITCH_ACCESS_TOKEN=...`（仅限默认账号）
    - 或配置文件：`channels.twitch.accessToken`
    - 如果两者都设置了，配置文件优先（环境变量回退仅适用于默认账号）。
 5. 启动 Gateway网关。
@@ -58,7 +58,7 @@ openclaw plugins install ./extensions/twitch
     twitch: {
       enabled: true,
       username: "openclaw", // 机器人的 Twitch 账号
-      accessToken: "oauth:abc123...", // OAuth Access Token（或使用 OPENCLAW_TWITCH_ACCESS_TOKEN 环境变量）
+      accessToken: "oauth:abc123...", // OAuth Access Token（或使用 CLEOBOT_TWITCH_ACCESS_TOKEN 环境变量）
       clientId: "xyz789...", // 从 Token Generator 获取的 Client ID
       channel: "vevisk", // 要加入的 Twitch 频道聊天室（必填）
       allowFrom: ["123456789"], // （推荐）仅限你的 Twitch 用户 ID - 从 https://www.streamweasels.com/tools/convert-twitch-username-to-user-id/ 获取
@@ -91,7 +91,7 @@ openclaw plugins install ./extensions/twitch
 **环境变量（仅限默认账号）：**
 
 ```bash
-OPENCLAW_TWITCH_ACCESS_TOKEN=oauth:abc123...
+CLEOBOT_TWITCH_ACCESS_TOKEN=oauth:abc123...
 ```
 
 **或配置文件：**

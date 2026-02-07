@@ -1,6 +1,6 @@
 import type {
   ChannelAccountSnapshot,
-  OpenClawConfig,
+  CleoBotConfig,
   ReplyPayload,
   RuntimeEnv,
 } from "openclaw/plugin-sdk";
@@ -43,7 +43,7 @@ export type MonitorMattermostOpts = {
   botToken?: string;
   baseUrl?: string;
   accountId?: string;
-  config?: OpenClawConfig;
+  config?: CleoBotConfig;
   runtime?: RuntimeEnv;
   abortSignal?: AbortSignal;
   statusSink?: (patch: Partial<ChannelAccountSnapshot>) => void;

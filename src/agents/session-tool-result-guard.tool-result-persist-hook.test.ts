@@ -67,7 +67,7 @@ describe("tool_result_persist hook", () => {
   });
 
   it("composes transforms in priority order and allows stripping toolResult.details", () => {
-    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-toolpersist-"));
+    const tmp = fs.mkdtemp(path.join(os.tmpdir(), "cleobot-toolpersist-"));
     process.env.CLEOBOT_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
 
     const pluginA = writeTempPlugin({

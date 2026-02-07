@@ -58,7 +58,7 @@ describe("cli credentials", () => {
   });
 
   it("falls back to the file store when the keychain update fails", async () => {
-    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-"));
+    const tempDir = fs.mkdtemp(path.join(os.tmpdir(), "cleobot-"));
     const credPath = path.join(tempDir, ".claude", ".credentials.json");
 
     fs.mkdirSync(path.dirname(credPath), { recursive: true, mode: 0o700 });

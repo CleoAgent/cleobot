@@ -1,14 +1,14 @@
 ---
 summary: "Windows (WSL2) support + companion app status"
 read_when:
-  - Installing OpenClaw on Windows
+  - Installing CleoBot on Windows
   - Looking for Windows companion app status
 title: "Windows (WSL2)"
 ---
 
 # Windows (WSL2)
 
-OpenClaw on Windows is recommended **via WSL2** (Ubuntu recommended). The
+CleoBot on Windows is recommended **via WSL2** (Ubuntu recommended). The
 CLI + Gateway run inside Linux, which keeps the runtime consistent and makes
 tooling far more compatible (Node/Bun/pnpm, Linux binaries, skills). Native
 Windows might be trickier. WSL2 gives you the full Linux experience — one command
@@ -95,7 +95,7 @@ Notes:
 
 - SSH from another machine targets the **Windows host IP** (example: `ssh user@windows-host -p 2222`).
 - Remote nodes must point at a **reachable** Gateway URL (not `127.0.0.1`); use
-  `openclaw status --all` to confirm.
+  `cleobot status --all` to confirm.
 - Use `listenaddress=0.0.0.0` for LAN access; `127.0.0.1` keeps it local only.
 - If you want this automatic, register a Scheduled Task to run the refresh
   step at login.
@@ -138,7 +138,7 @@ Re-open Ubuntu, then verify:
 systemctl --user status
 ```
 
-### 3) Install OpenClaw (inside WSL)
+### 3) Install CleoBot (inside WSL)
 
 Follow the Linux Getting Started flow inside WSL:
 

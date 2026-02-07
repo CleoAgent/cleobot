@@ -85,7 +85,7 @@ describe("web monitor inbox", () => {
       created: true,
     });
     resetWebInboundDedupe();
-    authDir = fsSync.mkdtempSync(path.join(os.tmpdir(), "openclaw-auth-"));
+    authDir = fsSync.mkdtemp(path.join(os.tmpdir(), "cleobot-auth-"));
   });
 
   afterEach(() => {

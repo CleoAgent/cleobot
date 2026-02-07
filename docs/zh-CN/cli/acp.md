@@ -15,7 +15,7 @@ x-i18n:
 
 # acp
 
-运行与 OpenClaw Gateway网关通信的 ACP（Agent Client Protocol）桥接。
+运行与 CleoBot Gateway网关通信的 ACP（Agent Client Protocol）桥接。
 
 此命令通过 stdio 使用 ACP 协议与 IDE 通信，并通过 WebSocket 将提示转发到 Gateway网关。它将 ACP 会话映射到 Gateway网关会话密钥。
 
@@ -54,11 +54,11 @@ openclaw acp client --server "node" --server-args openclaw.mjs acp --url ws://12
 
 ## 如何使用
 
-当 IDE（或其他客户端）使用 Agent Client Protocol 并且你希望它驱动 OpenClaw Gateway网关会话时，请使用 ACP。
+当 IDE（或其他客户端）使用 Agent Client Protocol 并且你希望它驱动 CleoBot Gateway网关会话时，请使用 ACP。
 
 1. 确保 Gateway网关正在运行（本地或远程）。
 2. 配置 Gateway网关目标（通过配置文件或标志）。
-3. 将你的 IDE 配置为通过 stdio 运行 `openclaw acp`。
+3. 将你的 IDE 配置为通过 stdio 运行 `cleobot acp`。
 
 示例配置（持久化）：
 
@@ -94,7 +94,7 @@ openclaw acp --session agent:qa:bug-123
 ```json
 {
   "agent_servers": {
-    "OpenClaw ACP": {
+    "CleoBot ACP": {
       "type": "custom",
       "command": "openclaw",
       "args": ["acp"],
@@ -109,7 +109,7 @@ openclaw acp --session agent:qa:bug-123
 ```json
 {
   "agent_servers": {
-    "OpenClaw ACP": {
+    "CleoBot ACP": {
       "type": "custom",
       "command": "openclaw",
       "args": [
@@ -127,7 +127,7 @@ openclaw acp --session agent:qa:bug-123
 }
 ```
 
-在 Zed 中，打开 Agent 面板并选择 "OpenClaw ACP" 来开始一个对话线程。
+在 Zed 中，打开 Agent 面板并选择 "CleoBot ACP" 来开始一个对话线程。
 
 ## 会话映射
 

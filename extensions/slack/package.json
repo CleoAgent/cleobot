@@ -1,12 +1,12 @@
 {
   "name": "@openclaw/slack",
   "version": "2026.2.1",
-  "description": "OpenClaw Slack channel plugin",
+  "description": "CleoBot Slack channel plugin",
   "type": "module",
   "devDependencies": {
     "cleobot": "workspace:*"
   },
-  "openclaw": {
+  "cleobot": {
     "extensions": [
       "./index.ts"
     ]

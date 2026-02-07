@@ -1,12 +1,12 @@
-# OpenClaw ACP Bridge
+# CleoBot ACP Bridge
 
-This document describes how the OpenClaw ACP (Agent Client Protocol) bridge works,
+This document describes how the CleoBot ACP (Agent Client Protocol) bridge works,
 how it maps ACP sessions to Gateway sessions, and how IDEs should invoke it.
 
 ## Overview
 
 `openclaw acp` exposes an ACP agent over stdio and forwards prompts to a running
-OpenClaw Gateway over WebSocket. It keeps ACP session ids mapped to Gateway
+CleoBot Gateway over WebSocket. It keeps ACP session ids mapped to Gateway
 session keys so IDEs can reconnect to the same agent transcript or reset it on
 request.
 
@@ -20,7 +20,7 @@ Key goals:
 ## How can I use this
 
 Use ACP when an IDE or tooling speaks Agent Client Protocol and you want it to
-drive a OpenClaw Gateway session.
+drive a CleoBot Gateway session.
 
 Quick steps:
 
@@ -64,7 +64,7 @@ Add a custom ACP agent in `~/.config/zed/settings.json`:
 ```json
 {
   "agent_servers": {
-    "OpenClaw ACP": {
+    "CleoBot ACP": {
       "type": "custom",
       "command": "openclaw",
       "args": ["acp"],
@@ -79,7 +79,7 @@ To target a specific Gateway or agent:
 ```json
 {
   "agent_servers": {
-    "OpenClaw ACP": {
+    "CleoBot ACP": {
       "type": "custom",
       "command": "openclaw",
       "args": [
@@ -97,7 +97,7 @@ To target a specific Gateway or agent:
 }
 ```
 
-In Zed, open the Agent panel and select “OpenClaw ACP” to start a thread.
+In Zed, open the Agent panel and select “CleoBot ACP” to start a thread.
 
 ## Execution Model
 

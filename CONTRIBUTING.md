@@ -2,7 +2,7 @@
 
 Welcome! 🧠
 
-CleoBot is a fork of [OpenClaw](https://github.com/openclaw/openclaw), enhanced with [CLEO](https://codluv.mintlify.app) cognitive scaffolding.
+CleoBot is a fork of [CleoBot](https://github.com/openclaw/openclaw), enhanced with [CLEO](https://codluv.mintlify.app) cognitive scaffolding.
 
 ## Quick Links
 
@@ -54,7 +54,7 @@ cleobot/
 └── scripts/          # Helper scripts
 ```
 
-## Key Differences from OpenClaw
+## Key Differences from CleoBot
 
 - **Branding:** `CLEOBOT_*` env vars, `.cleobot` directories
 - **CLEO CLI:** Bundled in Docker image
@@ -63,7 +63,7 @@ cleobot/
 
 ## Upstream Sync
 
-We periodically sync with upstream OpenClaw. If you want a feature that exists in OpenClaw but not CleoBot, let us know!
+We periodically sync with upstream CleoBot. If you want a feature that exists in CleoBot but not CleoBot, let us know!
 
 ## AI-Generated Code Welcome! 🤖
 
@@ -71,7 +71,7 @@ Built with Claude, Gemini, or other AI tools? Awesome!
 
 ## License
 
-MIT - same as upstream OpenClaw.
+MIT - same as upstream CleoBot.
 
 ---
 

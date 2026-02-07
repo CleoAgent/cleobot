@@ -1,11 +1,11 @@
 ---
-summary: "CLI reference for `openclaw agent` (send one agent turn via the Gateway)"
+summary: "CLI reference for `cleobot agent` (send one agent turn via the Gateway)"
 read_when:
   - You want to run one agent turn from scripts (optionally deliver reply)
 title: "agent"
 ---
 
-# `openclaw agent`
+# `cleobot agent`
 
 Run an agent turn via the Gateway (use `--local` for embedded).
 Use `--agent <id>` to target a configured agent directly.

@@ -6,7 +6,7 @@ import { readTelegramUpdateOffset, writeTelegramUpdateOffset } from "./update-of
 
 async function withTempStateDir<T>(fn: (dir: string) => Promise<T>) {
   const previous = process.env.CLEOBOT_STATE_DIR;
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-telegram-"));
   process.env.CLEOBOT_STATE_DIR = dir;
   try {
     return await fn(dir);

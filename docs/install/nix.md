@@ -1,5 +1,5 @@
 ---
-summary: "Install OpenClaw declaratively with Nix"
+summary: "Install CleoBot declaratively with Nix"
 read_when:
   - You want reproducible, rollback-able installs
   - You're already using Nix/NixOS/Home Manager
@@ -9,7 +9,7 @@ title: "Nix"
 
 # Nix Installation
 
-The recommended way to run OpenClaw with Nix is via **[nix-openclaw](https://github.com/openclaw/nix-openclaw)** — a batteries-included Home Manager module.
+The recommended way to run CleoBot with Nix is via **[nix-openclaw](https://github.com/openclaw/nix-openclaw)** — a batteries-included Home Manager module.
 
 ## Quick Start
 
@@ -21,7 +21,7 @@ Repository: github:openclaw/nix-openclaw
 
 What I need you to do:
 1. Check if Determinate Nix is installed (if not, install it)
-2. Create a local flake at ~/code/openclaw-local using templates/agent-first/flake.nix
+2. Create a local flake at ~/code/cleobot-local using templates/agent-first/flake.nix
 3. Help me create a Telegram bot (@BotFather) and get my chat ID (@userinfobot)
 4. Set up secrets (bot token, Anthropic key) - plain files at ~/.secrets/ is fine
 5. Fill in the template placeholders and run home-manager switch
@@ -45,13 +45,13 @@ Reference the nix-openclaw README for module options.
 
 ## Nix Mode Runtime Behavior
 
-When `OPENCLAW_NIX_MODE=1` is set (automatic with nix-openclaw):
+When `CLEOBOT_NIX_MODE=1` is set (automatic with nix-openclaw):
 
-OpenClaw supports a **Nix mode** that makes configuration deterministic and disables auto-install flows.
+CleoBot supports a **Nix mode** that makes configuration deterministic and disables auto-install flows.
 Enable it by exporting:
 
 ```bash
-OPENCLAW_NIX_MODE=1
+CLEOBOT_NIX_MODE=1
 ```
 
 On macOS, the GUI app does not automatically inherit shell env vars. You can
@@ -63,10 +63,10 @@ defaults write bot.molt.mac openclaw.nixMode -bool true
 
 ### Config + state paths
 
-OpenClaw reads JSON5 config from `OPENCLAW_CONFIG_PATH` and stores mutable data in `OPENCLAW_STATE_DIR`.
+CleoBot reads JSON5 config from `CLEOBOT_CONFIG_PATH` and stores mutable data in `CLEOBOT_STATE_DIR`.
 
-- `OPENCLAW_STATE_DIR` (default: `~/.openclaw`)
-- `OPENCLAW_CONFIG_PATH` (default: `$OPENCLAW_STATE_DIR/openclaw.json`)
+- `CLEOBOT_STATE_DIR` (default: `~/.cleobot`)
+- `CLEOBOT_CONFIG_PATH` (default: `$CLEOBOT_STATE_DIR/openclaw.json`)
 
 When running under Nix, set these explicitly to Nix-managed locations so runtime state and config
 stay out of the immutable store.
@@ -82,7 +82,7 @@ stay out of the immutable store.
 The macOS packaging flow expects a stable Info.plist template at:
 
 ```
-apps/macos/Sources/OpenClaw/Resources/Info.plist
+apps/macos/Sources/CleoBot/Resources/Info.plist
 ```
 
 [`scripts/package-mac-app.sh`](https://github.com/openclaw/openclaw/blob/main/scripts/package-mac-app.sh) copies this template into the app bundle and patches dynamic fields

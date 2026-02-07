@@ -1,4 +1,4 @@
-import OpenClawProtocol
+import CleoBotProtocol
 import Observation
 import SwiftUI
 

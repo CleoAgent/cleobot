@@ -29,7 +29,7 @@ describe("media store", () => {
 
   beforeAll(async () => {
     snapshotEnv();
-    home = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-test-home-"));
+    home = await fs.mkdtemp(path.join(os.tmpdir(), "cleobot-test-home-"));
     process.env.HOME = home;
     process.env.USERPROFILE = home;
     process.env.CLEOBOT_STATE_DIR = path.join(home, ".cleobot");

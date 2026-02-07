@@ -2,7 +2,7 @@
 read_when:
   - 你想安装或管理进程内 Gateway网关插件
   - 你想调试插件加载失败问题
-summary: "`openclaw plugins` 的 CLI 参考（list、install、enable/disable、doctor）"
+summary: "`cleobot plugins` 的 CLI 参考（list、install、enable/disable、doctor）"
 title: plugins
 x-i18n:
   generated_at: "2026-02-01T20:21:23Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 14
 ---
 
-# `openclaw plugins`
+# `cleobot plugins`
 
 管理 Gateway网关插件/扩展（进程内加载）。
 
@@ -35,7 +35,7 @@ openclaw plugins update <id>
 openclaw plugins update --all
 ```
 
-内置插件随 OpenClaw 一起分发，但默认处于禁用状态。使用 `plugins enable` 来激活它们。
+内置插件随 CleoBot 一起分发，但默认处于禁用状态。使用 `plugins enable` 来激活它们。
 
 所有插件必须附带一个 `openclaw.plugin.json` 文件，其中包含内联 JSON Schema（`configSchema`，即使为空也需要）。缺失或无效的清单或 schema 会导致插件无法加载，并使配置验证失败。
 

@@ -1,19 +1,19 @@
 ---
-summary: "Move (migrate) a OpenClaw install from one machine to another"
+summary: "Move (migrate) a CleoBot install from one machine to another"
 read_when:
-  - You are moving OpenClaw to a new laptop/server
+  - You are moving CleoBot to a new laptop/server
   - You want to preserve sessions, auth, and channel logins (WhatsApp, etc.)
 title: "Migration Guide"
 ---
 
-# Migrating OpenClaw to a new machine
+# Migrating CleoBot to a new machine
 
-This guide migrates a OpenClaw Gateway from one machine to another **without redoing onboarding**.
+This guide migrates a CleoBot Gateway from one machine to another **without redoing onboarding**.
 
 The migration is simple conceptually:
 
-- Copy the **state directory** (`$OPENCLAW_STATE_DIR`, default: `~/.openclaw/`) — this includes config, auth, sessions, and channel state.
-- Copy your **workspace** (`~/.openclaw/workspace/` by default) — this includes your agent files (memory, prompts, etc.).
+- Copy the **state directory** (`$CLEOBOT_STATE_DIR`, default: `~/.cleobot/`) — this includes config, auth, sessions, and channel state.
+- Copy your **workspace** (`~/.cleobot/workspace/` by default) — this includes your agent files (memory, prompts, etc.).
 
 But there are common footguns around **profiles**, **permissions**, and **partial copies**.
 
@@ -23,12 +23,12 @@ But there are common footguns around **profiles**, **permissions**, and **partia
 
 Most installs use the default:
 
-- **State dir:** `~/.openclaw/`
+- **State dir:** `~/.cleobot/`
 
 But it may be different if you use:
 
-- `--profile <name>` (often becomes `~/.openclaw-<profile>/`)
-- `OPENCLAW_STATE_DIR=/some/path`
+- `--profile <name>` (often becomes `~/.cleobot-<profile>/`)
+- `CLEOBOT_STATE_DIR=/some/path`
 
 If you’re not sure, run on the **old** machine:
 
@@ -36,13 +36,13 @@ If you’re not sure, run on the **old** machine:
 openclaw status
 ```
 
-Look for mentions of `OPENCLAW_STATE_DIR` / profile in the output. If you run multiple gateways, repeat for each profile.
+Look for mentions of `CLEOBOT_STATE_DIR` / profile in the output. If you run multiple gateways, repeat for each profile.
 
 ### 2) Identify your workspace
 
 Common defaults:
 
-- `~/.openclaw/workspace/` (recommended workspace)
+- `~/.cleobot/workspace/` (recommended workspace)
 - a custom folder you created
 
 Your workspace is where files like `MEMORY.md`, `USER.md`, and `memory/*.md` live.
@@ -63,7 +63,7 @@ If you copy **only** the workspace (e.g., via Git), you do **not** preserve:
 - credentials
 - channel logins
 
-Those live under `$OPENCLAW_STATE_DIR`.
+Those live under `$CLEOBOT_STATE_DIR`.
 
 ## Migration steps (recommended)
 
@@ -80,27 +80,27 @@ openclaw gateway stop
 ```bash
 # Adjust paths if you use a profile or custom locations
 cd ~
-tar -czf openclaw-state.tgz .openclaw
+tar -czf cleobot-state.tgz .openclaw
 
-tar -czf openclaw-workspace.tgz .openclaw/workspace
+tar -czf cleobot-workspace.tgz .openclaw/workspace
 ```
 
-If you have multiple profiles/state dirs (e.g. `~/.openclaw-main`, `~/.openclaw-work`), archive each.
+If you have multiple profiles/state dirs (e.g. `~/.cleobot-main`, `~/.cleobot-work`), archive each.
 
-### Step 1 — Install OpenClaw on the new machine
+### Step 1 — Install CleoBot on the new machine
 
 On the **new** machine, install the CLI (and Node if needed):
 
 - See: [Install](/install)
 
-At this stage, it’s OK if onboarding creates a fresh `~/.openclaw/` — you will overwrite it in the next step.
+At this stage, it’s OK if onboarding creates a fresh `~/.cleobot/` — you will overwrite it in the next step.
 
 ### Step 2 — Copy the state dir + workspace to the new machine
 
 Copy **both**:
 
-- `$OPENCLAW_STATE_DIR` (default `~/.openclaw/`)
-- your workspace (default `~/.openclaw/workspace/`)
+- `$CLEOBOT_STATE_DIR` (default `~/.cleobot/`)
+- your workspace (default `~/.cleobot/workspace/`)
 
 Common approaches:
 
@@ -134,7 +134,7 @@ openclaw status
 
 ### Footgun: profile / state-dir mismatch
 
-If you ran the old gateway with a profile (or `OPENCLAW_STATE_DIR`), and the new gateway uses a different one, you’ll see symptoms like:
+If you ran the old gateway with a profile (or `CLEOBOT_STATE_DIR`), and the new gateway uses a different one, you’ll see symptoms like:
 
 - config changes not taking effect
 - channels missing / logged out
@@ -150,10 +150,10 @@ openclaw doctor
 
 `openclaw.json` is not enough. Many providers store state under:
 
-- `$OPENCLAW_STATE_DIR/credentials/`
-- `$OPENCLAW_STATE_DIR/agents/<agentId>/...`
+- `$CLEOBOT_STATE_DIR/credentials/`
+- `$CLEOBOT_STATE_DIR/agents/<agentId>/...`
 
-Always migrate the entire `$OPENCLAW_STATE_DIR` folder.
+Always migrate the entire `$CLEOBOT_STATE_DIR` folder.
 
 ### Footgun: permissions / ownership
 
@@ -170,7 +170,7 @@ If you’re in remote mode, migrate the **gateway host**.
 
 ### Footgun: secrets in backups
 
-`$OPENCLAW_STATE_DIR` contains secrets (API keys, OAuth tokens, WhatsApp creds). Treat backups like production secrets:
+`$CLEOBOT_STATE_DIR` contains secrets (API keys, OAuth tokens, WhatsApp creds). Treat backups like production secrets:
 
 - store encrypted
 - avoid sharing over insecure channels
@@ -180,7 +180,7 @@ If you’re in remote mode, migrate the **gateway host**.
 
 On the new machine, confirm:
 
-- `openclaw status` shows the gateway running
+- `cleobot status` shows the gateway running
 - Your channels are still connected (e.g. WhatsApp doesn’t require re-pair)
 - The dashboard opens and shows existing sessions
 - Your workspace files (memory, configs) are present
@@ -189,4 +189,4 @@ On the new machine, confirm:
 
 - [Doctor](/gateway/doctor)
 - [Gateway troubleshooting](/gateway/troubleshooting)
-- [Where does OpenClaw store its data?](/help/faq#where-does-openclaw-store-its-data)
+- [Where does CleoBot store its data?](/help/faq#where-does-cleobot-store-its-data)

@@ -1,7 +1,7 @@
 import type {
   ChannelOnboardingAdapter,
   ChannelOnboardingDmPolicy,
-  OpenClawConfig,
+  CleoBotConfig,
   WizardPrompter,
 } from "openclaw/plugin-sdk";
 import {
@@ -23,9 +23,9 @@ import { runZca, runZcaInteractive, checkZcaInstalled, parseJsonOutput } from ".
 const channel = "zalouser" as const;
 
 function setZalouserDmPolicy(
-  cfg: OpenClawConfig,
+  cfg: CleoBotConfig,
   dmPolicy: "pairing" | "allowlist" | "open" | "disabled",
-): OpenClawConfig {
+): CleoBotConfig {
   const allowFrom =
     dmPolicy === "open" ? addWildcardAllowFrom(cfg.channels?.zalouser?.allowFrom) : undefined;
   return {
@@ -38,7 +38,7 @@ function setZalouserDmPolicy(
         ...(allowFrom ? { allowFrom } : {}),
       },
     },
-  } as OpenClawConfig;
+  } as CleoBotConfig;
 }
 
 async function noteZalouserHelp(prompter: WizardPrompter): Promise<void> {
@@ -57,10 +57,10 @@ async function noteZalouserHelp(prompter: WizardPrompter): Promise<void> {
 }
 
 async function promptZalouserAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: CleoBotConfig;
   prompter: WizardPrompter;
   accountId: string;
-}): Promise<OpenClawConfig> {
+}): Promise<CleoBotConfig> {
   const { cfg, prompter, accountId } = params;
   const resolved = resolveZalouserAccountSync({ cfg, accountId });
   const existingAllowFrom = resolved.config.allowFrom ?? [];
@@ -138,7 +138,7 @@ async function promptZalouserAllowFrom(params: {
             allowFrom: unique,
           },
         },
-      } as OpenClawConfig;
+      } as CleoBotConfig;
     }
 
     return {
@@ -159,15 +159,15 @@ async function promptZalouserAllowFrom(params: {
           },
         },
       },
-    } as OpenClawConfig;
+    } as CleoBotConfig;
   }
 }
 
 function setZalouserGroupPolicy(
-  cfg: OpenClawConfig,
+  cfg: CleoBotConfig,
   accountId: string,
   groupPolicy: "open" | "allowlist" | "disabled",
-): OpenClawConfig {
+): CleoBotConfig {
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
       ...cfg,
@@ -179,7 +179,7 @@ function setZalouserGroupPolicy(
           groupPolicy,
         },
       },
-    } as OpenClawConfig;
+    } as CleoBotConfig;
   }
   return {
     ...cfg,
@@ -198,14 +198,14 @@ function setZalouserGroupPolicy(
         },
       },
     },
-  } as OpenClawConfig;
+  } as CleoBotConfig;
 }
 
 function setZalouserGroupAllowlist(
-  cfg: OpenClawConfig,
+  cfg: CleoBotConfig,
   accountId: string,
   groupKeys: string[],
-): OpenClawConfig {
+): CleoBotConfig {
   const groups = Object.fromEntries(groupKeys.map((key) => [key, { allow: true }]));
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
@@ -218,7 +218,7 @@ function setZalouserGroupAllowlist(
           groups,
         },
       },
-    } as OpenClawConfig;
+    } as CleoBotConfig;
   }
   return {
     ...cfg,
@@ -237,11 +237,11 @@ function setZalouserGroupAllowlist(
         },
       },
     },
-  } as OpenClawConfig;
+  } as CleoBotConfig;
 }
 
 async function resolveZalouserGroups(params: {
-  cfg: OpenClawConfig;
+  cfg: CleoBotConfig;
   accountId: string;
   entries: string[];
 }): Promise<Array<{ input: string; resolved: boolean; id?: string }>> {
@@ -417,7 +417,7 @@ export const zalouserOnboardingAdapter: ChannelOnboardingAdapter = {
             profile: account.profile !== "default" ? account.profile : undefined,
           },
         },
-      } as OpenClawConfig;
+      } as CleoBotConfig;
     } else {
       next = {
         ...next,
@@ -436,7 +436,7 @@ export const zalouserOnboardingAdapter: ChannelOnboardingAdapter = {
             },
           },
         },
-      } as OpenClawConfig;
+      } as CleoBotConfig;
     }
 
     if (forceAllowFrom) {

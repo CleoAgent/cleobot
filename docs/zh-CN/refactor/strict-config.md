@@ -55,8 +55,8 @@ x-i18n:
 - 每次加载配置时都会运行 Doctor（默认 dry-run 模式）。
 - 如果配置无效：
   - 打印摘要 + 可操作的错误信息。
-  - 提示：`openclaw doctor --fix`。
-- `openclaw doctor --fix`：
+  - 提示：`cleobot doctor --fix`。
+- `cleobot doctor --fix`：
   - 应用迁移。
   - 移除未知键。
   - 写入更新后的配置。
@@ -65,14 +65,14 @@ x-i18n:
 
 允许执行（仅限诊断命令）：
 
-- `openclaw doctor`
-- `openclaw logs`
-- `openclaw health`
-- `openclaw help`
-- `openclaw status`
-- `openclaw gateway status`
+- `cleobot doctor`
+- `cleobot logs`
+- `cleobot health`
+- `cleobot help`
+- `cleobot status`
+- `cleobot gateway status`
 
-其他所有命令必须直接失败并提示："Config invalid. Run `openclaw doctor --fix`."
+其他所有命令必须直接失败并提示："Config invalid. Run `cleobot doctor --fix`."
 
 ## 错误用户体验格式
 

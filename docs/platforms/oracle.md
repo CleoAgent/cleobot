@@ -1,19 +1,19 @@
 ---
-summary: "OpenClaw on Oracle Cloud (Always Free ARM)"
+summary: "CleoBot on Oracle Cloud (Always Free ARM)"
 read_when:
-  - Setting up OpenClaw on Oracle Cloud
-  - Looking for low-cost VPS hosting for OpenClaw
-  - Want 24/7 OpenClaw on a small server
+  - Setting up CleoBot on Oracle Cloud
+  - Looking for low-cost VPS hosting for CleoBot
+  - Want 24/7 CleoBot on a small server
 title: "Oracle Cloud"
 ---
 
-# OpenClaw on Oracle Cloud (OCI)
+# CleoBot on Oracle Cloud (OCI)
 
 ## Goal
 
-Run a persistent OpenClaw Gateway on Oracle Cloud's **Always Free** ARM tier.
+Run a persistent CleoBot Gateway on Oracle Cloud's **Always Free** ARM tier.
 
-Oracle’s free tier can be a great fit for OpenClaw (especially if you already have an OCI account), but it comes with tradeoffs:
+Oracle’s free tier can be a great fit for CleoBot (especially if you already have an OCI account), but it comes with tradeoffs:
 
 - ARM architecture (most things work, but some binaries may be x86-only)
 - Capacity and signup can be finicky
@@ -96,7 +96,7 @@ tailscale status
 
 **From now on, connect via Tailscale:** `ssh ubuntu@openclaw` (or use the Tailscale IP).
 
-## 5) Install OpenClaw
+## 5) Install CleoBot
 
 ```bash
 curl -fsSL https://openclaw.ai/install.sh | bash
@@ -123,7 +123,7 @@ openclaw doctor --generate-gateway-token
 openclaw config set gateway.tailscale.mode serve
 openclaw config set gateway.trustedProxies '["127.0.0.1"]'
 
-systemctl --user restart openclaw-gateway
+systemctl --user restart cleobot-gateway
 ```
 
 ## 7) Verify
@@ -133,7 +133,7 @@ systemctl --user restart openclaw-gateway
 openclaw --version
 
 # Check daemon status
-systemctl --user status openclaw-gateway
+systemctl --user status cleobot-gateway
 
 # Check Tailscale Serve
 tailscale serve status
@@ -178,7 +178,7 @@ No SSH tunnel needed. Tailscale provides:
 
 With the VCN locked down (only UDP 41641 open) and the Gateway bound to loopback, you get strong defense-in-depth: public traffic is blocked at the network edge, and admin access happens over your tailnet.
 
-This setup often removes the _need_ for extra host-based firewall rules purely to stop Internet-wide SSH brute force — but you should still keep the OS updated, run `openclaw security audit`, and verify you aren’t accidentally listening on public interfaces.
+This setup often removes the _need_ for extra host-based firewall rules purely to stop Internet-wide SSH brute force — but you should still keep the OS updated, run `cleobot security audit`, and verify you aren’t accidentally listening on public interfaces.
 
 ### What's Already Protected
 
@@ -194,7 +194,7 @@ This setup often removes the _need_ for extra host-based firewall rules purely t
 ### Still Recommended
 
 - **Credential permissions:** `chmod 700 ~/.openclaw`
-- **Security audit:** `openclaw security audit`
+- **Security audit:** `cleobot security audit`
 - **System updates:** `sudo apt update && sudo apt upgrade` regularly
 - **Monitor Tailscale:** Review devices in [Tailscale admin console](https://login.tailscale.com/admin)
 
@@ -251,7 +251,7 @@ sudo tailscale up --ssh --hostname=openclaw --reset
 ```bash
 openclaw gateway status
 openclaw doctor --non-interactive
-journalctl --user -u openclaw-gateway -n 50
+journalctl --user -u cleobot-gateway -n 50
 ```
 
 ### Can't reach Control UI
@@ -264,7 +264,7 @@ tailscale serve status
 curl http://localhost:18789
 
 # Restart if needed
-systemctl --user restart openclaw-gateway
+systemctl --user restart cleobot-gateway
 ```
 
 ### ARM binary issues
@@ -289,7 +289,7 @@ All state lives in:
 Back up periodically:
 
 ```bash
-tar -czvf openclaw-backup.tar.gz ~/.openclaw ~/.openclaw/workspace
+tar -czvf cleobot-backup.tar.gz ~/.openclaw ~/.openclaw/workspace
 ```
 
 ---

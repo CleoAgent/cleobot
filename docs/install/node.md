@@ -2,14 +2,14 @@
 title: "Node.js + npm (PATH sanity)"
 summary: "Node.js + npm install sanity: versions, PATH, and global installs"
 read_when:
-  - "You installed OpenClaw but `openclaw` is “command not found”"
+  - "You installed CleoBot but `openclaw` is “command not found”"
   - "You’re setting up Node.js/npm on a new machine"
   - "npm install -g ... fails with permissions or PATH issues"
 ---
 
 # Node.js + npm (PATH sanity)
 
-OpenClaw’s runtime baseline is **Node 22+**.
+CleoBot’s runtime baseline is **Node 22+**.
 
 If you can run `npm install -g openclaw@latest` but later see `openclaw: command not found`, it’s almost always a **PATH** issue: the directory where npm puts global binaries isn’t on your shell’s PATH.
 

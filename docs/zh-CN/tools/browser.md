@@ -1,10 +1,10 @@
 ---
 read_when:
   - 添加智能体控制的浏览器自动化
-  - 调试 openclaw 为何干扰了你自己的 Chrome
+  - 调试 cleobot 为何干扰了你自己的 Chrome
   - 在 macOS 应用中实现浏览器设置 + 生命周期
 summary: 集成浏览器控制服务 + 操作命令
-title: 浏览器（OpenClaw 托管）
+title: 浏览器（CleoBot 托管）
 x-i18n:
   generated_at: "2026-02-01T21:42:00Z"
   model: claude-opus-4-5
@@ -16,7 +16,7 @@ x-i18n:
 
 # 浏览器（openclaw 托管）
 
-OpenClaw 可以运行一个由智能体控制的**专用 Chrome/Brave/Edge/Chromium 配置文件**。
+CleoBot 可以运行一个由智能体控制的**专用 Chrome/Brave/Edge/Chromium 配置文件**。
 它与你的个人浏览器隔离，通过 Gateway网关内部的一个小型本地控制服务进行管理（仅限 local loopback）。
 
 初学者视角：
@@ -38,10 +38,10 @@ OpenClaw 可以运行一个由智能体控制的**专用 Chrome/Brave/Edge/Chrom
 ## 快速开始
 
 ```bash
-openclaw browser --browser-profile openclaw status
-openclaw browser --browser-profile openclaw start
-openclaw browser --browser-profile openclaw open https://example.com
-openclaw browser --browser-profile openclaw snapshot
+openclaw browser --browser-profile cleobot status
+openclaw browser --browser-profile cleobot start
+openclaw browser --browser-profile cleobot open https://example.com
+openclaw browser --browser-profile cleobot snapshot
 ```
 
 如果出现 "Browser disabled"，请在配置中启用它（见下文）并重启 Gateway网关。
@@ -49,13 +49,13 @@ openclaw browser --browser-profile openclaw snapshot
 ## 配置文件：`openclaw` 与 `chrome`
 
 - `openclaw`：托管的隔离浏览器（无需扩展）。
-- `chrome`：通过本地中继连接到你的**系统浏览器**的扩展中继（需要将 OpenClaw 扩展附加到标签页）。
+- `chrome`：通过本地中继连接到你的**系统浏览器**的扩展中继（需要将 CleoBot 扩展附加到标签页）。
 
 如果你希望默认使用托管模式，请设置 `browser.defaultProfile: "openclaw"`。
 
 ## 配置
 
-浏览器设置位于 `~/.openclaw/openclaw.json`。
+浏览器设置位于 `~/.cleobot/openclaw.json`。
 
 ```json5
 {
@@ -82,7 +82,7 @@ openclaw browser --browser-profile openclaw snapshot
 说明：
 
 - 浏览器控制服务绑定到 local loopback 的端口，该端口由 `gateway.port` 派生（默认值：`18791`，即 gateway + 2）。中继使用下一个端口（`18792`）。
-- 如果你覆盖了 Gateway网关端口（`gateway.port` 或 `OPENCLAW_GATEWAY_PORT`），派生的浏览器端口会相应偏移以保持在同一"族"内。
+- 如果你覆盖了 Gateway网关端口（`gateway.port` 或 `CLEOBOT_GATEWAY_PORT`），派生的浏览器端口会相应偏移以保持在同一"族"内。
 - `cdpUrl` 未设置时默认为中继端口。
 - `remoteCdpTimeoutMs` 适用于远程（非 local loopback）CDP 可达性检查。
 - `remoteCdpHandshakeTimeoutMs` 适用于远程 CDP WebSocket 可达性检查。
@@ -94,7 +94,7 @@ openclaw browser --browser-profile openclaw snapshot
 
 ## 使用 Brave（或其他基于 Chromium 的浏览器）
 
-如果你的**系统默认**浏览器是基于 Chromium 的（Chrome/Brave/Edge 等），OpenClaw 会自动使用它。设置 `browser.executablePath` 来覆盖自动检测：
+如果你的**系统默认**浏览器是基于 Chromium 的（Chrome/Brave/Edge 等），CleoBot 会自动使用它。设置 `browser.executablePath` 来覆盖自动检测：
 
 CLI 示例：
 
@@ -129,18 +129,18 @@ openclaw config set browser.executablePath "/usr/bin/google-chrome"
 
 - **本地控制（默认）：** Gateway网关启动 local loopback 控制服务，并可启动本地浏览器。
 - **远程控制（节点主机）：** 在拥有浏览器的机器上运行节点主机；Gateway网关将浏览器操作代理到该节点。
-- **远程 CDP：** 设置 `browser.profiles.<name>.cdpUrl`（或 `browser.cdpUrl`）以附加到远程基于 Chromium 的浏览器。在这种情况下，OpenClaw 不会启动本地浏览器。
+- **远程 CDP：** 设置 `browser.profiles.<name>.cdpUrl`（或 `browser.cdpUrl`）以附加到远程基于 Chromium 的浏览器。在这种情况下，CleoBot 不会启动本地浏览器。
 
 远程 CDP URL 可以包含认证信息：
 
 - 查询令牌（例如 `https://provider.example?token=<token>`）
 - HTTP Basic 认证（例如 `https://user:pass@provider.example`）
 
-OpenClaw 在调用 `/json/*` 端点和连接 CDP WebSocket 时会保留认证信息。建议使用环境变量或密钥管理器存储令牌，而不是将其提交到配置文件中。
+CleoBot 在调用 `/json/*` 端点和连接 CDP WebSocket 时会保留认证信息。建议使用环境变量或密钥管理器存储令牌，而不是将其提交到配置文件中。
 
 ## 节点浏览器代理（零配置默认）
 
-如果你在拥有浏览器的机器上运行了**节点主机**，OpenClaw 可以自动将浏览器工具调用路由到该节点，无需额外的浏览器配置。这是远程 Gateway网关的默认路径。
+如果你在拥有浏览器的机器上运行了**节点主机**，CleoBot 可以自动将浏览器工具调用路由到该节点，无需额外的浏览器配置。这是远程 Gateway网关的默认路径。
 
 说明：
 
@@ -152,7 +152,7 @@ OpenClaw 在调用 `/json/*` 端点和连接 CDP WebSocket 时会保留认证信
 
 ## Browserless（托管远程 CDP）
 
-[Browserless](https://browserless.io) 是一个托管的 Chromium 服务，通过 HTTPS 暴露 CDP 端点。你可以将 OpenClaw 浏览器配置文件指向 Browserless 的区域端点，并使用 API 密钥进行认证。
+[Browserless](https://browserless.io) 是一个托管的 Chromium 服务，通过 HTTPS 暴露 CDP 端点。你可以将 CleoBot 浏览器配置文件指向 Browserless 的区域端点，并使用 API 密钥进行认证。
 
 示例：
 
@@ -193,7 +193,7 @@ OpenClaw 在调用 `/json/*` 端点和连接 CDP WebSocket 时会保留认证信
 
 ## 配置文件（多浏览器）
 
-OpenClaw 支持多个命名配置文件（路由配置）。配置文件可以是：
+CleoBot 支持多个命名配置文件（路由配置）。配置文件可以是：
 
 - **openclaw 托管**：专用的基于 Chromium 的浏览器实例，拥有独立的用户数据目录 + CDP 端口
 - **远程**：显式的 CDP URL（在其他地方运行的基于 Chromium 的浏览器）
@@ -210,7 +210,7 @@ OpenClaw 支持多个命名配置文件（路由配置）。配置文件可以�
 
 ## Chrome 扩展中继（使用你现有的 Chrome）
 
-OpenClaw 也可以通过本地 CDP 中继 + Chrome 扩展驱动**你现有的 Chrome 标签页**（无需单独的 "openclaw" Chrome 实例）。
+CleoBot 也可以通过本地 CDP 中继 + Chrome 扩展驱动**你现有的 Chrome 标签页**（无需单独的 "openclaw" Chrome 实例）。
 
 完整指南：[Chrome 扩展](/tools/chrome-extension)
 
@@ -218,7 +218,7 @@ OpenClaw 也可以通过本地 CDP 中继 + Chrome 扩展驱动**你现有的 Ch
 
 - Gateway网关在本地运行（同一台机器）或节点主机在浏览器所在机器上运行。
 - 本地**中继服务器**在 local loopback `cdpUrl` 上监听（默认：`http://127.0.0.1:18792`）。
-- 你点击标签页上的 **OpenClaw Browser Relay** 扩展图标以附加（不会自动附加）。
+- 你点击标签页上的 **CleoBot Browser Relay** 扩展图标以附加（不会自动附加）。
 - 智能体通过普通的 `browser` 工具控制该标签页，选择正确的配置文件即可。
 
 如果 Gateway网关在其他地方运行，请在浏览器所在机器上运行节点主机，以便 Gateway网关可以代理浏览器操作。
@@ -240,12 +240,12 @@ openclaw browser extension install
 ```
 
 - Chrome → `chrome://extensions` → 启用"开发者模式"
-- "加载已解压的扩展程序" → 选择 `openclaw browser extension path` 输出的目录
+- "加载已解压的扩展程序" → 选择 `cleobot browser extension path` 输出的目录
 - 固定该扩展，然后在你想要控制的标签页上点击它（徽章显示 `ON`）。
 
 2. 使用：
 
-- CLI：`openclaw browser --browser-profile chrome tabs`
+- CLI：`cleobot browser --browser-profile chrome tabs`
 - 智能体工具：`browser`，设置 `profile="chrome"`
 
 可选：如果你想使用不同的名称或中继端口，创建自己的配置文件：
@@ -271,7 +271,7 @@ openclaw browser create-profile \
 
 ## 浏览器选择
 
-在本地启动时，OpenClaw 按以下顺序选择第一个可用的：
+在本地启动时，CleoBot 按以下顺序选择第一个可用的：
 
 1. Chrome
 2. Brave
@@ -308,9 +308,9 @@ openclaw browser create-profile \
 
 ### Playwright 要求
 
-部分功能（导航/操作/AI 快照/角色快照、元素截图、PDF）需要 Playwright。如果未安装 Playwright，这些端点会返回明确的 501 错误。ARIA 快照和基本截图在 openclaw 托管的 Chrome 上仍然可用。对于 Chrome 扩展中继驱动，ARIA 快照和截图需要 Playwright。
+部分功能（导航/操作/AI 快照/角色快照、元素截图、PDF）需要 Playwright。如果未安装 Playwright，这些端点会返回明确的 501 错误。ARIA 快照和基本截图在 cleobot 托管的 Chrome 上仍然可用。对于 Chrome 扩展中继驱动，ARIA 快照和截图需要 Playwright。
 
-如果你看到 `Playwright is not available in this gateway build`，请安装完整的 Playwright 包（而非 `playwright-core`）并重启 Gateway网关，或者重新安装带浏览器支持的 OpenClaw。
+如果你看到 `Playwright is not available in this gateway build`，请安装完整的 Playwright 包（而非 `playwright-core`）并重启 Gateway网关，或者重新安装带浏览器支持的 CleoBot。
 
 ## 工作原理（内部）
 
@@ -330,79 +330,79 @@ openclaw browser create-profile \
 
 基础操作：
 
-- `openclaw browser status`
-- `openclaw browser start`
-- `openclaw browser stop`
-- `openclaw browser tabs`
-- `openclaw browser tab`
-- `openclaw browser tab new`
-- `openclaw browser tab select 2`
-- `openclaw browser tab close 2`
-- `openclaw browser open https://example.com`
-- `openclaw browser focus abcd1234`
-- `openclaw browser close abcd1234`
+- `cleobot browser status`
+- `cleobot browser start`
+- `cleobot browser stop`
+- `cleobot browser tabs`
+- `cleobot browser tab`
+- `cleobot browser tab new`
+- `cleobot browser tab select 2`
+- `cleobot browser tab close 2`
+- `cleobot browser open https://example.com`
+- `cleobot browser focus abcd1234`
+- `cleobot browser close abcd1234`
 
 检查：
 
-- `openclaw browser screenshot`
-- `openclaw browser screenshot --full-page`
-- `openclaw browser screenshot --ref 12`
-- `openclaw browser screenshot --ref e12`
-- `openclaw browser snapshot`
-- `openclaw browser snapshot --format aria --limit 200`
-- `openclaw browser snapshot --interactive --compact --depth 6`
-- `openclaw browser snapshot --efficient`
-- `openclaw browser snapshot --labels`
-- `openclaw browser snapshot --selector "#main" --interactive`
-- `openclaw browser snapshot --frame "iframe#main" --interactive`
-- `openclaw browser console --level error`
-- `openclaw browser errors --clear`
-- `openclaw browser requests --filter api --clear`
-- `openclaw browser pdf`
-- `openclaw browser responsebody "**/api" --max-chars 5000`
+- `cleobot browser screenshot`
+- `cleobot browser screenshot --full-page`
+- `cleobot browser screenshot --ref 12`
+- `cleobot browser screenshot --ref e12`
+- `cleobot browser snapshot`
+- `cleobot browser snapshot --format aria --limit 200`
+- `cleobot browser snapshot --interactive --compact --depth 6`
+- `cleobot browser snapshot --efficient`
+- `cleobot browser snapshot --labels`
+- `cleobot browser snapshot --selector "#main" --interactive`
+- `cleobot browser snapshot --frame "iframe#main" --interactive`
+- `cleobot browser console --level error`
+- `cleobot browser errors --clear`
+- `cleobot browser requests --filter api --clear`
+- `cleobot browser pdf`
+- `cleobot browser responsebody "**/api" --max-chars 5000`
 
 操作：
 
-- `openclaw browser navigate https://example.com`
-- `openclaw browser resize 1280 720`
-- `openclaw browser click 12 --double`
-- `openclaw browser click e12 --double`
-- `openclaw browser type 23 "hello" --submit`
-- `openclaw browser press Enter`
-- `openclaw browser hover 44`
-- `openclaw browser scrollintoview e12`
-- `openclaw browser drag 10 11`
-- `openclaw browser select 9 OptionA OptionB`
-- `openclaw browser download e12 /tmp/report.pdf`
-- `openclaw browser waitfordownload /tmp/report.pdf`
-- `openclaw browser upload /tmp/file.pdf`
-- `openclaw browser fill --fields '[{"ref":"1","type":"text","value":"Ada"}]'`
-- `openclaw browser dialog --accept`
-- `openclaw browser wait --text "Done"`
-- `openclaw browser wait "#main" --url "**/dash" --load networkidle --fn "window.ready===true"`
-- `openclaw browser evaluate --fn '(el) => el.textContent' --ref 7`
-- `openclaw browser highlight e12`
-- `openclaw browser trace start`
-- `openclaw browser trace stop`
+- `cleobot browser navigate https://example.com`
+- `cleobot browser resize 1280 720`
+- `cleobot browser click 12 --double`
+- `cleobot browser click e12 --double`
+- `cleobot browser type 23 "hello" --submit`
+- `cleobot browser press Enter`
+- `cleobot browser hover 44`
+- `cleobot browser scrollintoview e12`
+- `cleobot browser drag 10 11`
+- `cleobot browser select 9 OptionA OptionB`
+- `cleobot browser download e12 /tmp/report.pdf`
+- `cleobot browser waitfordownload /tmp/report.pdf`
+- `cleobot browser upload /tmp/file.pdf`
+- `cleobot browser fill --fields '[{"ref":"1","type":"text","value":"Ada"}]'`
+- `cleobot browser dialog --accept`
+- `cleobot browser wait --text "Done"`
+- `cleobot browser wait "#main" --url "**/dash" --load networkidle --fn "window.ready===true"`
+- `cleobot browser evaluate --fn '(el) => el.textContent' --ref 7`
+- `cleobot browser highlight e12`
+- `cleobot browser trace start`
+- `cleobot browser trace stop`
 
 状态：
 
-- `openclaw browser cookies`
-- `openclaw browser cookies set session abc123 --url "https://example.com"`
-- `openclaw browser cookies clear`
-- `openclaw browser storage local get`
-- `openclaw browser storage local set theme dark`
-- `openclaw browser storage session clear`
-- `openclaw browser set offline on`
-- `openclaw browser set headers --json '{"X-Debug":"1"}'`
-- `openclaw browser set credentials user pass`
-- `openclaw browser set credentials --clear`
-- `openclaw browser set geo 37.7749 -122.4194 --origin "https://example.com"`
-- `openclaw browser set geo --clear`
-- `openclaw browser set media dark`
-- `openclaw browser set timezone America/New_York`
-- `openclaw browser set locale en-US`
-- `openclaw browser set device "iPhone 14"`
+- `cleobot browser cookies`
+- `cleobot browser cookies set session abc123 --url "https://example.com"`
+- `cleobot browser cookies clear`
+- `cleobot browser storage local get`
+- `cleobot browser storage local set theme dark`
+- `cleobot browser storage session clear`
+- `cleobot browser set offline on`
+- `cleobot browser set headers --json '{"X-Debug":"1"}'`
+- `cleobot browser set credentials user pass`
+- `cleobot browser set credentials --clear`
+- `cleobot browser set geo 37.7749 -122.4194 --origin "https://example.com"`
+- `cleobot browser set geo --clear`
+- `cleobot browser set media dark`
+- `cleobot browser set timezone America/New_York`
+- `cleobot browser set locale en-US`
+- `cleobot browser set device "iPhone 14"`
 
 说明：
 
@@ -412,7 +412,7 @@ openclaw browser create-profile \
   - `--format ai`（安装 Playwright 时的默认值）：返回带有数字引用（`aria-ref="<n>"`）的 AI 快照。
   - `--format aria`：返回无障碍树（无引用；仅供检查）。
   - `--efficient`（或 `--mode efficient`）：紧凑角色快照预设（交互式 + 紧凑 + 深度 + 更低的 maxChars）。
-  - 配置默认值（仅限工具/CLI）：设置 `browser.snapshotDefaults.mode: "efficient"` 以在调用者未传递模式时使用高效快照（参见 [Gateway网关配置](/gateway/configuration#browser-openclaw-managed-browser)）。
+  - 配置默认值（仅限工具/CLI）：设置 `browser.snapshotDefaults.mode: "efficient"` 以在调用者未传递模式时使用高效快照（参见 [Gateway网关配置](/gateway/configuration#browser-cleobot-managed-browser)）。
   - 角色快照选项（`--interactive`、`--compact`、`--depth`、`--selector`）强制使用基于角色的快照，引用格式如 `ref=e12`。
   - `--frame "<iframe 选择器>"` 将角色快照限定在 iframe 范围内（配合角色引用如 `e12` 使用）。
   - `--interactive` 输出扁平的、易于选取的交互式元素列表（最适合驱动操作）。
@@ -422,16 +422,16 @@ openclaw browser create-profile \
 
 ## 快照和引用
 
-OpenClaw 支持两种"快照"风格：
+CleoBot 支持两种"快照"风格：
 
-- **AI 快照（数字引用）**：`openclaw browser snapshot`（默认；`--format ai`）
+- **AI 快照（数字引用）**：`cleobot browser snapshot`（默认；`--format ai`）
   - 输出：包含数字引用的文本快照。
-  - 操作：`openclaw browser click 12`、`openclaw browser type 23 "hello"`。
+  - 操作：`cleobot browser click 12`、`cleobot browser type 23 "hello"`。
   - 内部通过 Playwright 的 `aria-ref` 解析引用。
 
-- **角色快照（角色引用如 `e12`）**：`openclaw browser snapshot --interactive`（或 `--compact`、`--depth`、`--selector`、`--frame`）
+- **角色快照（角色引用如 `e12`）**：`cleobot browser snapshot --interactive`（或 `--compact`、`--depth`、`--selector`、`--frame`）
   - 输出：带有 `[ref=e12]`（以及可选的 `[nth=1]`）的基于角色的列表/树。
-  - 操作：`openclaw browser click e12`、`openclaw browser highlight e12`。
+  - 操作：`cleobot browser click e12`、`cleobot browser highlight e12`。
   - 内部通过 `getByRole(...)` 解析引用（重复时加上 `nth()`）。
   - 添加 `--labels` 可包含带有叠加 `e12` 标签的视口截图。
 
@@ -445,13 +445,13 @@ OpenClaw 支持两种"快照"风格：
 你可以等待的不仅仅是时间/文本：
 
 - 等待 URL（Playwright 支持通配符）：
-  - `openclaw browser wait --url "**/dash"`
+  - `cleobot browser wait --url "**/dash"`
 - 等待加载状态：
-  - `openclaw browser wait --load networkidle`
+  - `cleobot browser wait --load networkidle`
 - 等待 JS 谓词：
-  - `openclaw browser wait --fn "window.ready===true"`
+  - `cleobot browser wait --fn "window.ready===true"`
 - 等待选择器变为可见：
-  - `openclaw browser wait "#main"`
+  - `cleobot browser wait "#main"`
 
 这些可以组合使用：
 
@@ -467,16 +467,16 @@ openclaw browser wait "#main" \
 
 当操作失败时（例如 "not visible"、"strict mode violation"、"covered"）：
 
-1. `openclaw browser snapshot --interactive`
+1. `cleobot browser snapshot --interactive`
 2. 使用 `click <ref>` / `type <ref>`（在交互模式下优先使用角色引用）
-3. 如果仍然失败：`openclaw browser highlight <ref>` 查看 Playwright 的定位目标
+3. 如果仍然失败：`cleobot browser highlight <ref>` 查看 Playwright 的定位目标
 4. 如果页面行为异常：
-   - `openclaw browser errors --clear`
-   - `openclaw browser requests --filter api --clear`
+   - `cleobot browser errors --clear`
+   - `cleobot browser requests --filter api --clear`
 5. 深度调试：录制追踪：
-   - `openclaw browser trace start`
+   - `cleobot browser trace start`
    - 重现问题
-   - `openclaw browser trace stop`（输出 `TRACE:<path>`）
+   - `cleobot browser trace stop`（输出 `TRACE:<path>`）
 
 ## JSON 输出
 
@@ -511,8 +511,8 @@ JSON 格式的角色快照包含 `refs` 以及一个小型 `stats` 块（行数/
 
 ## 安全与隐私
 
-- openclaw 浏览器配置文件可能包含已登录的会话；请将其视为敏感数据。
-- `browser act kind=evaluate` / `openclaw browser evaluate` 和 `wait --fn` 在页面上下文中执行任意 JavaScript。提示注入可能操纵此功能。如果不需要，请通过 `browser.evaluateEnabled=false` 禁用。
+- cleobot 浏览器配置文件可能包含已登录的会话；请将其视为敏感数据。
+- `browser act kind=evaluate` / `cleobot browser evaluate` 和 `wait --fn` 在页面上下文中执行任意 JavaScript。提示注入可能操纵此功能。如果不需要，请通过 `browser.evaluateEnabled=false` 禁用。
 - 有关登录和反机器人注意事项（X/Twitter 等），请参阅[浏览器登录 + X/Twitter 发帖](/tools/browser-login)。
 - 保持 Gateway网关/节点主机为私有（仅限 local loopback 或 tailnet）。
 - 远程 CDP 端点功能强大；请通过隧道保护它们。

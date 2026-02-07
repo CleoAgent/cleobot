@@ -79,7 +79,7 @@ describe("gateway SIGTERM", () => {
   });
 
   it("exits 0 on SIGTERM", { timeout: 180_000 }, async () => {
-    const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-gateway-test-"));
+    const stateDir = fs.mkdtemp(path.join(os.tmpdir(), "cleobot-gateway-test-"));
     const out: string[] = [];
     const err: string[] = [];
 

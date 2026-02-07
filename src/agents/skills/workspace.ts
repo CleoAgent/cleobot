@@ -136,7 +136,7 @@ function loadSkillEntries(
   const bundledSkills = bundledSkillsDir
     ? loadSkills({
         dir: bundledSkillsDir,
-        source: "openclaw-bundled",
+        source: "cleobot-bundled",
       })
     : [];
   const extraSkills = mergedExtraDirs.flatMap((dir) => {
@@ -148,11 +148,11 @@ function loadSkillEntries(
   });
   const managedSkills = loadSkills({
     dir: managedSkillsDir,
-    source: "openclaw-managed",
+    source: "cleobot-managed",
   });
   const workspaceSkills = loadSkills({
     dir: workspaceSkillsDir,
-    source: "openclaw-workspace",
+    source: "cleobot-workspace",
   });
 
   const merged = new Map<string, Skill>();
