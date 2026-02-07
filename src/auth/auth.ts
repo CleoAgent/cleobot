@@ -146,6 +146,46 @@ export async function getSession(cookies: string) {
   return authInstance.api.getSession({ headers: { cookie: cookies } });
 }
 
+// Direct session validation by token (for our custom cleobot_session cookie)
+export function getSessionByToken(
+  token: string,
+): { user: { id: string; name: string; email: string } } | null {
+  try {
+    const session = db
+      .prepare(`
+      SELECT s.id, s.userId, s.expiresAt, u.id as uId, u.name, u.email
+      FROM session s
+      JOIN user u ON s.userId = u.id
+      WHERE s.token = ? AND s.expiresAt > ?
+    `)
+      .get(token, Date.now()) as
+      | {
+          id: string;
+          userId: string;
+          expiresAt: number;
+          uId: string;
+          name: string;
+          email: string;
+        }
+      | undefined;
+
+    if (!session) {
+      return null;
+    }
+
+    return {
+      user: {
+        id: session.userId,
+        name: session.name,
+        email: session.email,
+      },
+    };
+  } catch (error) {
+    console.error("[Better-Auth] getSessionByToken error:", error);
+    return null;
+  }
+}
+
 // API Key functions
 export function generateApiKey(
   userId: string,

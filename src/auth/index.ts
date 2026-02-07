@@ -6,6 +6,7 @@ export {
   signInEmail,
   signUpEmail,
   getSession,
+  getSessionByToken,
   generateApiKey,
   validateApiKey,
   listApiKeys,

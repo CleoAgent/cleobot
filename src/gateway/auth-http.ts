@@ -6,7 +6,7 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import {
   signInEmail,
-  getSession,
+  getSessionByToken,
   isFirstRun,
   createFirstAdmin,
   validateApiKey,
@@ -153,15 +153,11 @@ export async function handleAuthHttpRequest(
           return true;
         }
 
-        try {
-          const session = await getSession(cookies);
+        const session = getSessionByToken(sessionMatch[1]);
 
-          if (session?.user) {
-            sendJson(res, 200, { user: session.user });
-          } else {
-            sendJson(res, 401, { error: "Invalid session" });
-          }
-        } catch {
+        if (session?.user) {
+          sendJson(res, 200, { user: session.user });
+        } else {
           sendJson(res, 401, { error: "Invalid session" });
         }
         return true;
@@ -181,11 +177,11 @@ export async function handleAuthHttpRequest(
  * Authenticate an HTTP request
  * Checks API key, session cookie, or legacy token
  */
-export async function authenticateRequest(req: IncomingMessage): Promise<{
+export function authenticateRequest(req: IncomingMessage): {
   authenticated: boolean;
   userId?: string;
   method?: "api-key" | "session" | "legacy-token";
-}> {
+} {
   // Check Authorization header for API key
   const authHeader = req.headers.authorization;
   if (authHeader?.startsWith("Bearer ")) {
@@ -215,13 +211,9 @@ export async function authenticateRequest(req: IncomingMessage): Promise<{
   const cookies = req.headers.cookie ?? "";
   const sessionMatch = cookies.match(/cleobot_session=([^;]+)/);
   if (sessionMatch) {
-    try {
-      const session = await getSession(cookies);
-      if (session?.user) {
-        return { authenticated: true, userId: session.user.id, method: "session" };
-      }
-    } catch {
-      // Session invalid
+    const session = getSessionByToken(sessionMatch[1]);
+    if (session?.user) {
+      return { authenticated: true, userId: session.user.id, method: "session" };
     }
   }
 
