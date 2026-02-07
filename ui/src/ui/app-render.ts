@@ -228,6 +228,8 @@ export function renderApp(state: AppViewState) {
                 state.loginState.loading = false;
                 if (result.success) {
                   state.tab = 'overview';
+                  // Reconnect WebSocket with session cookie
+                  state.connect();
                   await state.loadOverview();
                 } else {
                   state.loginState.error = result.error;
