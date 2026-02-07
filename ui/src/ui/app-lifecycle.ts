@@ -31,6 +31,9 @@ type LifecycleHost = {
   logsEntries: unknown[];
   popStateHandler: () => void;
   topbarObserver: ResizeObserver | null;
+  isAuthenticated: boolean;
+  authChecking: boolean;
+  onboarding: boolean;
 };
 
 export function handleConnected(host: LifecycleHost) {
@@ -40,7 +43,8 @@ export function handleConnected(host: LifecycleHost) {
   syncThemeWithSettings(host as unknown as Parameters<typeof syncThemeWithSettings>[0]);
   attachThemeListener(host as unknown as Parameters<typeof attachThemeListener>[0]);
   window.addEventListener("popstate", host.popStateHandler);
-  connectGateway(host as unknown as Parameters<typeof connectGateway>[0]);
+  // Only connect to gateway if authenticated (will be called after login)
+  // connectGateway is now called after authentication check passes
   startNodesPolling(host as unknown as Parameters<typeof startNodesPolling>[0]);
   if (host.tab === "logs") {
     startLogsPolling(host as unknown as Parameters<typeof startLogsPolling>[0]);
@@ -53,17 +57,32 @@ export function handleConnected(host: LifecycleHost) {
 export async function handleFirstUpdated(host: LifecycleHost) {
   observeTopbar(host as unknown as Parameters<typeof observeTopbar>[0]);
   
-  // Check if this is first-run and should show setup wizard
-  if (!host.onboarding) {
-    try {
-      const response = await fetch("/api/auth/first-run");
-      const data = await response.json();
-      if (data.firstRun === true) {
-        host.onboarding = true;
-      }
-    } catch (error) {
-      console.error("Failed to check first-run status:", error);
+  // Check authentication status first
+  host.authChecking = true;
+  try {
+    // Check if this is first-run (needs setup wizard)
+    const firstRunResponse = await fetch("/api/auth/first-run");
+    const firstRunData = await firstRunResponse.json();
+    if (firstRunData.firstRun === true) {
+      host.onboarding = true;
+      host.authChecking = false;
+      return; // Show setup wizard, don't check session
     }
+    
+    // Check if user has valid session
+    const sessionResponse = await fetch("/api/auth/session");
+    if (sessionResponse.ok) {
+      const sessionData = await sessionResponse.json();
+      if (sessionData.user) {
+        host.isAuthenticated = true;
+        // Now connect to gateway since we're authenticated
+        connectGateway(host as unknown as Parameters<typeof connectGateway>[0]);
+      }
+    }
+  } catch (error) {
+    console.error("Failed to check auth status:", error);
+  } finally {
+    host.authChecking = false;
   }
 }
 

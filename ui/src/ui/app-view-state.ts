@@ -38,6 +38,8 @@ export type AppViewState = {
   onboarding: boolean;
   basePath: string;
   connected: boolean;
+  isAuthenticated: boolean;
+  authChecking: boolean;
   loginState: LoginState;
   setupState: SetupState;
   theme: ThemeMode;

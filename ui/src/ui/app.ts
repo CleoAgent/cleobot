@@ -111,6 +111,8 @@ export class CleoBotApp extends LitElement {
   @state() onboarding = resolveOnboardingMode();
   @state() loginState: LoginState = createDefaultLoginState();
   @state() setupState: SetupState = createDefaultSetupState();
+  @state() isAuthenticated = false;
+  @state() authChecking = true;
   @state() connected = false;
   @state() theme: ThemeMode = this.settings.theme ?? "system";
   @state() themeResolved: ResolvedTheme = "dark";

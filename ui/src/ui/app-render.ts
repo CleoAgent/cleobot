@@ -89,6 +89,67 @@ function resolveAssistantAvatarUrl(state: AppViewState): string | undefined {
 }
 
 export function renderApp(state: AppViewState) {
+  // Show loading while checking auth
+  if (state.authChecking) {
+    return html`
+      <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+        <div style="text-align: center; color: white;">
+          <div style="font-size: 48px; margin-bottom: 16px;">🤖</div>
+          <div style="font-size: 18px;">Loading CleoBot...</div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Show setup wizard for first-run
+  if (state.onboarding) {
+    return renderSetup(
+      state.setupState,
+      (updates) => {
+        state.setupState = { ...state.setupState, ...updates };
+      },
+      async () => {
+        state.setupState = { ...state.setupState, loading: true, error: null };
+        const result = await completeSetup(
+          state.setupState.username,
+          state.setupState.password
+        );
+        if (result.success) {
+          state.setupState = { ...state.setupState, loading: false, apiKey: result.apiKey };
+          // After setup, user is authenticated - reload to connect
+          window.location.reload();
+        } else {
+          state.setupState = { ...state.setupState, loading: false, error: result.error };
+        }
+      }
+    );
+  }
+
+  // Show login if not authenticated
+  if (!state.isAuthenticated) {
+    return renderLogin(
+      state as unknown as import("./app-state.js").AppState,
+      state.loginState,
+      (updates) => {
+        state.loginState = { ...state.loginState, ...updates };
+      },
+      async () => {
+        state.loginState = { ...state.loginState, loading: true, error: null };
+        const result = await attemptLogin(
+          state.loginState.username,
+          state.loginState.password
+        );
+        if (result.success) {
+          state.loginState = { ...state.loginState, loading: false };
+          // After login, reload to establish WebSocket with cookie
+          window.location.reload();
+        } else {
+          state.loginState = { ...state.loginState, loading: false, error: result.error };
+        }
+      }
+    );
+  }
+
   const presenceCount = state.presenceEntries.length;
   const sessionsCount = state.sessionsResult?.count ?? null;
   const cronNext = state.cronStatus?.nextWakeAtMs ?? null;
