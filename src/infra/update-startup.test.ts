@@ -4,7 +4,7 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { UpdateCheckResult } from "./update-check.js";
 
-vi.mock("./openclaw-root.js", () => ({
+vi.mock("./cleobot-root.js", () => ({
   resolveCleoBotPackageRoot: vi.fn(),
 }));
 
@@ -42,7 +42,7 @@ describe("update-startup", () => {
   });
 
   it("logs update hint for npm installs when newer tag exists", async () => {
-    const { resolveCleoBotPackageRoot } = await import("./openclaw-root.js");
+    const { resolveCleoBotPackageRoot } = await import("./cleobot-root.js");
     const { checkUpdateStatus, resolveNpmChannelTag } = await import("./update-check.js");
     const { runGatewayUpdateCheck } = await import("./update-startup.js");
 
@@ -76,7 +76,7 @@ describe("update-startup", () => {
   });
 
   it("uses latest when beta tag is older than release", async () => {
-    const { resolveCleoBotPackageRoot } = await import("./openclaw-root.js");
+    const { resolveCleoBotPackageRoot } = await import("./cleobot-root.js");
     const { checkUpdateStatus, resolveNpmChannelTag } = await import("./update-check.js");
     const { runGatewayUpdateCheck } = await import("./update-startup.js");
 
